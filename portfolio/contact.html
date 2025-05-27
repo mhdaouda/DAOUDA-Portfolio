@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="popup-overlay" id="popupOverlay"></div>
+    <div class="popup" id="successPopup">
+        <h3>Message envoyé !</h3>
+        <p>Je vous répondrai dans les plus brefs délais.</p>
+        <button onclick="closePopup()">Fermer</button>
+    </div>
+    <header>
+        <nav>
+            <div class="logo">Portfolio 🚀</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="projets.html">Projets</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="contact" class="contact">
+            <h2>Contacts</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-details">
+                        <h3>Parlons de votre projet</h3>
+                        <p>N'hésitez pas à me contacter pour discuter de vos projets ou besoin de formation ou pour toute question.</p>
+                        <div class="contact-methods">
+                            <div class="contact-method">
+                                <i class="fas fa-envelope"></i>
+                                <p>daoudayinde@gmail.com</p>
+                            </div>
+                            <div class="contact-method">
+                                <i class="fas fa-phone"></i>
+                                <p>🇫🇷 +33 6 84 10 63 93</p>
+                            </div>
+                            <div class="contact-method">
+                                <i class="fas fa-phone"></i>
+                                <p>🇧🇯 +229 01 52 26 94 65</p>
+                            </div>
+                            <div class="contact-method">
+                                <img src="images/whatsapp.jpeg" alt="WhatsApp" style="width: 23px; 
+                                height: 23px; vertical-align: middle; margin-left: 1px;">
+                                <p>+33 6 84 10 63 93 </p>
+                            </div>
+                            
+                           <!--  <div class="contact-method">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <p>🇫🇷 Paris </p>
+                            </div>
+                            <div class="contact-method">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <p>🇧🇯 Houeyiho </p>
+                            </div> -->
+                        </div>
+                        <div class="social-links">
+                            <a href="https://www.linkedin.com/in/mohamed-daouda-20173118/" class="social-link" title="LinkedIn">
+                                <img src="images/linkedin.png" alt="LinkedIn">
+                            </a>
+                            <a href="https://www.malt.fr/profile/mohameddaouda1" class="social-link" title="Malt">
+                                <img src="images/malt.png" alt="Malt">
+                            </a>
+                            <a href="https://www.upwork.com/freelancers/~01d10b9e91601d4277" class="social-link" title="Upwork">
+                                <img src="images/upwork.png" alt="Upwork">
+                            </a>
+                            <a href="https://github.com/mhdaouda" class="social-link" title="GitHub">
+                                <img src="images/github.jpeg" alt="GitHub">
+                            </a>
+                            <a href="https://x.com/el_dal0?s=21&t=NViywhrTbk22FNH6o1bpHA" class="social-link" title="Twitter">
+                                <img src="images/twitter.png" alt="Twitter">
+                            </a>
+                        </div>
+                        <div class="contact-method">
+                            <a href="files/CV_DAOUDA.pdf" class="cta-button secondary" download>
+                                <i class="fas fa-download"></i> Télécharger mon CV
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <form id="contact-form" action="https://formsubmit.co/daoudayinde@gmail.com" method="POST" onsubmit="return handleSubmit(event)">
+                    <!-- Honeypot -->
+                    <input type="text" name="_honey" style="display:none">
+                    
+                    <!-- Disable Captcha -->
+                    <input type="hidden" name="_captcha" value="false">
+                    
+                    <input type="text" name="name" placeholder="Nom" required>
+                    <input type="email" name="email" placeholder="Email" required>
+                    <input type="text" name="subject" placeholder="Sujet" required>
+                    <textarea name="message" placeholder="Message" required></textarea>
+                    <button type="submit">Envoyer</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Portfolio de Mohamed DAOUDA. Tous droits réservés.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 
