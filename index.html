@@ -9,23 +9,23 @@
 
   gtag('config', 'G-K6EC83WWZP');
 </script>
-</script>
 <!-- Cookie Consent by Osano (RGPD compliant) -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js"></script>
 <script>
   window.addEventListener("load", function(){
+    const currentLang = localStorage.getItem('language') || 'fr';
     window.cookieconsent.initialise({
       palette: {
         popup: { background: "#000000" },
         button: { background: "#f1d600", text: "#000000" }
       },
       theme: "classic",
-      position: "bottom", // ou "top"
+      position: "bottom",
       content: {
-        message: "Ce site utilise des cookies pour améliorer votre expérience.",
-        dismiss: "Accepter",
-        link: "En savoir plus",
+        message: translations[currentLang]['cookie.message'],
+        dismiss: translations[currentLang]['cookie.dismiss'],
+        link: translations[currentLang]['cookie.link'],
         href: "https://www.daoudayinde.com/politique-de-confidentialite"
       }
     });
@@ -49,17 +49,21 @@
     <title>Portfolio - Mohamed DAOUDA</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js"></script>
 </head>
 <body>
     <header>
         <nav>
-            <div class="logo">Bienvenue Sur Mon Portofolio 🚀</div>
+            <div class="logo">Portfolio 🚀</div>
             <ul class="nav-links">
-                <li><a href="index.html" class="active">Accueil</a></li>
+                <li><a href="index.html" class="active" data-translate="nav.home">Accueil</a></li>
                 <li><a href="#apropos">À propos</a></li>
-                <li><a href="projets.html">Projets</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="projets.html" data-translate="nav.projects">Projets</a></li>
+                <li><a href="services.html" data-translate="nav.services">Services</a></li>
+                <li><a href="contact.html" data-translate="nav.contact">Contact</a></li>
             </ul>
             <div class="burger">
                 <div class="line1"></div>
@@ -75,13 +79,13 @@
                 <div class="profile-image">
                     <img src="images/profile.jpg" alt="Photo de profil">
                 </div>
-                <h1>Hey, je suis Mohamed DAOUDA</h1>
-                <p class="tagline">Je suis Ingénieur en Informatique 💻</p>
-                <p class="description">Ingénieur passionné créant des solutions innovantes et partipants à des projets décisifs</p>
+                <h1 class="hero-title" data-translate="hero.title">Hey, je suis Mohamed DAOUDA</h1>
+                <p class="tagline" data-translate="hero.subtitle">Je suis Ingénieur en Informatique 💻</p>
+                <p class="description" data-translate="hero.description">Ingénieur passionné créant des solutions innovantes et partipants à des projets décisifs</p>
                 <div class="hero-buttons">
-                    <a href="projets.html" class="cta-button secondary">Voir Mes projets</a>
-                    <a href="services.html" class="cta-button secondary">Découvrir Mes services</a>
-                    <a href="files/CV_DAOUDA.pdf" class="cta-button secondary" download>
+                    <a href="projets.html" class="cta-button secondary" data-translate="hero.projects">Voir Mes projets</a>
+                    <a href="services.html" class="cta-button secondary" data-translate="hero.services">Découvrir Mes services</a>
+                    <a href="files/CV_DAOUDA.pdf" class="cta-button secondary" download data-translate="hero.cv">
                         <i class="fas fa-download"></i> Télécharger mon CV
                     </a>
                 </div>
@@ -89,78 +93,78 @@
         </section>
 
         <section id="apropos" class="about">
-            <h2>À propos de moi</h2>
+            <h2 data-translate="about.title">À propos de moi</h2>
             <div class="about-content">
                 <div class="about-text">
-                    <h3>Mon Parcours</h3>
-                    <p>Ingénieur en Informatique passionné par le développement et l'innovation technologique.
+                    <h3 data-translate="about.journey">Mon Parcours</h3>
+                    <p data-translate="about.journey.text">Ingénieur en Informatique passionné par le développement et l'innovation technologique.
                         je suis issue d'une formation de 5 ans d'ingénieur en informatique et télécommunications à L'ESIGETEL 
                         J'ai 10 ans ans d'expérience professionnelles ou j'ai eu l'occasion de travailler sur des projets
                         d'envergures avec des clients comme : La Banque Postale, la BNP Paribas (au sein de l'entité BP2S), 
                         Axa assurances, Total Energies etc...</p>
-                    <p> Sur tous les projets auxquels j'ai participé, mon but était de créer des solutions qui font la différence.</p>
-                    <h3>Formation</h3>
+                    <p data-translate="about.journey.goal">Sur tous les projets auxquels j'ai participé, mon but était de créer des solutions qui font la différence.</p>
+                    <h3 data-translate="about.education">Formation</h3>
                     <div class="education-timeline">
                         <div class="education-item">
                             <div class="education-year">2020</div>
                             <div class="education-details">
-                                <h4>Certification product owner à International Scrum Institute</h4>
-                                <p>Spécialisation en Srum et méthodes agiles</p>
+                                <h4 data-translate="about.education.certification">Certification product owner à International Scrum Institute</h4>
+                                <p data-translate="about.education.certification.desc">Spécialisation en Srum et méthodes agiles</p>
                             </div>
                         </div>
                         <div class="education-item">
-                            <div class="education-year">Promotion 2014 </div>
+                            <div class="education-year">Promotion 2014</div>
                             <div class="education-details">
-                                <h4>Diplôme d'Ingénieur en Informatique à l'ESIGETEL</h4>
-                                <p>Spécialisation en cloud computing, développement web et applications</p>
+                                <h4 data-translate="about.education.engineer">Diplôme d'Ingénieur en Informatique à l'ESIGETEL</h4>
+                                <p data-translate="about.education.engineer.desc">Spécialisation en cloud computing, développement web et applications</p>
                             </div>
-
                         </div>
                         <div class="education-item">
                             <div class="education-year">2012 - 2013</div>
                             <div class="education-details">
-                                <h4>Semestre d'étude à l'ETS de Montréal</h4>
-                                <p>Génie logiciel</p>
+                                <h4 data-translate="about.education.montreal">Semestre d'étude à l'ETS de Montréal</h4>
+                                <p data-translate="about.education.montreal.desc">Génie logiciel</p>
                             </div>
                         </div>
                         <div class="education-item">
                             <div class="education-year">2011 - 2012</div>
                             <div class="education-details">
-                                <h4>Semestre d'étude à l'Université de Staffordshire</h4>
-                                <p>Spécialisation en réseaux et télécommunications</p>
+                                <h4 data-translate="about.education.staffordshire">Semestre d'étude à l'Université de Staffordshire</h4>
+                                <p data-translate="about.education.staffordshire.desc">Spécialisation en réseaux et télécommunications</p>
                             </div>
                         </div>
                         <div class="education-item">
                             <div class="education-year">Promo 2009</div>
                             <div class="education-details">
-                                <h4>Diplôme d'Ingénieur en Informatique</h4>
-                                <p>Spécialisation en développement web et applications</p>
+                                <h4 data-translate="about.education.engineer2">Diplôme d'Ingénieur en Informatique</h4>
+                                <p data-translate="about.education.engineer2.desc">Spécialisation en développement web et applications</p>
                             </div>
                         </div>
                     </div>
 
-                    <h3>Objectifs</h3>
+                    <h3 data-translate="about.goals">Objectifs</h3>
                     <div class="goals">
                         <div class="goal-item">
                             <i class="fas fa-rocket"></i>
-                            <h4>Court terme</h4>
-                            <p>Développer mes compétences en développement web et mobile</p>
+                            <h4 data-translate="about.goals.short">Court terme</h4>
+                            <p data-translate="about.goals.short.desc">Développer mes compétences en développement web et mobile</p>
                         </div>
                         <div class="goal-item">
                             <i class="fas fa-chart-line"></i>
-                            <h4>Moyen terme</h4>
-                            <p>Créer des solutions innovantes pour résoudre des problèmes concrets</p>
+                            <h4 data-translate="about.goals.medium">Moyen terme</h4>
+                            <p data-translate="about.goals.medium.desc">Créer des solutions innovantes pour résoudre des problèmes concrets</p>
                         </div>
                         <div class="goal-item">
                             <i class="fas fa-star"></i>
-                            <h4>Long terme</h4>
-                            <p>Devenir un expert reconnu dans le domaine du développement</p>
+                            <h4 data-translate="about.goals.long">Long terme</h4>
+                            <p data-translate="about.goals.long.desc">Devenir un expert reconnu dans le domaine du développement</p>
                         </div>
                     </div>
                 </div>
                 <div class="skills">
-                    <h3>Compétences</h3>
+                    <h3 data-translate="about.skills">Compétences</h3>
                     <div class="skill-tags">
+                        <!-- Les compétences sont des mots-clés techniques qui ne nécessitent pas de traduction -->
                         <span>CSS</span>
                         <span>SQL</span>
                         <span>Git</span>
@@ -206,9 +210,12 @@
     </main>
 
     <footer>
-        <p>&copy; 2025 Portfolio de Mohamed DAOUDA. Tous droits réservés.</p>
+        <p>&copy; 2025 Portfolio de Mohamed DAOUDA. <span data-translate="footer.rights">Tous droits réservés.</span></p>
     </footer>
 
+    <!-- Scripts -->
+    <script src="translations.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html> 

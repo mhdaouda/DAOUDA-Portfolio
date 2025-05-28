@@ -10,18 +10,18 @@
 <body>
     <div class="popup-overlay" id="popupOverlay"></div>
     <div class="popup" id="successPopup">
-        <h3>Message envoyé !</h3>
-        <p>Je vous répondrai dans les plus brefs délais.</p>
-        <button onclick="closePopup()">Fermer</button>
+        <h3 data-translate="contact.success.title">Message envoyé !</h3>
+        <p data-translate="contact.success.message">Je vous répondrai dans les plus brefs délais.</p>
+        <button onclick="closePopup()" data-translate="contact.success.close">Fermer</button>
     </div>
     <header>
         <nav>
             <div class="logo">Portfolio 🚀</div>
             <ul class="nav-links">
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="projets.html">Projets</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="contact.html" class="active">Contact</a></li>
+                <li><a href="index.html" data-translate="nav.home">Accueil</a></li>
+                <li><a href="projets.html" data-translate="nav.projects">Projets</a></li>
+                <li><a href="services.html" data-translate="nav.services">Services</a></li>
+                <li><a href="contact.html" class="active" data-translate="nav.contact">Contact</a></li>
             </ul>
             <div class="burger">
                 <div class="line1"></div>
@@ -33,12 +33,12 @@
 
     <main>
         <section id="contact" class="contact">
-            <h2>Contacts</h2>
+            <h2 data-translate="contact.title">Contactez-moi</h2>
             <div class="contact-content">
                 <div class="contact-info">
                     <div class="contact-details">
-                        <h3>Parlons de votre projet</h3>
-                        <p>N'hésitez pas à me contacter pour discuter de vos projets ou besoin de formation ou pour toute question.</p>
+                        <h3 data-translate="contact.talk">Parlons de votre projet</h3>
+                        <p data-translate="contact.description">N'hésitez pas à me contacter pour discuter de vos projets ou besoin de formation ou pour toute question.</p>
                         <div class="contact-methods">
                             <div class="contact-method">
                                 <i class="fas fa-envelope"></i>
@@ -86,7 +86,7 @@
                         </div>
                         <div class="contact-method">
                             <a href="files/CV_DAOUDA.pdf" class="cta-button secondary" download>
-                                <i class="fas fa-download"></i> Télécharger mon CV
+                                <i class="fas fa-download"></i> <span data-translate="contact.download.cv">Télécharger mon CV</span>
                             </a>
                         </div>
                     </div>
@@ -98,20 +98,21 @@
                     <!-- Disable Captcha -->
                     <input type="hidden" name="_captcha" value="false">
                     
-                    <input type="text" name="name" placeholder="Nom" required>
-                    <input type="email" name="email" placeholder="Email" required>
-                    <input type="text" name="subject" placeholder="Sujet" required>
-                    <textarea name="message" placeholder="Message" required></textarea>
-                    <button type="submit">Envoyer</button>
+                    <input type="text" name="name" data-translate="contact.form.name" placeholder="Votre nom" required>
+                    <input type="email" name="email" data-translate="contact.form.email" placeholder="Votre email" required>
+                    <input type="text" name="subject" data-translate="contact.form.subject" placeholder="Sujet" required>
+                    <textarea name="message" data-translate="contact.form.message" placeholder="Votre message" required></textarea>
+                    <button type="submit" data-translate="contact.send">Envoyer</button>
                 </form>
             </div>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2025 Portfolio de Mohamed DAOUDA. Tous droits réservés.</p>
+        <p>&copy; 2025 Portfolio de Mohamed DAOUDA. <span data-translate="footer.rights">Tous droits réservés.</span></p>
     </footer>
 
+    <script src="translations.js"></script>
     <script src="script.js"></script>
 </body>
 </html> 

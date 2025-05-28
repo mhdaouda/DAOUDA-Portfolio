@@ -12,10 +12,10 @@
         <nav>
             <div class="logo">Portfolio 🚀</div>
             <ul class="nav-links">
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="projets.html">Projets</a></li>
-                <li><a href="services.html" class="active">Services</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="index.html" data-translate="nav.home">Accueil</a></li>
+                <li><a href="projets.html" data-translate="nav.projects">Projets</a></li>
+                <li><a href="services.html" class="active" data-translate="nav.services">Services</a></li>
+                <li><a href="contact.html" data-translate="nav.contact">Contact</a></li>
             </ul>
             <div class="burger">
                 <div class="line1"></div>
@@ -27,12 +27,12 @@
 
     <main>
         <section id="services" class="services">
-            <h2>Mes Services</h2>
+            <h2 data-translate="services.title">Mes Services</h2>
             <div class="services-grid">
                 <div class="service-card">
                     <i class="fas fa-code"></i>
-                    <h3>Développement Web</h3>
-                    <p>Création de sites web modernes et responsifs</p>
+                    <h3 data-translate="services.web">Développement Web</h3>
+                    <p data-translate="services.web.desc">Création de sites web modernes et responsifs</p>
                     <ul class="service-features">
                         <li>Sites vitrines</li>
                         <li>Applications web</li>
@@ -134,9 +134,10 @@
     </main>
 
     <footer>
-        <p>&copy; 2025 Portfolio de Mohamed DAOUDA. Tous droits réservés.</p>
+        <p>&copy; 2025 Portfolio de Mohamed DAOUDA. <span data-translate="footer.rights">Tous droits réservés.</span></p>
     </footer>
 
+    <script src="translations.js"></script>
     <script src="script.js"></script>
 </body>
 </html> 
