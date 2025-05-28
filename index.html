@@ -10,6 +10,27 @@
   gtag('config', 'G-K6EC83WWZP');
 </script>
 </script>
+<!-- Cookie Consent by Osano (RGPD compliant) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js"></script>
+<script>
+  window.addEventListener("load", function(){
+    window.cookieconsent.initialise({
+      palette: {
+        popup: { background: "#000000" },
+        button: { background: "#f1d600", text: "#000000" }
+      },
+      theme: "classic",
+      position: "bottom", // ou "top"
+      content: {
+        message: "Ce site utilise des cookies pour améliorer votre expérience.",
+        dismiss: "Accepter",
+        link: "En savoir plus",
+        href: "https://www.daoudayinde.com/politique-de-confidentialite"
+      }
+    });
+  });
+</script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
