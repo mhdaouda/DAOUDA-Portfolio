@@ -60,15 +60,6 @@
                                 height: 23px; vertical-align: middle; margin-left: 1px;">
                                 <p>+33 6 84 10 63 93 </p>
                             </div>
-                            
-                           <!--  <div class="contact-method">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <p>🇫🇷 Paris </p>
-                            </div>
-                            <div class="contact-method">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <p>🇧🇯 Houeyiho </p>
-                            </div> -->
                         </div>
                         <div class="social-links">
                             <a href="https://www.linkedin.com/in/mohamed-daouda-20173118/" class="social-link" title="LinkedIn">
@@ -94,26 +85,29 @@
                             </a>
                         </div>
                         <div class="contact-method">
-                            <a class="cta-button secondary" download data-translate="hero.cv" data-cv-fr="files/CV_DAOUDA.pdf" data-cv-en="files/curriculumvitae.pdf">
-                                <i class="fas fa-download"></i> Télécharger mon CV
-                            </a>
-                        </div>
+                            <div class="hero-buttons">
+                                <a class="cta-button secondary" download data-translate="hero.cv" data-cv-fr="files/CV_DAOUDA.pdf" data-cv-en="files/curriculumvitae.pdf">
+                                    <i class="fas fa-download"></i> Télécharger mon CV
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <form id="contact-form" action="https://formsubmit.co/daoudayinde@gmail.com" method="POST" onsubmit="return handleSubmit(event)">
-                    <!-- Honeypot -->
-                    <input type="text" name="_honey" style="display:none">
-                    
-                    <!-- Disable Captcha -->
-                    <input type="hidden" name="_captcha" value="false">
-                    
-                    <input type="text" name="name" data-translate="contact.form.name" placeholder="Votre nom" required>
-                    <input type="email" name="email" data-translate="contact.form.email" placeholder="Votre email" required>
-                    <input type="text" name="subject" data-translate="contact.form.subject" placeholder="Sujet" required>
-                    <textarea name="message" data-translate="contact.form.message" placeholder="Votre message" required></textarea>
-                    <button type="submit" data-translate="contact.send">Envoyer</button>
-                </form>
+                <div class="form-container">
+                    <form id="contact-form" action="https://formsubmit.co/daoudayinde@gmail.com" method="POST" onsubmit="return handleSubmit(event)">
+                        <!-- Honeypot -->
+                        <input type="text" name="_honey" style="display:none">
+                        
+                        <!-- Disable Captcha -->
+                        <input type="hidden" name="_captcha" value="false">
+                        
+                        <input type="text" name="name" data-translate="contact.form.name" placeholder="Votre nom" required>
+                        <input type="email" name="email" data-translate="contact.form.email" placeholder="Votre email" required>
+                        <input type="text" name="subject" data-translate="contact.form.subject" placeholder="Sujet" required>
+                        <textarea name="message" data-translate="contact.form.message" placeholder="Votre message" required></textarea>
+                        <button type="submit" data-translate="contact.send">Envoyer</button>
+                    </form>
+                </div>
             </div>
         </section>
     </main>
