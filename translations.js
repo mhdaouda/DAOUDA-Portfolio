@@ -4,7 +4,7 @@ const translations = {
         'nav.home': 'Accueil',
         'nav.projects': 'Projets',
         'nav.services': 'Services',
-        'nav.contact': 'Contact',
+        'nav.contact': 'Contacts',
         'nav.skills': 'Compétences',
         
         // Hero Section
@@ -313,7 +313,7 @@ const translations = {
         'nav.home': 'Home',
         'nav.projects': 'Projects',
         'nav.services': 'Services',
-        'nav.contact': 'Contact',
+        'nav.contact': 'Contacts',
         'nav.skills': 'Skills',
         
         // Hero Section
