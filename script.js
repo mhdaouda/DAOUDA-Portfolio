@@ -42,6 +42,10 @@ function updateContent() {
                     element.placeholder = translations[currentLang][key];
                 }
             }
+            // Gestion du CV selon la langue
+            if (key === 'hero.cv' && element.hasAttribute('data-cv-' + currentLang)) {
+                element.href = element.getAttribute('data-cv-' + currentLang);
+            }
             // Gestion des listes de tâches
             if (key.endsWith('.list.0') || key.endsWith('.list.1') || key.endsWith('.list.2') || 
                 key.endsWith('.list.3') || key.endsWith('.list.4') || key.endsWith('.list.5') || 
