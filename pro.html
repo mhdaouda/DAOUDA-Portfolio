@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expériences Professionnelles - Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Portfolio 🚀</div>
+            <ul class="nav-links">
+                <li><a href="index.html" data-translate="nav.home">Accueil</a></li>
+                <li><a href="index.html#apropos">À propos</a></li>
+                <li><a href="projets.html" data-translate="nav.projects">Projets</a></li>
+                <li><a href="pro.html" class="active" data-translate="nav.experience">Expériences</a></li>
+                <li><a href="competences.html" data-translate="nav.skills">Compétences</a></li>
+                <li><a href="services.html" data-translate="nav.services">Services</a></li>
+                <li><a href="contact.html" data-translate="nav.contact">Contact</a></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="experience-section">
+            <h2 data-translate="projects.experience">Expériences Professionnelles 💼</h2>
+            <div class="experiences-container">
+                <div class="experience-card">
+                    <div class="experience-header">
+                        <img src="images/banquepostale.png" alt="La Banque Postale" class="company-logo">
+                        <div class="experience-info">
+                            <h3>Tech Leader on ODM - Intégrateur Web</h3>
+                            <h4>La Banque Postale – Paris</h4>
+                            <p class="duration">Mars 2023 - Mars 2025</p>
+                        </div>
+                    </div>
+                    <div class="experience-content">
+                        <p data-translate="projects.lbp.desc">Au sein du département DREG/PEA/MRE, j'ai intégré l'équipe Moteur de règles pour participer au projet ODM et mettre en place l'application clé en main autour des outils POP.</p>
+                        <button class="details-btn" onclick="openExperiencePopup('lbp')" data-translate="projects.view.details">Voir les détails →</button>
+                    </div>
+                </div>
+
+                <div class="experience-card">
+                    <div class="experience-header">
+                        <img src="images/bp2s.png" alt="BP2S" class="company-logo">
+                        <div class="experience-info">
+                            <h3>Coordinateur projet - Business Analyst</h3>
+                            <h4>BP2S – Issy-les-Moulineaux</h4>
+                            <p class="duration">Mai 2018 - Mars 2023</p>
+                        </div>
+                    </div>
+                    <div class="experience-content">
+                        <p data-translate="projects.bp2s.desc">J'ai intégré l'équipe TICS de BP2S dans le cadre de la gestion des flux de données entres applications.</p>
+                        <button class="details-btn" onclick="openExperiencePopup('bp2s')" data-translate="projects.view.details">Voir les détails →</button>
+                    </div>
+                </div>
+
+                <div class="experience-card">
+                    <div class="experience-header">
+                        <img src="images/axa.png" alt="AXA" class="company-logo">
+                        <div class="experience-info">
+                            <h3>Tech Leader - Business Analyst</h3>
+                            <h4>AXA Assurance – Paris</h4>
+                            <p class="duration">Juin 2017 - Mai 2018</p>
+                        </div>
+                    </div>
+                    <div class="experience-content">
+                        <p data-translate="projects.axa.desc">J'ai intégré l'équipe d'AXA Group Solutions autour du projet Aura qui est un questionnaire en ligne destiné aux entités d'Axa proposant des services d'assurances en ligne.</p>
+                        <button class="details-btn" onclick="openExperiencePopup('axa')" data-translate="projects.view.details">Voir les détails →</button>
+                    </div>
+                </div>
+
+                <div class="experience-card">
+                    <div class="experience-header">
+                        <img src="images/totalenergie.jpeg" alt="TotalEnergie" class="company-logo">
+                        <div class="experience-info">
+                            <h3>Développeur Web Junior</h3>
+                            <h4>TotalEnergie – Paris</h4>
+                            <p class="duration">Juillet 2015 - Juin 2017</p>
+                        </div>
+                    </div>
+                    <div class="experience-content">
+                        <p data-translate="projects.total.desc">J'ai intégré la brillante équipe TTED de la DSI de TOTAL dans le cadre du projet ISI.</p>
+                        <button class="details-btn" onclick="openExperiencePopup('total')" data-translate="projects.view.details">Voir les détails →</button>
+                    </div>
+                </div>
+
+                <!-- Experience Popups -->
+                <div id="experiencePopup" class="experience-popup">
+                    <div class="popup-content">
+                        <span class="popup-close" onclick="closeExperiencePopup()">&times;</span>
+                        <div class="popup-header">
+                            <img id="popup-logo" src="" alt="" class="company-logo">
+                            <div class="popup-header-info">
+                                <h3 id="popup-title"></h3>
+                                <h4 id="popup-company"></h4>
+                                <p id="popup-duration" class="duration"></p>
+                            </div>
+                        </div>
+                        <div class="popup-body">
+                            <p id="popup-desc"></p>
+                            <p id="popup-tasks-title"></p>
+                            <ul id="popup-tasks-list"></ul>
+                            <div class="tech-stack">
+                                <h5 data-translate="projects.tech">Environnement technique</h5>
+                                <div id="popup-skills" class="skill-tags"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Portfolio de Mohamed DAOUDA. <span data-translate="footer.rights">Tous droits réservés.</span></p>
+    </footer>
+
+    <script src="translations.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 

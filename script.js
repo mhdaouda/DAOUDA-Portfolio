@@ -42,7 +42,19 @@ function updateContent() {
                     element.placeholder = translations[currentLang][key];
                 }
             }
+            // Gestion des listes de tâches
+            if (key.endsWith('.list.0') || key.endsWith('.list.1') || key.endsWith('.list.2') || 
+                key.endsWith('.list.3') || key.endsWith('.list.4') || key.endsWith('.list.5') || 
+                key.endsWith('.list.6') || key.endsWith('.list.7') || key.endsWith('.list.8')) {
+                const baseKey = key.split('.list')[0];
+                const index = parseInt(key.split('.list.')[1]);
+                if (translations[currentLang][baseKey + '.list'] && 
+                    translations[currentLang][baseKey + '.list'][index]) {
+                    element.textContent = translations[currentLang][baseKey + '.list'][index];
+                }
+            } else {
             element.textContent = translations[currentLang][key];
+            }
         }
     });
     
@@ -163,4 +175,81 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('a[href="projets.html"]').forEach(el => el.setAttribute('data-translate', 'nav.projects'));
     document.querySelectorAll('a[href="services.html"]').forEach(el => el.setAttribute('data-translate', 'nav.services'));
     document.querySelectorAll('a[href="contact.html"]').forEach(el => el.setAttribute('data-translate', 'nav.contact'));
+});
+
+// Experience Popup Functions
+function openExperiencePopup(experienceId) {
+    const popup = document.getElementById('experiencePopup');
+    const experienceCard = document.querySelector(`[onclick="openExperiencePopup('${experienceId}')"]`).closest('.experience-card');
+    
+    // Récupérer les informations de l'expérience
+    const logo = experienceCard.querySelector('.company-logo').src;
+    const title = experienceCard.querySelector('.experience-info h3').textContent;
+    const company = experienceCard.querySelector('.experience-info h4').textContent;
+    const duration = experienceCard.querySelector('.duration').textContent;
+    const description = experienceCard.querySelector('.experience-content p').textContent;
+    
+    // Mettre à jour le contenu de la popup
+    document.getElementById('popup-logo').src = logo;
+    document.getElementById('popup-logo').alt = company;
+    document.getElementById('popup-title').textContent = title;
+    document.getElementById('popup-company').textContent = company;
+    document.getElementById('popup-duration').textContent = duration;
+    document.getElementById('popup-desc').textContent = description;
+    
+    // Mettre à jour les tâches
+    const tasksTitle = translations[currentLang][`projects.${experienceId}.tasks`];
+    document.getElementById('popup-tasks-title').textContent = tasksTitle;
+    
+    const tasksList = document.getElementById('popup-tasks-list');
+    tasksList.innerHTML = '';
+    
+    // Ajouter les tâches
+    const tasks = translations[currentLang][`projects.${experienceId}.tasks.list`];
+    if (tasks && Array.isArray(tasks)) {
+        tasks.forEach(task => {
+            const li = document.createElement('li');
+            li.textContent = task;
+            tasksList.appendChild(li);
+        });
+    }
+    
+    // Mettre à jour les compétences techniques
+    const skillsContainer = document.getElementById('popup-skills');
+    skillsContainer.innerHTML = '';
+    
+    // Ajouter les compétences techniques depuis les traductions
+    const techSkills = translations[currentLang][`projects.${experienceId}.tech`];
+    if (techSkills && Array.isArray(techSkills)) {
+        techSkills.forEach(skill => {
+            const skillSpan = document.createElement('span');
+            skillSpan.textContent = skill;
+            skillsContainer.appendChild(skillSpan);
+        });
+    }
+    
+    // Afficher la popup
+    popup.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeExperiencePopup() {
+    const popup = document.getElementById('experiencePopup');
+    popup.style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+// Close popup when clicking outside
+window.onclick = function(event) {
+    const popup = document.getElementById('experiencePopup');
+    if (event.target === popup) {
+        closeExperiencePopup();
+    }
+}
+
+// Close popup when pressing Escape key
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeExperiencePopup();
+    }
 }); 

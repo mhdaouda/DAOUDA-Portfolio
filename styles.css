@@ -765,10 +765,107 @@ footer {
 .experience-card {
     background: white;
     border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
-    min-width: 300px;
+}
+
+.experience-card:hover {
+    transform: translateY(-5px);
+}
+
+.experience-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.experience-header h3 {
+    margin: 0;
+    color: #333;
+    font-size: 1.2em;
+}
+
+.experience-header h4 {
+    margin: 5px 0;
+    color: #666;
+    font-size: 1em;
+}
+
+.period {
+    color: #888;
+    font-size: 0.9em;
+}
+
+.experience-content {
+    margin-top: 15px;
+}
+
+.experience-content p {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.details-btn {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+}
+
+.details-btn:hover {
+    background: #0056b3;
+}
+
+.experience-details {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.experience-details ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.experience-details li {
+    margin: 10px 0;
+    padding-left: 20px;
+    position: relative;
+    color: #555;
+}
+
+.experience-details li:before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #007bff;
+}
+
+.skills-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.skill-tag {
+    background: #e9ecef;
+    color: #495057;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    transition: background-color 0.3s ease;
+}
+
+.skill-tag:hover {
+    background: #dee2e6;
 }
 
 /* Language Switcher */
@@ -862,5 +959,438 @@ footer {
         right: 10px;
         padding: 6px 12px;
         font-size: 12px;
+    }
+}
+
+/* Styles pour la page des compétences */
+.skills-section {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.skills-section h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
+    color: #333;
+}
+
+.skills-container {
+    display: grid;
+    gap: 2rem;
+}
+
+.skill-category {
+    background: #fff;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.skill-category:hover {
+    transform: translateY(-5px);
+}
+
+.skill-category h3 {
+    color: #333;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.skill-category h3 i {
+    color: #007bff;
+}
+
+.skills-grid {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.skill-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.skill-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.skill-info span:first-child {
+    font-weight: 500;
+    color: #333;
+}
+
+.skill-info span:last-child {
+    color: #007bff;
+    font-weight: 600;
+}
+
+.skill-bar {
+    height: 8px;
+    background: #e9ecef;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.skill-level {
+    height: 100%;
+    background: linear-gradient(90deg, #007bff, #00bfff);
+    border-radius: 4px;
+    transition: width 1s ease-in-out;
+}
+
+/* Animation pour les barres de compétences */
+@keyframes fillBar {
+    from {
+        width: 0;
+    }
+}
+
+.skill-level {
+    animation: fillBar 1.5s ease-out forwards;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .skills-section {
+        padding: 1rem;
+    }
+
+    .skill-category {
+        padding: 1.5rem;
+    }
+
+    .skills-section h2 {
+        font-size: 2rem;
+    }
+}
+
+/* Styles pour la section des expériences */
+.experience-section {
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.experience-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: var(--text-color);
+}
+
+.experiences-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.experience-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.experience-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.experience-header {
+    display: flex;
+    align-items: center;
+    padding: 1.5rem;
+    background: linear-gradient(to right, #f8f9fa, #ffffff);
+    border-bottom: 1px solid #eee;
+}
+
+.company-logo {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    margin-right: 1.5rem;
+    border-radius: 10px;
+    background: white;
+    padding: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.experience-info {
+    flex: 1;
+}
+
+.experience-info h3 {
+    margin: 0;
+    color: var(--primary-color);
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.experience-info h4 {
+    margin: 0.5rem 0;
+    color: var(--text-color);
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.duration {
+    color: #666;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.experience-content {
+    padding: 1.5rem;
+}
+
+.experience-content p {
+    margin-bottom: 1.5rem;
+    color: #4b5563;
+    line-height: 1.6;
+}
+
+.details-btn {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    cursor: pointer;
+    font-weight: 500;
+    padding: 0.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: var(--transition);
+}
+
+.details-btn:hover {
+    color: var(--secondary-color);
+}
+
+.experience-details {
+    display: none;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+.experience-details.active {
+    display: block;
+}
+
+.experience-details ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+}
+
+.experience-details li {
+    margin-bottom: 0.8rem;
+    padding-left: 1.5rem;
+    position: relative;
+    color: #4a5568;
+}
+
+.experience-details li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.tech-stack {
+    margin-top: 2rem;
+}
+
+.tech-stack h5 {
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+
+.skill-tags span {
+    background: #f3f4f6;
+    color: #4a5568;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.skill-tags span:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .experience-section {
+        padding: 2rem 1rem;
+    }
+
+    .experience-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .company-logo {
+        margin: 0 0 1rem 0;
+    }
+
+    .experience-info {
+        text-align: center;
+    }
+
+    .skill-tags {
+        justify-content: center;
+    }
+}
+
+/* Experience Popup Styles */
+.experience-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+.popup-content {
+    position: relative;
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 2rem;
+    width: 90%;
+    max-width: 1200px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.popup-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.popup-header img {
+    width: 60px;
+    height: 60px;
+    margin-right: 1rem;
+    object-fit: contain;
+}
+
+.popup-header-info h3 {
+    margin: 0;
+    color: #333;
+    font-size: 1.5rem;
+}
+
+.popup-header-info h4 {
+    margin: 0.5rem 0;
+    color: #666;
+    font-size: 1.2rem;
+}
+
+.popup-header-info .duration {
+    color: #888;
+    font-size: 1rem;
+}
+
+.popup-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.popup-close:hover {
+    color: #333;
+}
+
+.popup-body {
+    margin-top: 1.5rem;
+}
+
+.popup-body p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.popup-body ul {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+}
+
+.popup-body li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+}
+
+.tech-stack {
+    margin-top: 2rem;
+}
+
+.tech-stack h5 {
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.skill-tags span {
+    background-color: #f0f0f0;
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+@media (max-width: 768px) {
+    .popup-content {
+        width: 95%;
+        margin: 10% auto;
+        padding: 1.5rem;
+    }
+    
+    .popup-header img {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .popup-header-info h3 {
+        font-size: 1.2rem;
+    }
+    
+    .popup-header-info h4 {
+        font-size: 1rem;
     }
 } 
