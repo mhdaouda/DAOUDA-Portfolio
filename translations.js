@@ -8,7 +8,7 @@ const translations = {
         'nav.skills': 'Compétences',
         
         // Hero Section
-        'hero.title': 'Développeur Full Stack',
+        'hero.title': 'Je suis Ingénieur en Informatique 💻',
         'hero.subtitle': 'Créateur de solutions web innovantes',
         'hero.cta': 'Découvrir mes services',
         'hero.cv': 'Télécharger mon CV',
@@ -317,7 +317,7 @@ const translations = {
         'nav.skills': 'Skills',
         
         // Hero Section
-        'hero.title': 'Full Stack Developer',
+        'hero.title': 'I am a Computer Engineer 💻',
         'hero.subtitle': 'Creator of innovative web solutions',
         'hero.cta': 'Discover my services',
         'hero.cv': 'Download my CV',
