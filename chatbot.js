@@ -128,19 +128,30 @@ class Chatbot {
     }
 
     showContactForm() {
+        // Generate project summary from selections
+        const projectSummary = this.generateProjectSummary();
+        
         const formHTML = `
             <div class="chatbot-contact-form">
                 <input type="text" id="chatbot-name" placeholder="${translations[this.currentLang]['chatbot.name']}" required>
                 <input type="email" id="chatbot-email" placeholder="${translations[this.currentLang]['chatbot.email']}" required>
                 <input type="tel" id="chatbot-phone" placeholder="${translations[this.currentLang]['chatbot.phone']}">
-                <input type="text" id="chatbot-location" placeholder="${translations[this.currentLang]['chatbot.location']}" required>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <input type="text" id="chatbot-location" placeholder="${translations[this.currentLang]['chatbot.location']}" required style="flex: 1;">
+                    <button type="button" id="detect-location" onclick="chatbot.detectLocation()" style="background: #10b981; color: white; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer; font-size: 0.8rem;">
+                        📍 ${this.currentLang === 'fr' ? 'Détecter' : 'Detect'}
+                    </button>
+                </div>
                 <input type="text" id="chatbot-company" placeholder="${translations[this.currentLang]['chatbot.company']}">
-                <textarea id="chatbot-project-details" placeholder="${translations[this.currentLang]['chatbot.project_details']}" rows="3"></textarea>
+                <textarea id="chatbot-project-details" placeholder="${translations[this.currentLang]['chatbot.project_details']}" rows="4">${projectSummary}</textarea>
                 <button onclick="chatbot.submitContactForm()">${translations[this.currentLang]['chatbot.submit']}</button>
             </div>
         `;
         
         this.addMessage(formHTML, 'bot');
+        
+        // Try to detect location automatically
+        setTimeout(() => this.detectLocation(), 1000);
     }
 
     async submitContactForm() {
@@ -226,6 +237,189 @@ class Chatbot {
         return solution;
     }
 
+    generateProjectSummary() {
+        const service = this.userData.service;
+        const budget = this.userData.budget;
+        const timeline = this.userData.timeline;
+
+        // Get service name
+        const serviceNames = {
+            fr: {
+                web_dev: 'Développement Web',
+                mobile_app: 'Application Mobile',
+                backend: 'Solutions Backend',
+                maintenance: 'Maintenance & Support',
+                seo: 'Optimisation SEO',
+                training: 'Formation & Conseil',
+                uiux: 'Design UI/UX',
+                security: 'Sécurité Web',
+                integration: 'Intégration Systèmes',
+                wordpress: 'Migration WordPress'
+            },
+            en: {
+                web_dev: 'Web Development',
+                mobile_app: 'Mobile Application',
+                backend: 'Backend Solutions',
+                maintenance: 'Maintenance & Support',
+                seo: 'SEO Optimization',
+                training: 'Training & Consulting',
+                uiux: 'UI/UX Design',
+                security: 'Web Security',
+                integration: 'System Integration',
+                wordpress: 'WordPress Migration'
+            }
+        };
+
+        // Get budget name
+        const budgetNames = {
+            fr: {
+                low: 'Moins de 1000€',
+                medium: '1000€ - 5000€',
+                high: 'Plus de 5000€'
+            },
+            en: {
+                low: 'Less than $1000',
+                medium: '$1000 - $5000',
+                high: 'More than $5000'
+            }
+        };
+
+        // Get timeline name
+        const timelineNames = {
+            fr: {
+                urgent: 'Urgent (1-2 semaines)',
+                normal: 'Normal (1-2 mois)',
+                flexible: 'Flexible (3+ mois)'
+            },
+            en: {
+                urgent: 'Urgent (1-2 weeks)',
+                normal: 'Normal (1-2 months)',
+                flexible: 'Flexible (3+ months)'
+            }
+        };
+
+        const serviceName = serviceNames[this.currentLang][service];
+        const budgetName = budgetNames[this.currentLang][budget];
+        const timelineName = timelineNames[this.currentLang][timeline];
+
+        if (this.currentLang === 'fr') {
+            return `RÉSUMÉ DU PROJET :
+
+Service demandé : ${serviceName}
+Budget : ${budgetName}
+Délai souhaité : ${timelineName}
+
+Détails supplémentaires :`;
+        } else {
+            return `PROJECT SUMMARY :
+
+Service requested : ${serviceName}
+Budget : ${budgetName}
+Timeline : ${timelineName}
+
+Additional details :`;
+        }
+    }
+
+    async detectLocation() {
+        const locationInput = document.getElementById('chatbot-location');
+        const detectButton = document.getElementById('detect-location');
+        
+        if (!locationInput || !detectButton) return;
+
+        // Show loading state
+        detectButton.innerHTML = '⏳';
+        detectButton.disabled = true;
+
+        try {
+            // Try to get location from browser
+            if (navigator.geolocation) {
+                const position = await new Promise((resolve, reject) => {
+                    navigator.geolocation.getCurrentPosition(resolve, reject, {
+                        timeout: 10000,
+                        enableHighAccuracy: false
+                    });
+                });
+
+                const { latitude, longitude } = position.coords;
+                
+                // Get country from coordinates using reverse geocoding
+                const country = await this.getCountryFromCoordinates(latitude, longitude);
+                
+                if (country) {
+                    locationInput.value = country;
+                    detectButton.innerHTML = '✅';
+                    detectButton.style.background = '#10b981';
+                } else {
+                    throw new Error('Country not found');
+                }
+            } else {
+                throw new Error('Geolocation not supported');
+            }
+        } catch (error) {
+            console.log('Location detection failed:', error);
+            
+            // Fallback: try to get country from IP
+            try {
+                const country = await this.getCountryFromIP();
+                if (country) {
+                    locationInput.value = country;
+                    detectButton.innerHTML = '✅';
+                    detectButton.style.background = '#10b981';
+                } else {
+                    throw new Error('IP geolocation failed');
+                }
+            } catch (ipError) {
+                console.log('IP geolocation failed:', ipError);
+                detectButton.innerHTML = '❌';
+                detectButton.style.background = '#ef4444';
+                detectButton.title = this.currentLang === 'fr' 
+                    ? 'Impossible de détecter la localisation'
+                    : 'Unable to detect location';
+            }
+        }
+
+        // Reset button after 3 seconds
+        setTimeout(() => {
+            detectButton.innerHTML = '📍 ' + (this.currentLang === 'fr' ? 'Détecter' : 'Detect');
+            detectButton.disabled = false;
+            detectButton.style.background = '#10b981';
+            detectButton.title = '';
+        }, 3000);
+    }
+
+    async getCountryFromCoordinates(lat, lng) {
+        try {
+            // Using a free reverse geocoding service
+            const response = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}&localityLanguage=${this.currentLang}`);
+            const data = await response.json();
+            
+            if (data.countryName) {
+                return data.countryName;
+            }
+            return null;
+        } catch (error) {
+            console.log('Reverse geocoding failed:', error);
+            return null;
+        }
+    }
+
+    async getCountryFromIP() {
+        try {
+            // Using a free IP geolocation service
+            const response = await fetch('https://ipapi.co/json/');
+            const data = await response.json();
+            
+            if (data.country_name) {
+                return data.country_name;
+            }
+            return null;
+        } catch (error) {
+            console.log('IP geolocation failed:', error);
+            return null;
+        }
+    }
+
     getPriceRange() {
         const budget = this.userData.budget;
         const service = this.userData.service;
@@ -302,10 +496,22 @@ class Chatbot {
     }
 
     selectOption(value, type) {
+        // Get the selected option text before removing
+        const selectedOption = document.querySelector(`[onclick*="${value}"]`);
+        let selectedText = '';
+        if (selectedOption) {
+            selectedText = selectedOption.textContent.trim();
+        }
+
         // Remove all options
         const optionsContainer = document.querySelector('.chatbot-options');
         if (optionsContainer) {
             optionsContainer.remove();
+        }
+
+        // Show user's selection
+        if (selectedText) {
+            this.addUserMessage(selectedText);
         }
 
         // Handle selection based on type
@@ -313,17 +519,17 @@ class Chatbot {
             case 'service':
                 this.userData.service = value;
                 this.conversationState = 'budget';
-                this.askBudget();
+                setTimeout(() => this.askBudget(), 500);
                 break;
             case 'budget':
                 this.userData.budget = value;
                 this.conversationState = 'timeline';
-                this.askTimeline();
+                setTimeout(() => this.askTimeline(), 500);
                 break;
             case 'timeline':
                 this.userData.timeline = value;
                 this.conversationState = 'contact';
-                this.askContactInfo();
+                setTimeout(() => this.askContactInfo(), 500);
                 break;
             case 'nextstep':
                 this.handleNextStep(value);

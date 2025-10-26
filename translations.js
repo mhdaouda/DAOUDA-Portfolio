@@ -40,6 +40,24 @@ const translations = {
         'services.wordpress': 'Migration vers WordPress',
         'services.wordpress.desc': 'Conversion de sites existants en WordPress',
         
+        // Nouveaux services 2025
+        'services.ai': 'Intégration IA & Chatbots',
+        'services.ai.desc': 'Intégration d\'intelligence artificielle et chatbots intelligents',
+        'services.pwa': 'Applications Web Progressives',
+        'services.pwa.desc': 'PWA avec fonctionnalités natives et offline',
+        'services.cloud': 'Solutions Cloud & DevOps',
+        'services.cloud.desc': 'Déploiement et gestion d\'infrastructures cloud',
+        'services.api': 'Développement d\'APIs',
+        'services.api.desc': 'APIs RESTful, GraphQL et microservices',
+        'services.ecommerce': 'E-commerce Avancé',
+        'services.ecommerce.desc': 'Boutiques en ligne avec paiements sécurisés',
+        'services.analytics': 'Analytics & Data',
+        'services.analytics.desc': 'Tableaux de bord et analyse de données',
+        'services.blockchain': 'Blockchain & Web3',
+        'services.blockchain.desc': 'Applications décentralisées et smart contracts',
+        'services.ar': 'AR/VR & Métavers',
+        'services.ar.desc': 'Expériences immersives et réalité augmentée',
+        
         // Contact
         'contact.title': 'Contactez-moi',
         'contact.name': 'Nom',
@@ -216,6 +234,10 @@ const translations = {
         "skills.tools": "Outils & Technologies",
         "skills.databases": "Bases de données",
         "skills.methodologies": "Méthodologies",
+        "skills.ai": "Intelligence Artificielle",
+        "skills.cloud": "Cloud & DevOps",
+        "skills.mobile": "Mobile & PWA",
+        "skills.blockchain": "Blockchain & Web3",
         "skills.view": "Voir mes compétences",
 
         "projects.lbp.tech": [
@@ -471,6 +493,24 @@ const translations = {
         'services.wordpress': 'WordPress Migration',
         'services.wordpress.desc': 'Convert existing sites to WordPress',
         
+        // New services 2025
+        'services.ai': 'AI & Chatbots Integration',
+        'services.ai.desc': 'Artificial intelligence and smart chatbots integration',
+        'services.pwa': 'Progressive Web Apps',
+        'services.pwa.desc': 'PWA with native features and offline capabilities',
+        'services.cloud': 'Cloud & DevOps Solutions',
+        'services.cloud.desc': 'Cloud infrastructure deployment and management',
+        'services.api': 'API Development',
+        'services.api.desc': 'RESTful APIs, GraphQL and microservices',
+        'services.ecommerce': 'Advanced E-commerce',
+        'services.ecommerce.desc': 'Online stores with secure payments',
+        'services.analytics': 'Analytics & Data',
+        'services.analytics.desc': 'Dashboards and data analysis',
+        'services.blockchain': 'Blockchain & Web3',
+        'services.blockchain.desc': 'Decentralized applications and smart contracts',
+        'services.ar': 'AR/VR & Metaverse',
+        'services.ar.desc': 'Immersive experiences and augmented reality',
+        
         // Contact
         'contact.title': 'Contact Me',
         'contact.name': 'Name',
@@ -636,6 +676,10 @@ const translations = {
         "skills.tools": "Tools & Technologies",
         "skills.databases": "Databases",
         "skills.methodologies": "Methodologies",
+        "skills.ai": "Artificial Intelligence",
+        "skills.cloud": "Cloud & DevOps",
+        "skills.mobile": "Mobile & PWA",
+        "skills.blockchain": "Blockchain & Web3",
         "skills.view": "View my skills",
 
         "projects.lbp.tasks": "My main tasks on this mission were:",
