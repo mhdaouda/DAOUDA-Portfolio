@@ -29,17 +29,9 @@
     </header>
 
     <main>
-        <!-- Section Parallax Hero -->
-        <section class="parallax-section" data-speed="0.5" style="background-image: linear-gradient(135deg, rgba(37, 99, 235, 0.8), rgba(30, 64, 175, 0.8)), url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1000 1000\"><defs><pattern id=\"grid\" width=\"50\" height=\"50\" patternUnits=\"userSpaceOnUse\"><path d=\"M 50 0 L 0 0 0 50\" fill=\"none\" stroke=\"%23ffffff\" stroke-width=\"1\" opacity=\"0.1\"/></pattern></defs><rect width=\"100%\" height=\"100%\" fill=\"url(%23grid)\"/></svg>');">
-            <div class="parallax-overlay"></div>
-            <div class="parallax-content">
-                <h1 class="scroll-animate" data-translate="services.title">Mes Services</h1>
-                <p class="scroll-animate">Solutions technologiques innovantes pour propulser votre business</p>
-            </div>
-        </section>
-
         <section id="services" class="services">
-            <div class="services-grid-enhanced" id="services-container">
+            <h2 data-translate="services.title">Mes Services</h2>
+            <div class="services-grid">
                 <div class="service-card">
                     <i class="fas fa-code"></i>
                     <h3 data-translate="services.web">Développement Web</h3>
@@ -152,26 +144,5 @@
     <script src="script.js"></script>
     <script src="chatbot-data.js"></script>
     <script src="chatbot.js"></script>
-    <script src="portfolio-animations.js"></script>
-    <script>
-        // Generate enhanced services dynamically
-        document.addEventListener('DOMContentLoaded', () => {
-            const currentLang = localStorage.getItem('language') || 'fr';
-            const servicesContainer = document.getElementById('services-container');
-            const services = window.enhancedServices[currentLang];
-            
-            servicesContainer.innerHTML = services.map((service, index) => `
-                <div class="service-card-3d scroll-animate" style="animation-delay: ${index * 0.1}s">
-                    <div class="service-icon">${service.icon}</div>
-                    <h3 class="service-title">${service.title}</h3>
-                    <p class="service-description">${service.description}</p>
-                    <div class="service-price">${service.price}</div>
-                    <ul class="service-features">
-                        ${service.features.map(feature => `<li>${feature}</li>`).join('')}
-                    </ul>
-                </div>
-            `).join('');
-        });
-    </script>
 </body>
 </html> 
