@@ -29,109 +29,57 @@
     </header>
 
     <main>
+        <!-- Hero Section avec effet parallax -->
+        <section class="services-hero parallax-section" data-speed="0.5" style="background-image: linear-gradient(135deg, rgba(37, 99, 235, 0.9), rgba(16, 185, 129, 0.9)), url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1000 1000\"><defs><pattern id=\"tech\" width=\"100\" height=\"100\" patternUnits=\"userSpaceOnUse\"><path d=\"M50 0L100 50L50 100L0 50Z\" fill=\"none\" stroke=\"%23ffffff\" stroke-width=\"2\" opacity=\"0.1\"/></pattern></defs><rect width=\"100%\" height=\"100%\" fill=\"url(%23tech)\"/></svg>');">
+            <div class="parallax-overlay"></div>
+            <div class="parallax-content">
+                <h1 class="scroll-animate" data-translate="services.title">Mes Services</h1>
+                <p class="scroll-animate">Solutions technologiques innovantes pour propulser votre business</p>
+                <div class="hero-stats scroll-animate">
+                    <div class="stat">
+                        <span class="stat-number">50+</span>
+                        <span class="stat-label">Projets Réalisés</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Satisfaction Client</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Support</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="services" class="services">
-            <h2 data-translate="services.title">Mes Services</h2>
-            <div class="services-grid">
-                <div class="service-card">
-                    <i class="fas fa-code"></i>
-                    <h3 data-translate="services.web">Développement Web</h3>
-                    <p data-translate="services.web.desc">Création de sites web modernes et responsifs</p>
-                    <ul class="service-features">
-                        <li>Sites vitrines</li>
-                        <li>Applications web</li>
-                        <li>E-commerce</li>
-                    </ul>
+            <div class="container">
+                <h2 class="section-title scroll-animate">Services Premium</h2>
+                <p class="section-subtitle scroll-animate">Des solutions sur mesure pour tous vos besoins technologiques</p>
+                
+                <!-- Filtres de catégories -->
+                <div class="service-filters scroll-animate">
+                    <button class="filter-btn active" data-filter="all">Tous</button>
+                    <button class="filter-btn" data-filter="web">Web</button>
+                    <button class="filter-btn" data-filter="mobile">Mobile</button>
+                    <button class="filter-btn" data-filter="ai">IA</button>
+                    <button class="filter-btn" data-filter="cloud">Cloud</button>
+                    <button class="filter-btn" data-filter="ecommerce">E-commerce</button>
                 </div>
-                <div class="service-card">
-                    <i class="fas fa-mobile-alt"></i>
-                    <h3>Applications Mobiles</h3>
-                    <p>Développement d'applications iOS et Android</p>
-                    <ul class="service-features">
-                        <li>Applications natives</li>
-                        <li>Applications hybrides</li>
-                        <li>Maintenance</li>
-                    </ul>
+                
+                <div class="services-grid-enhanced" id="services-container">
+                    <!-- Les services seront générés dynamiquement -->
                 </div>
-                <div class="service-card">
-                    <i class="fas fa-database"></i>
-                    <h3>Solutions Backend</h3>
-                    <p>Développement d'APIs et de bases de données</p>
-                    <ul class="service-features">
-                        <li>APIs RESTful</li>
-                        <li>Architecture cloud</li>
-                        <li>Optimisation</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <i class="fas fa-tools"></i>
-                    <h3>Maintenance et Support</h3>
-                    <p>Assistance technique et maintenance évolutive</p>
-                    <ul class="service-features">
-                        <li>Maintenance préventive</li>
-                        <li>Support technique</li>
-                        <li>Mises à jour</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <i class="fas fa-search"></i>
-                    <h3>Optimisation SEO</h3>
-                    <p>Amélioration de la visibilité web</p>
-                    <ul class="service-features">
-                        <li>Audit SEO</li>
-                        <li>Optimisation technique</li>
-                        <li>Référencement local</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <i class="fas fa-chalkboard-teacher"></i>
-                    <h3>Formation et Conseil</h3>
-                    <p>Accompagnement et formation technique</p>
-                    <ul class="service-features">
-                        <li>Formation web</li>
-                        <li>Conseil technique</li>
-                        <li>Accompagnement projet</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <i class="fas fa-paint-brush"></i>
-                    <h3>Design UI/UX</h3>
-                    <p>Création d'interfaces utilisateur modernes</p>
-                    <ul class="service-features">
-                        <li>Design responsive</li>
-                        <li>Prototypage</li>
-                        <li>Tests utilisateurs</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <i class="fas fa-shield-alt"></i>
-                    <h3>Sécurité Web</h3>
-                    <p>Protection et sécurisation des applications</p>
-                    <ul class="service-features">
-                        <li>Audit de sécurité</li>
-                        <li>Protection contre les attaques</li>
-                        <li>Conformité RGPD</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <i class="fas fa-plug"></i>
-                    <h3>Intégration de Systèmes</h3>
-                    <p>Connexion et synchronisation de services</p>
-                    <ul class="service-features">
-                        <li>APIs tierces</li>
-                        <li>Webhooks</li>
-                        <li>Automatisation</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <i class="fab fa-wordpress"></i>
-                    <h3>Migration vers WordPress</h3>
-                    <p>Conversion de sites existants en WordPress</p>
-                    <ul class="service-features">
-                        <li>Migration de contenu</li>
-                        <li>Personnalisation de thèmes</li>
-                        <li>Formation à l'utilisation</li>
-                    </ul>
-                </div>
+            </div>
+        </section>
+
+        <!-- Section CTA -->
+        <section class="cta-section parallax-section" data-speed="0.3" style="background-image: linear-gradient(135deg, rgba(16, 185, 129, 0.9), rgba(37, 99, 235, 0.9)), url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1000 1000\"><defs><pattern id=\"dots\" width=\"50\" height=\"50\" patternUnits=\"userSpaceOnUse\"><circle cx=\"25\" cy=\"25\" r=\"3\" fill=\"%23ffffff\" opacity=\"0.1\"/></pattern></defs><rect width=\"100%\" height=\"100%\" fill=\"url(%23dots)\"/></svg>');">
+            <div class="parallax-overlay"></div>
+            <div class="parallax-content">
+                <h2 class="scroll-animate">Prêt à transformer votre vision en réalité ?</h2>
+                <p class="scroll-animate">Contactez-moi pour discuter de votre projet</p>
+                <a href="contact.html" class="cta-button scroll-animate">Démarrer un projet</a>
             </div>
         </section>
     </main>
@@ -144,5 +92,56 @@
     <script src="script.js"></script>
     <script src="chatbot-data.js"></script>
     <script src="chatbot.js"></script>
+    <script src="portfolio-animations.js"></script>
+    <script src="enhanced-services.js"></script>
+    <script>
+        // Enhanced Services Page
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentLang = localStorage.getItem('language') || 'fr';
+            const servicesContainer = document.getElementById('services-container');
+            const services = window.enhancedServicesData[currentLang];
+            
+            // Generate services cards
+            servicesContainer.innerHTML = services.map((service, index) => `
+                <div class="service-card-3d scroll-animate" data-category="${service.category}" style="animation-delay: ${index * 0.1}s">
+                    <div class="service-icon">${service.icon}</div>
+                    <h3 class="service-title">${service.title}</h3>
+                    <p class="service-description">${service.description}</p>
+                    <div class="service-price">${service.price}</div>
+                    <ul class="service-features">
+                        ${service.features.map(feature => `<li>${feature}</li>`).join('')}
+                    </ul>
+                    <div class="service-cta">
+                        <button class="service-btn" onclick="window.chatbot.toggleChatbot()">
+                            ${currentLang === 'fr' ? 'Demander un devis' : 'Get Quote'}
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Filter functionality
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    // Add active class to clicked button
+                    btn.classList.add('active');
+                    
+                    const filter = btn.dataset.filter;
+                    const serviceCards = document.querySelectorAll('.service-card-3d');
+                    
+                    serviceCards.forEach(card => {
+                        if (filter === 'all' || card.dataset.category === filter) {
+                            card.style.display = 'block';
+                            card.style.animation = 'fadeInUp 0.6s ease forwards';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 </body>
 </html> 
