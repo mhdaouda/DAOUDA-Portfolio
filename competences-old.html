@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compétences - Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Portfolio 🚀</div>
+            <ul class="nav-links">
+                <li><a href="index.html" data-translate="nav.home">Accueil</a></li>
+                <li><a href="index.html#apropos">À propos</a></li>
+                <li><a href="projets.html" data-translate="nav.projects">Projets</a></li>
+                <li><a href="pro.html" data-translate="nav.experience">Expériences</a></li>
+                <li><a href="competences.html" class="active" data-translate="nav.skills">Compétences</a></li>
+                <li><a href="services.html" data-translate="nav.services">Services</a></li>
+                <li><a href="contact.html" data-translate="nav.contact">Contact</a></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section avec effet parallax -->
+        <section class="skills-hero parallax-section" data-speed="0.5" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.9), rgba(37, 99, 235, 0.9));">
+            <div class="parallax-overlay"></div>
+            <div class="parallax-content">
+                <h1 class="scroll-animate" data-translate="skills.title">Mes Compétences 💪</h1>
+                <p class="scroll-animate" data-translate="skills.subtitle">Expertise technique et maîtrise des technologies modernes</p>
+                <div class="hero-stats scroll-animate">
+                    <div class="stat">
+                        <span class="stat-number">8+</span>
+                        <span class="stat-label">Catégories</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">60+</span>
+                        <span class="stat-label">Technologies</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">5+</span>
+                        <span class="stat-label">Années d'expérience</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="skills-section">
+            <div class="container">
+                <h2 class="section-title scroll-animate">Compétences Techniques</h2>
+                <p class="section-subtitle scroll-animate">Maîtrise approfondie des technologies modernes du développement web et mobile</p>
+                
+                <!-- Filtres de catégories -->
+                <div class="skill-filters scroll-animate">
+                    <button class="filter-btn active" data-filter="all">Toutes</button>
+                    <button class="filter-btn" data-filter="frontend">Frontend</button>
+                    <button class="filter-btn" data-filter="backend">Backend</button>
+                    <button class="filter-btn" data-filter="mobile">Mobile</button>
+                    <button class="filter-btn" data-filter="ai">IA</button>
+                    <button class="filter-btn" data-filter="cloud">Cloud</button>
+                    <button class="filter-btn" data-filter="security">Sécurité</button>
+                    <button class="filter-btn" data-filter="tools">Outils</button>
+                </div>
+                
+                <div class="skills-container-enhanced" id="skills-container">
+                <!-- Langages & Frameworks -->
+                <div class="skill-category">
+                    <h3><i class="fas fa-code"></i> <span data-translate="skills.languages">Langages & Frameworks</span></h3>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>Java / JEE</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>Python</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>JavaScript</span>
+                                <span>80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>HTML/CSS</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Outils & Technologies -->
+                <div class="skill-category">
+                    <h3><i class="fas fa-tools"></i> <span data-translate="skills.tools">Outils & Technologies</span></h3>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>Git / GitLab</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>Jenkins / CI/CD</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>Docker</span>
+                                <span>80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>Linux / Windows Server</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bases de données -->
+                <div class="skill-category">
+                    <h3><i class="fas fa-database"></i> <span data-translate="skills.databases">Bases de données</span></h3>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>MySQL</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>PostgreSQL</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>Oracle</span>
+                                <span>80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 80%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Méthodologies -->
+                <div class="skill-category">
+                    <h3><i class="fas fa-tasks"></i> <span data-translate="skills.methodologies">Méthodologies</span></h3>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>Agile / Scrum</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>DevOps</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>Gestion de Projet</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Portfolio de Mohamed DAOUDA. <span data-translate="footer.rights">Tous droits réservés.</span></p>
+    </footer>
+
+    <script src="translations.js"></script>
+    <script src="script.js"></script>
+    <script src="chatbot-data.js"></script>
+    <script src="chatbot.js"></script>
+</body>
+</html> 

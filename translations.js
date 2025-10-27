@@ -238,6 +238,7 @@ const translations = {
         'contact.form.message': 'Votre message',
 
         "skills.title": "Mes Compétences 💪",
+        "skills.subtitle": "Expertise technique et maîtrise des technologies modernes",
         "skills.languages": "Langages & Frameworks",
         "skills.tools": "Outils & Technologies",
         "skills.databases": "Bases de données",
@@ -246,6 +247,10 @@ const translations = {
         "skills.cloud": "Cloud & DevOps",
         "skills.mobile": "Mobile & PWA",
         "skills.blockchain": "Blockchain & Web3",
+        "skills.frontend": "Frontend & UI/UX",
+        "skills.backend": "Backend & APIs",
+        "skills.devops": "DevOps & Infrastructure",
+        "skills.security": "Sécurité & Performance",
         "skills.view": "Voir mes compétences",
 
         "projects.lbp.tech": [
@@ -688,6 +693,7 @@ const translations = {
         'contact.form.message': 'Your message',
 
         "skills.title": "My Skills 💪",
+        "skills.subtitle": "Technical expertise and mastery of modern technologies",
         "skills.languages": "Languages & Frameworks",
         "skills.tools": "Tools & Technologies",
         "skills.databases": "Databases",
@@ -696,6 +702,10 @@ const translations = {
         "skills.cloud": "Cloud & DevOps",
         "skills.mobile": "Mobile & PWA",
         "skills.blockchain": "Blockchain & Web3",
+        "skills.frontend": "Frontend & UI/UX",
+        "skills.backend": "Backend & APIs",
+        "skills.devops": "DevOps & Infrastructure",
+        "skills.security": "Security & Performance",
         "skills.view": "View my skills",
 
         "projects.lbp.tasks": "My main tasks on this mission were:",

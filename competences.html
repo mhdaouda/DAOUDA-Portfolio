@@ -29,163 +29,59 @@
     </header>
 
     <main>
+        <!-- Hero Section avec effet parallax -->
+        <section class="skills-hero parallax-section" data-speed="0.5" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.9), rgba(37, 99, 235, 0.9));">
+            <div class="parallax-overlay"></div>
+            <div class="parallax-content">
+                <h1 class="scroll-animate" data-translate="skills.title">Mes Compétences 💪</h1>
+                <p class="scroll-animate" data-translate="skills.subtitle">Expertise technique et maîtrise des technologies modernes</p>
+                <div class="hero-stats scroll-animate">
+                    <div class="stat">
+                        <span class="stat-number">8+</span>
+                        <span class="stat-label">Catégories</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">60+</span>
+                        <span class="stat-label">Technologies</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">5+</span>
+                        <span class="stat-label">Années d'expérience</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section class="skills-section">
-            <h2 data-translate="skills.title">Mes Compétences 💪</h2>
-            
-            <div class="skills-container">
-                <!-- Langages & Frameworks -->
-                <div class="skill-category">
-                    <h3><i class="fas fa-code"></i> <span data-translate="skills.languages">Langages & Frameworks</span></h3>
-                    <div class="skills-grid">
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span>Java / JEE</span>
-                                <span>90%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 90%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span>Python</span>
-                                <span>85%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span>JavaScript</span>
-                                <span>80%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 80%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span>HTML/CSS</span>
-                                <span>85%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 85%"></div>
-                            </div>
-                        </div>
-                    </div>
+            <div class="container">
+                <h2 class="section-title scroll-animate">Compétences Techniques</h2>
+                <p class="section-subtitle scroll-animate">Maîtrise approfondie des technologies modernes du développement web et mobile</p>
+                
+                <!-- Filtres de catégories -->
+                <div class="skill-filters scroll-animate">
+                    <button class="filter-btn active" data-filter="all">Toutes</button>
+                    <button class="filter-btn" data-filter="frontend">Frontend</button>
+                    <button class="filter-btn" data-filter="backend">Backend</button>
+                    <button class="filter-btn" data-filter="mobile">Mobile</button>
+                    <button class="filter-btn" data-filter="ai">IA</button>
+                    <button class="filter-btn" data-filter="cloud">Cloud</button>
+                    <button class="filter-btn" data-filter="security">Sécurité</button>
+                    <button class="filter-btn" data-filter="tools">Outils</button>
                 </div>
+                
+                <div class="skills-container-enhanced" id="skills-container">
+                    <!-- Les compétences seront générées dynamiquement -->
+                </div>
+            </div>
+        </section>
 
-                <!-- Outils & Technologies -->
-                <div class="skill-category">
-                    <h3><i class="fas fa-tools"></i> <span data-translate="skills.tools">Outils & Technologies</span></h3>
-                    <div class="skills-grid">
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span>Git / GitLab</span>
-                                <span>90%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 90%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span>Jenkins / CI/CD</span>
-                                <span>85%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span>Docker</span>
-                                <span>80%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 80%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span>Linux / Windows Server</span>
-                                <span>85%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 85%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Bases de données -->
-                <div class="skill-category">
-                    <h3><i class="fas fa-database"></i> <span data-translate="skills.databases">Bases de données</span></h3>
-                    <div class="skills-grid">
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span>MySQL</span>
-                                <span>90%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 90%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span>PostgreSQL</span>
-                                <span>85%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span>Oracle</span>
-                                <span>80%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 80%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Méthodologies -->
-                <div class="skill-category">
-                    <h3><i class="fas fa-tasks"></i> <span data-translate="skills.methodologies">Méthodologies</span></h3>
-                    <div class="skills-grid">
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span>Agile / Scrum</span>
-                                <span>90%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 90%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span>DevOps</span>
-                                <span>85%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span>Gestion de Projet</span>
-                                <span>85%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 85%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <!-- Section CTA -->
+        <section class="cta-section parallax-section" data-speed="0.3" style="background: linear-gradient(135deg, rgba(37, 99, 235, 0.9), rgba(16, 185, 129, 0.9));">
+            <div class="parallax-overlay"></div>
+            <div class="parallax-content">
+                <h2 class="scroll-animate">Prêt à collaborer avec un expert ?</h2>
+                <p class="scroll-animate">Découvrez comment mes compétences peuvent transformer votre projet</p>
+                <a href="contact.html" class="cta-button scroll-animate">Démarrer un projet</a>
             </div>
         </section>
     </main>
@@ -198,5 +94,86 @@
     <script src="script.js"></script>
     <script src="chatbot-data.js"></script>
     <script src="chatbot.js"></script>
+    <script src="portfolio-animations.js"></script>
+    <script src="enhanced-skills.js"></script>
+    <script>
+        // Enhanced Skills Page
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentLang = localStorage.getItem('language') || 'fr';
+            const skillsContainer = document.getElementById('skills-container');
+            const skills = window.enhancedSkillsData[currentLang];
+            
+            // Generate skills categories
+            skillsContainer.innerHTML = skills.map(category => `
+                <div class="skill-category-enhanced scroll-animate" data-category="${category.category}">
+                    <div class="skill-category-header">
+                        <div class="skill-category-icon">${category.icon}</div>
+                        <h3 class="skill-category-title">${category.title}</h3>
+                    </div>
+                    <div class="skills-grid-enhanced">
+                        ${category.skills.map(skill => `
+                            <div class="skill-item-enhanced">
+                                <div class="skill-info">
+                                    <span class="skill-name">${skill.name}</span>
+                                    <span class="skill-percentage">${skill.level}%</span>
+                                </div>
+                                <div class="skill-bar-container">
+                                    <div class="skill-bar-fill" data-width="${skill.level}%" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+            
+            // Filter functionality
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    // Add active class to clicked button
+                    btn.classList.add('active');
+                    
+                    const filter = btn.dataset.filter;
+                    const skillCategories = document.querySelectorAll('.skill-category-enhanced');
+                    
+                    skillCategories.forEach(category => {
+                        if (filter === 'all' || category.dataset.category === filter) {
+                            category.style.display = 'block';
+                            category.style.animation = 'fadeInUp 0.6s ease forwards';
+                        } else {
+                            category.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Animate skill bars when visible
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -100px 0px',
+                threshold: 0.3
+            };
+
+            const skillObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const skillBars = entry.target.querySelectorAll('.skill-bar-fill');
+                        skillBars.forEach(bar => {
+                            const width = bar.dataset.width;
+                            setTimeout(() => {
+                                bar.style.width = width;
+                            }, 200);
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.skill-category-enhanced').forEach(category => {
+                skillObserver.observe(category);
+            });
+        });
+    </script>
 </body>
-</html> 
+</html>
