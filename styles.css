@@ -2101,23 +2101,6 @@ footer {
     margin-top: 4rem;
 }
 
-.cta-button {
-    background: linear-gradient(135deg, #10b981, #059669);
-    color: white;
-    padding: 1rem 2rem;
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1.1rem;
-    transition: all 0.3s ease;
-    display: inline-block;
-    margin-top: 1rem;
-}
-
-.cta-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
-}
 
 /* Animation fadeInUp */
 @keyframes fadeInUp {
