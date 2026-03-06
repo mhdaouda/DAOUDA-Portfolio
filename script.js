@@ -179,6 +179,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('a[href="projets.html"]').forEach(el => el.setAttribute('data-translate', 'nav.projects'));
     document.querySelectorAll('a[href="services.html"]').forEach(el => el.setAttribute('data-translate', 'nav.services'));
     document.querySelectorAll('a[href="contact.html"]').forEach(el => el.setAttribute('data-translate', 'nav.contact'));
+    
+    // Update chatbot language if chatbot exists
+    if (typeof updateChatbotLanguage === 'function') {
+        updateChatbotLanguage();
+    }
 });
 
 // Experience Popup Functions

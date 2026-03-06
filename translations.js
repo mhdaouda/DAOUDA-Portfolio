@@ -463,6 +463,7 @@ const translations = {
         'chatbot.typing': 'Je réfléchis...',
         'chatbot.error': 'Désolé, une erreur s\'est produite. Pouvez-vous réessayer ?',
         'chatbot.restart': 'Recommencer la conversation',
+        'chatbot.ask_another': 'Poser une autre question',
         'chatbot.close': 'Fermer',
     },
     en: {
@@ -899,6 +900,7 @@ const translations = {
         'chatbot.typing': 'I\'m thinking...',
         'chatbot.error': 'Sorry, an error occurred. Can you try again?',
         'chatbot.restart': 'Restart conversation',
+        'chatbot.ask_another': 'Ask another question',
         'chatbot.close': 'Close',
     }
 }; 

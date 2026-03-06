@@ -499,11 +499,27 @@ section h2 {
 
 /* Section Contact */
 .contact-content {
-    max-width: 800px;
+    max-width: 960px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 220px 2fr 1fr;
     gap: 2rem;
+    align-items: start;
+}
+
+.contact-photo {
+    width: 220px;
+    height: 340px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.contact-photo img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
 }
 
 .contact-methods {
@@ -627,6 +643,11 @@ footer {
 
     .contact-content {
         grid-template-columns: 1fr;
+    }
+
+    .contact-photo {
+        max-width: 220px;
+        margin: 0 auto;
     }
 
     .hero-content h1 {

@@ -26,14 +26,15 @@ class Chatbot {
         const chatbotContainer = document.createElement('div');
         chatbotContainer.className = 'chatbot-container';
         chatbotContainer.id = 'chatbot-container';
+        const placeholderText = this.currentLang === 'fr' ? 'Tapez votre message...' : 'Type your message...';
         chatbotContainer.innerHTML = `
             <div class="chatbot-header">
-                <h3 data-translate="chatbot.title">Assistant IA</h3>
+                <h3 data-translate="chatbot.title">${translations[this.currentLang]['chatbot.title']}</h3>
                 <button class="chatbot-close" id="chatbot-close">×</button>
             </div>
             <div class="chatbot-messages" id="chatbot-messages"></div>
             <div class="chatbot-input-container">
-                <input type="text" class="chatbot-input" id="chatbot-input" placeholder="Tapez votre message...">
+                <input type="text" class="chatbot-input" id="chatbot-input" placeholder="${placeholderText}">
                 <button class="chatbot-send" id="chatbot-send">➤</button>
             </div>
         `;
@@ -78,6 +79,8 @@ class Chatbot {
     }
 
     startConversation() {
+        // Ensure language is current
+        this.currentLang = localStorage.getItem('language') || 'fr';
         this.addBotMessage(translations[this.currentLang]['chatbot.welcome']);
         this.showServiceOptions();
     }
@@ -460,7 +463,8 @@ Additional details :`;
         const nextSteps = [
             { key: 'chatbot.contact_me', value: 'contact' },
             { key: 'chatbot.schedule', value: 'schedule' },
-            { key: 'chatbot.portfolio', value: 'portfolio' }
+            { key: 'chatbot.portfolio', value: 'portfolio' },
+            { key: 'chatbot.ask_another', value: 'ask_another' }
         ];
 
         this.showOptions(nextSteps, 'nextstep');
@@ -480,7 +484,23 @@ Additional details :`;
             case 'portfolio':
                 window.location.href = 'projets.html';
                 break;
+            case 'ask_another':
+                this.restartConversation();
+                break;
         }
+    }
+
+    restartConversation() {
+        // Reset conversation state
+        this.conversationState = 'welcome';
+        this.userData = {};
+        
+        // Clear messages
+        const messagesContainer = document.getElementById('chatbot-messages');
+        messagesContainer.innerHTML = '';
+        
+        // Start new conversation
+        this.startConversation();
     }
 
     showOptions(options, type) {
@@ -613,10 +633,30 @@ document.addEventListener('DOMContentLoaded', () => {
 function updateChatbotLanguage() {
     if (window.chatbot) {
         window.chatbot.currentLang = localStorage.getItem('language') || 'fr';
+        
         // Update chatbot title
         const title = document.querySelector('#chatbot-container .chatbot-header h3');
         if (title) {
             title.textContent = translations[window.chatbot.currentLang]['chatbot.title'];
+        }
+        
+        // Update input placeholder
+        const input = document.getElementById('chatbot-input');
+        if (input) {
+            input.placeholder = window.chatbot.currentLang === 'fr' 
+                ? 'Tapez votre message...' 
+                : 'Type your message...';
+        }
+        
+        // Update data-translate elements in chatbot
+        const chatbotContainer = document.getElementById('chatbot-container');
+        if (chatbotContainer) {
+            chatbotContainer.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[window.chatbot.currentLang][key]) {
+                    element.textContent = translations[window.chatbot.currentLang][key];
+                }
+            });
         }
     }
 }
