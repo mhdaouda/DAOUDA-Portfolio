@@ -48,7 +48,17 @@ nav {
     font-weight: bold;
     color: var(--primary-color);
     animation: bounceAndRotate 3s ease-in-out infinite;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.logo img {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
 }
 
 @keyframes bounceAndRotate {
@@ -211,6 +221,21 @@ section h2 {
     text-align: center;
     font-size: 2.5rem;
     margin-bottom: 3rem;
+}
+
+.about-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+}
+
+.about-title-photo {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
 }
 
 /* Section À propos */
@@ -502,15 +527,15 @@ section h2 {
     max-width: 960px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 220px 2fr 1fr;
+    grid-template-columns: 260px 2fr 1fr;
     gap: 2rem;
     align-items: start;
 }
 
 .contact-photo {
-    width: 220px;
-    height: 340px;
-    border-radius: 12px;
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
     overflow: hidden;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
@@ -646,7 +671,7 @@ footer {
     }
 
     .contact-photo {
-        max-width: 220px;
+        max-width: 260px;
         margin: 0 auto;
     }
 
