@@ -462,6 +462,15 @@ section h2 {
     background: #0056b3;
 }
 
+.project-links .project-link-private {
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    background: #e5e7eb;
+    color: #374151;
+    font-weight: 500;
+    cursor: default;
+}
+
 /* Style pour centrer les boutons dans les projets en ligne */
 .project-card .project-links {
     justify-content: center;
