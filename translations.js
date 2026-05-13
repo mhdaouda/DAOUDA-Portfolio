@@ -155,8 +155,8 @@ const translations = {
         "projects.bp2s.desc": "J'ai intégré l'équipe TICS de BP2S dans le cadre de la gestion des flux de données entres applications.",
         "projects.axa.desc": "J'ai intégré l'équipe d'AXA Group Solutions autour du projet Aura qui est un questionnaire en ligne destiné aux entités d'Axa proposant des services d'assurances en ligne.",
         "projects.total.desc": "J'ai intégré la brillante équipe TTED de la DSI de TOTAL dans le cadre du projet ISI. l'objetif était de géré les systèmes d'informations des stations francaises en principales et par la suite d'autres entités comme l'allemandes.",
-        "projects.nge.desc": "Au sein du pôle d’architecture du groupe américain Computer Sciences Corporation,j'ai participé en tant qu’ingénieur développeur Java JEE au projet Pharos pour le compte du groupe NGE",
-        "projects.cegedim.desc": "Au sein du pôle d’architecture du groupe américain Computer Sciences Corporation,j'ai participé en tant qu’ingénieur développeur Java JEE dans le cadre du projet Immochan pour le compte du Cegedim",
+        "projects.nge.desc": "Au sein du pôle d’architecture du groupe américain Computer Sciences Corporation, j'ai participé en tant qu’ingénieur développeur Java JEE au projet Pharos pour le compte du groupe NGE",
+        "projects.cegedim.desc": "Au sein du pôle d’architecture du groupe américain Computer Sciences Corporation, j'ai participé en tant qu’ingénieur développeur Java JEE dans le cadre du projet Immochan pour le compte du Cegedim",
         "projects.lbp.tasks.list": [
             "Recueil et analyse des besoins clients et Définition de la solution adéquate avec le métier",
             "Planification des différentes tâches à accomplir et Packaging de la nouvelle version d'ODM",
