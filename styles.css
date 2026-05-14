@@ -418,8 +418,30 @@ section h2 {
 
 .project-image {
     width: 100%;
-    height: 200px;
-    object-fit: cover;
+}
+
+/* Logos / captures : zone plus compacte, sans recadrage agressif */
+.project-card img.project-image {
+    height: 112px;
+    max-height: 112px;
+    width: auto;
+    max-width: 92%;
+    margin: 0 auto;
+    padding: 0.5rem 0.75rem;
+    box-sizing: border-box;
+    display: block;
+    object-fit: contain;
+    object-position: center;
+    background: linear-gradient(180deg, #fafbfc 0%, #eef0f3 100%);
+}
+
+/* Blocs gradient (ÉQUIP, RH, etc.) */
+.project-card > div.project-image {
+    width: 100%;
+    max-width: 100%;
+    min-height: 112px;
+    height: 140px;
+    box-sizing: border-box;
 }
 
 .project-info {
