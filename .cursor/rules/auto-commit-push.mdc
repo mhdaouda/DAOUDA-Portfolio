@@ -1,0 +1,29 @@
+---
+description: Commit and push automatically after portfolio changes
+alwaysApply: true
+---
+
+# Commit & push automatiques
+
+Après chaque modification de fichiers dans ce projet, **commit et push sans attendre que l'utilisateur le demande**.
+
+## Workflow
+
+1. Terminer les changements demandés.
+2. Vérifier `git status` et `git diff`.
+3. Commit avec un message concis (1–2 phrases, focus sur le pourquoi).
+4. Push sur `origin` (branche courante).
+5. Confirmer le hash du commit et que le push a réussi.
+
+## Exclusions
+
+- Ne pas committer de secrets (`.env`, clés API, credentials).
+- Ne pas push en force sur `main`/`master`.
+- Ne pas amend sauf si les règes git du projet l'autorisent explicitement.
+
+## Message de commit
+
+Utiliser le style du repo, par exemple :
+- `fix(home): …`
+- `content(projets): …`
+- `style: …`
