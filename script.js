@@ -205,7 +205,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Add data-translate attributes to elements
     document.querySelectorAll('a[href="index.html"]').forEach(el => el.setAttribute('data-translate', 'nav.home'));
     document.querySelectorAll('a[href="projets.html"]').forEach(el => el.setAttribute('data-translate', 'nav.projects'));
-    document.querySelectorAll('a[href="services.html"]').forEach(el => el.setAttribute('data-translate', 'nav.services'));
     document.querySelectorAll('a[href="contact.html"]').forEach(el => el.setAttribute('data-translate', 'nav.contact'));
     
     // Update chatbot language if chatbot exists

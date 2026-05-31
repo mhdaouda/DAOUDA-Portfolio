@@ -37,6 +37,7 @@ const translations = {
         'hero.description': 'Ingénieur passionné créant des solutions innovantes et participant à des projets décisifs',
         'hero.projects': 'Voir mes projets',
         'hero.services': 'Découvrir Mes services',
+        'hero.turbotech': 'TurboTech Consulting',
         'hero.contact': 'Me contacter',
         
         // Services
@@ -532,6 +533,7 @@ const translations = {
         'hero.description': 'Passionate engineer creating innovative solutions and participating in decisive projects',
         'hero.projects': 'View my projects',
         'hero.services': 'Discover My Services',
+        'hero.turbotech': 'TurboTech Consulting',
         'hero.contact': 'Contact me',
         
         // Services
