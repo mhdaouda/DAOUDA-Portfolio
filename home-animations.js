@@ -1,5 +1,5 @@
 /**
- * Animations hero page d'accueil — particules, typing, badges rôles, parallax
+ * Animations hero page d'accueil — particules, phrases rôles, parallax
  */
 (function () {
     const FALLBACK_CURRENT = [
@@ -17,8 +17,6 @@
         'Business analyst'
     ];
 
-    let typingTimer = null;
-
     function getLangPack() {
         const lang = (localStorage.getItem('language') || 'fr').toLowerCase();
         if (window.translations && window.translations[lang]) {
@@ -27,97 +25,27 @@
         return (window.translations && window.translations.fr) || {};
     }
 
-    function buildRoleSlides(t) {
-        const activePrefix = t['hero.typing.prefix.active'] || 'Je suis ';
-        const learningPrefix = t['hero.typing.prefix.learning'] || 'Je me forme en ';
-        const current = Array.isArray(t['hero.roles.current']) ? t['hero.roles.current'] : FALLBACK_CURRENT;
-        const learning = Array.isArray(t['hero.roles.learning']) ? t['hero.roles.learning'] : FALLBACK_LEARNING;
-
-        return [
-            ...current.map(text => ({ prefix: activePrefix, text })),
-            ...learning.map(text => ({ prefix: learningPrefix, text }))
-        ];
+    function formatRoleList(roles) {
+        return roles.join(', ');
     }
 
-    function populateRoleTags(t) {
-        const currentEl = document.getElementById('hero-roles-current');
-        const learningEl = document.getElementById('hero-roles-learning');
+    function populateRoleLines(t) {
+        const currentEl = document.getElementById('hero-roles-current-text');
+        const learningEl = document.getElementById('hero-roles-learning-text');
         if (!currentEl || !learningEl) return;
 
         const current = Array.isArray(t['hero.roles.current']) ? t['hero.roles.current'] : FALLBACK_CURRENT;
         const learning = Array.isArray(t['hero.roles.learning']) ? t['hero.roles.learning'] : FALLBACK_LEARNING;
 
-        currentEl.innerHTML = current.map(role => `<li>${role}</li>`).join('');
-        learningEl.innerHTML = learning.map(role => `<li>${role}</li>`).join('');
-    }
-
-    function initTyping(roleSlides) {
-        const typingEl = document.getElementById('hero-typing');
-        const prefixEl = document.getElementById('hero-typing-prefix');
-        if (!typingEl || !roleSlides.length) return;
-
-        if (typingTimer) {
-            clearTimeout(typingTimer);
-            typingTimer = null;
-        }
-
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            if (prefixEl) prefixEl.textContent = roleSlides[0].prefix;
-            typingEl.textContent = roleSlides[0].text;
-            return;
-        }
-
-        let slideIndex = 0;
-        let charIndex = 0;
-        let deleting = false;
-
-        function applySlide(slide, typedLength) {
-            if (prefixEl) prefixEl.textContent = slide.prefix;
-            typingEl.textContent = slide.text.slice(0, typedLength);
-        }
-
-        function schedule(fn, delay) {
-            typingTimer = setTimeout(fn, delay);
-        }
-
-        function tick() {
-            const slide = roleSlides[slideIndex];
-            if (!slide) return;
-
-            if (!deleting) {
-                charIndex++;
-                applySlide(slide, charIndex);
-                if (charIndex === slide.text.length) {
-                    schedule(() => { deleting = true; tick(); }, 2400);
-                    return;
-                }
-                schedule(tick, 52);
-            } else {
-                charIndex--;
-                applySlide(slide, charIndex);
-                if (charIndex === 0) {
-                    deleting = false;
-                    slideIndex = (slideIndex + 1) % roleSlides.length;
-                    schedule(tick, 450);
-                    return;
-                }
-                schedule(tick, 26);
-            }
-        }
-
-        applySlide(roleSlides[0], roleSlides[0].text.length);
-        charIndex = roleSlides[0].text.length;
-        deleting = true;
-        schedule(tick, 1200);
+        currentEl.textContent = formatRoleList(current);
+        learningEl.textContent = formatRoleList(learning);
     }
 
     function initHeroHome() {
         const hero = document.querySelector('.hero-modern');
         if (!hero) return;
 
-        const t = getLangPack();
-        populateRoleTags(t);
-        initTyping(buildRoleSlides(t));
+        populateRoleLines(getLangPack());
     }
 
     function initParticles() {
