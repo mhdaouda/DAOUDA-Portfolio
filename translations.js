@@ -39,6 +39,13 @@ const translations = {
         'hero.services': 'Découvrir Mes services',
         'hero.turbotech': 'TurboTech Consulting',
         'hero.contact': 'Me contacter',
+
+        'intro.skip': 'Passer l\'introduction',
+        'intro.subtitle': 'Portfolio personnel',
+        'intro.desc': 'Ingénieur passionné créant des solutions innovantes et participant à des projets décisifs.',
+        'intro.zones.label': 'Zones d\'intervention',
+        'intro.zones.list': 'France · Bénin · À distance',
+        'intro.skills.hint': 'Bienvenue sur mon portfolio',
         
         // Services
         'services.title': 'Mes Services',
@@ -540,6 +547,13 @@ const translations = {
         'hero.services': 'Discover My Services',
         'hero.turbotech': 'TurboTech Consulting',
         'hero.contact': 'Contact me',
+
+        'intro.skip': 'Skip introduction',
+        'intro.subtitle': 'Personal portfolio',
+        'intro.desc': 'Passionate engineer creating innovative solutions and participating in decisive projects.',
+        'intro.zones.label': 'Areas of operation',
+        'intro.zones.list': 'France · Benin · Remote',
+        'intro.skills.hint': 'Welcome to my portfolio',
         
         // Services
         'services.title': 'My Services',

@@ -51,7 +51,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=20260601">
+    <link rel="stylesheet" href="styles.css?v=20260603">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
 
@@ -59,6 +59,58 @@
     <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js"></script>
 </head>
 <body>
+    <div id="page-loader" class="page-loader" aria-live="polite">
+        <canvas id="loader-plexus" class="loader-plexus-canvas" aria-hidden="true"></canvas>
+        <div class="loader-scroll">
+            <div class="loader-panel">
+                <div class="loader-hex-frame" aria-hidden="true">
+                    <span class="loader-hex-corner loader-hex-corner--tl"></span>
+                    <span class="loader-hex-corner loader-hex-corner--tr"></span>
+                    <span class="loader-hex-corner loader-hex-corner--bl"></span>
+                    <span class="loader-hex-corner loader-hex-corner--br"></span>
+                </div>
+
+                <div id="loader-step-brand" class="loader-stage-step">
+                    <p class="loader-brand-neon" aria-label="DAOUDA">
+                        <span class="loader-brand-track">
+                            <span class="loader-brand-letter">D</span><span class="loader-brand-letter">A</span><span class="loader-brand-letter">O</span><span class="loader-brand-letter">U</span><span class="loader-brand-letter">D</span><span class="loader-brand-letter">A</span>
+                        </span>
+                    </p>
+                    <p class="loader-hex-subtitle" data-translate="intro.subtitle">Portfolio personnel</p>
+                    <div class="loader-brand-line" aria-hidden="true"></div>
+                </div>
+
+                <div id="loader-step-intro" class="loader-stage-step">
+                    <p class="loader-intro-desc" data-translate="intro.desc">Ingénieur passionné créant des solutions innovantes et participant à des projets décisifs.</p>
+                </div>
+
+                <div id="loader-step-zones" class="loader-stage-step">
+                    <div class="loader-zones-pill">
+                        <span class="loader-zones-dot" aria-hidden="true"></span>
+                        <span data-translate="intro.zones.label">Zones d'intervention</span>
+                        <span aria-hidden="true">•</span>
+                        <span data-translate="intro.zones.list">France · Bénin · À distance</span>
+                    </div>
+                </div>
+
+                <div id="loader-step-skills" class="loader-stage-step">
+                    <div class="loader-skills-shell">
+                        <ul class="loader-skills-tags" aria-label="Compétences">
+                            <li>DevOps</li>
+                            <li>Cloud</li>
+                            <li>Web</li>
+                            <li>React</li>
+                            <li>IA</li>
+                            <li>Tech Lead</li>
+                        </ul>
+                        <p class="loader-skills-hint" data-translate="intro.skills.hint">Bienvenue sur mon portfolio</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="button" id="loader-skip" class="loader-skip" data-translate="intro.skip">Passer l'introduction</button>
+    </div>
+
     <header>
         <nav>
             <div class="logo">
@@ -224,7 +276,8 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="translations.js?v=20260531"></script>
+    <script src="translations.js?v=20260603"></script>
+    <script src="intro-loader.js?v=20260603"></script>
     <script src="home-animations.js?v=20260531d"></script>
     <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js"></script>
     <script src="script.js"></script>
