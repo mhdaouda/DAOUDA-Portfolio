@@ -8,16 +8,19 @@ const translations = {
         'nav.skills': 'Compétences',
         
         // Hero Section
-        'hero.title': 'Hey, je suis Mohamed DAOUDA',
+        'hero.title': 'Hey, je suis AYINDE MOHAMED DAOUDA',
+        'hero.fullname': 'AYINDE MOHAMED DAOUDA',
         'hero.greeting': 'Hey, je suis',
         'hero.subtitle': 'Je suis Ingénieur en Informatique 💻',
-        'hero.badge': 'Ingénieur logiciel & consultant IT',
+        'hero.badge': 'Consultant IT & transformation digitale',
         'hero.typing.prefix': 'Je suis ',
         'hero.roles.list': [
-            'Ingénieur Full-Stack',
-            'Consultant IT & Digital',
-            'Tech Lead Java / Cloud',
-            'Fondateur de TurboTech'
+            'Consultant IT',
+            'Chef de projet technique',
+            'Business analyst',
+            'Ingénieur prod',
+            'Web intégrateur',
+            'Tech lead'
         ],
         'hero.stat.projects': 'Projets livrés',
         'hero.stat.experience': "Années d'expérience",
@@ -493,16 +496,19 @@ const translations = {
         'nav.skills': 'Skills',
         
         // Hero Section
-        'hero.title': 'Hey, I\'m Mohamed DAOUDA',
+        'hero.title': 'Hey, I\'m AYINDE MOHAMED DAOUDA',
+        'hero.fullname': 'AYINDE MOHAMED DAOUDA',
         'hero.greeting': 'Hey, I\'m',
         'hero.subtitle': 'I am a Computer Engineer 💻',
-        'hero.badge': 'Software engineer & IT consultant',
+        'hero.badge': 'IT consultant & digital transformation',
         'hero.typing.prefix': 'I am a ',
         'hero.roles.list': [
-            'Full-Stack Engineer',
-            'IT & Digital Consultant',
-            'Java / Cloud Tech Lead',
-            'Founder of TurboTech'
+            'IT Consultant',
+            'Technical Project Manager',
+            'Business Analyst',
+            'Production Engineer',
+            'Web Integrator',
+            'Tech Lead'
         ],
         'hero.stat.projects': 'Projects delivered',
         'hero.stat.experience': 'Years of experience',
