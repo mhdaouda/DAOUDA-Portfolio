@@ -6,15 +6,28 @@
     if (!hero) return;
 
     const lang = localStorage.getItem('language') || 'fr';
-    const roles = (window.translations && window.translations[lang] && window.translations[lang]['hero.roles.list'])
-        || ['Ingénieur Full-Stack', 'Consultant IT', 'Tech Lead', 'Architecte Cloud'];
+    const t = (window.translations && window.translations[lang]) || {};
+
+    function buildRoleSlides() {
+        const activePrefix = t['hero.typing.prefix.active'] || 'Je suis ';
+        const learningPrefix = t['hero.typing.prefix.learning'] || 'Je me forme en ';
+        const current = t['hero.roles.current'] || [];
+        const learning = t['hero.roles.learning'] || [];
+
+        return [
+            ...current.map(role => ({ prefix: activePrefix, text: role })),
+            ...learning.map(role => ({ prefix: learningPrefix, text: role }))
+        ];
+    }
+
+    const roleSlides = buildRoleSlides();
 
     /* --- Particules canvas --- */
     const canvas = hero.querySelector('.hero-particles');
     if (canvas) {
         const ctx = canvas.getContext('2d');
         let particles = [];
-        let w, h, animId;
+        let w, h;
         const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         function resize() {
@@ -62,7 +75,7 @@
                     }
                 }
             });
-            animId = requestAnimationFrame(drawParticles);
+            requestAnimationFrame(drawParticles);
         }
 
         resize();
@@ -71,38 +84,50 @@
         if (!prefersReduced) drawParticles();
     }
 
-    /* --- Effet typing sur les rôles --- */
+    /* --- Effet typing : postes actuels + formations visées --- */
     const typingEl = document.getElementById('hero-typing');
-    if (typingEl && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        let roleIndex = 0;
+    const prefixEl = document.getElementById('hero-typing-prefix');
+
+    if (typingEl && roleSlides.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        let slideIndex = 0;
         let charIndex = 0;
         let deleting = false;
 
+        function applySlide(slide, typedLength) {
+            if (prefixEl) prefixEl.textContent = slide.prefix;
+            typingEl.textContent = slide.text.slice(0, typedLength);
+        }
+
         function tick() {
-            const current = roles[roleIndex] || '';
+            const slide = roleSlides[slideIndex];
+            if (!slide) return;
+
             if (!deleting) {
-                typingEl.textContent = current.slice(0, charIndex + 1);
                 charIndex++;
-                if (charIndex === current.length) {
-                    setTimeout(() => { deleting = true; tick(); }, 2200);
+                applySlide(slide, charIndex);
+                if (charIndex === slide.text.length) {
+                    setTimeout(() => { deleting = true; tick(); }, 2400);
                     return;
                 }
-                setTimeout(tick, 55);
+                setTimeout(tick, 52);
             } else {
-                typingEl.textContent = current.slice(0, charIndex - 1);
                 charIndex--;
+                applySlide(slide, charIndex);
                 if (charIndex === 0) {
                     deleting = false;
-                    roleIndex = (roleIndex + 1) % roles.length;
-                    setTimeout(tick, 400);
+                    slideIndex = (slideIndex + 1) % roleSlides.length;
+                    setTimeout(tick, 450);
                     return;
                 }
-                setTimeout(tick, 28);
+                setTimeout(tick, 26);
             }
         }
+
+        applySlide(roleSlides[0], 0);
         setTimeout(tick, 800);
-    } else if (typingEl) {
-        typingEl.textContent = roles[0] || '';
+    } else if (typingEl && roleSlides.length) {
+        if (prefixEl) prefixEl.textContent = roleSlides[0].prefix;
+        typingEl.textContent = roleSlides[0].text;
     }
 
     /* --- Parallax souris sur glows + visuel --- */
@@ -112,10 +137,8 @@
 
     hero.addEventListener('mousemove', (e) => {
         const rect = hero.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width - 0.5;
-        const y = (e.clientY - rect.top) / rect.height - 0.5;
-        targetX = x;
-        targetY = y;
+        targetX = (e.clientX - rect.left) / rect.width - 0.5;
+        targetY = (e.clientY - rect.top) / rect.height - 0.5;
     });
 
     hero.addEventListener('mouseleave', () => {

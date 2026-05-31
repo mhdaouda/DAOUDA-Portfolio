@@ -2609,6 +2609,11 @@ header.header-scrolled .nav-links a {
     min-height: 1.6em;
 }
 
+#hero-typing-prefix {
+    color: #cbd5e1;
+    font-weight: 500;
+}
+
 .hero-typing-text {
     color: #38bdf8;
     font-weight: 700;

@@ -13,14 +13,21 @@ const translations = {
         'hero.greeting': 'Hey, je suis',
         'hero.subtitle': 'Je suis Ingénieur en Informatique 💻',
         'hero.badge': 'Consultant IT & transformation digitale',
-        'hero.typing.prefix': 'Je suis ',
-        'hero.roles.list': [
-            'Consultant IT',
-            'Chef de projet technique',
-            'Business analyst',
+        'hero.typing.prefix.active': 'Je suis ',
+        'hero.typing.prefix.learning': 'Je me forme en ',
+        'hero.roles.current': [
+            'Ingénieur DevOps',
             'Ingénieur prod',
             'Web intégrateur',
-            'Tech lead'
+            'Tech lead',
+            'Chef de projet technique'
+        ],
+        'hero.roles.learning': [
+            'Data Scientist',
+            'Ingénieur IA',
+            'Product Builder',
+            'Ingénieur sécurité informatique',
+            'Business analyst'
         ],
         'hero.stat.projects': 'Projets livrés',
         'hero.stat.experience': "Années d'expérience",
@@ -501,14 +508,21 @@ const translations = {
         'hero.greeting': 'Hey, I\'m',
         'hero.subtitle': 'I am a Computer Engineer 💻',
         'hero.badge': 'IT consultant & digital transformation',
-        'hero.typing.prefix': 'I am a ',
-        'hero.roles.list': [
-            'IT Consultant',
-            'Technical Project Manager',
-            'Business Analyst',
+        'hero.typing.prefix.active': 'I am a ',
+        'hero.typing.prefix.learning': 'Training to become a ',
+        'hero.roles.current': [
+            'DevOps Engineer',
             'Production Engineer',
             'Web Integrator',
-            'Tech Lead'
+            'Tech Lead',
+            'Technical Project Manager'
+        ],
+        'hero.roles.learning': [
+            'Data Scientist',
+            'AI Engineer',
+            'Product Builder',
+            'Cybersecurity Engineer',
+            'Business Analyst'
         ],
         'hero.stat.projects': 'Projects delivered',
         'hero.stat.experience': 'Years of experience',
