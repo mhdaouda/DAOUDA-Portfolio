@@ -8,8 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=20260601">
+    <link rel="stylesheet" href="styles.css?v=20260602">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
 </head>
 <body>
     <div class="popup-overlay" id="popupOverlay"></div>
@@ -108,6 +109,14 @@
                                 </a>
                             </div>
                         </div>
+                        <div class="contact-booking-cta">
+                            <h4 data-translate="contact.booking.title">Prendre rendez-vous</h4>
+                            <p data-translate="contact.booking.desc">Réservez un créneau de 30 minutes pour échanger sur votre projet.</p>
+                            <a href="https://calendly.com/daoudayinde/30min" class="cta-button hero-cta-primary contact-calendly-btn" target="_blank" rel="noopener noreferrer">
+                                <i class="fas fa-calendar-check" aria-hidden="true"></i>
+                                <span data-translate="contact.booking.cta">Réserver sur Calendly</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <div class="form-container fade-up delay-2">
@@ -126,6 +135,14 @@
                     </form>
                 </div>
             </div>
+
+            <section class="contact-calendly-section fade-up delay-3" aria-labelledby="calendly-heading">
+                <div class="contact-calendly-header">
+                    <h2 id="calendly-heading" data-translate="contact.booking.widget.title">Choisissez votre créneau</h2>
+                    <p data-translate="contact.booking.widget.desc">Sélectionnez directement un horaire disponible dans mon agenda.</p>
+                </div>
+                <div class="calendly-inline-widget" data-url="https://calendly.com/daoudayinde/30min"></div>
+            </section>
         </section>
     </main>
 
@@ -138,5 +155,6 @@
     <script src="chatbot-data.js"></script>
     <script src="chatbot.js"></script>
     <script src="portfolio-animations.js"></script>
+    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 </body>
 </html> 

@@ -108,6 +108,11 @@ const translations = {
         'contact.talk': 'Parlons de votre projet',
         'contact.intro': 'Disponible pour vos projets web, mobile, cloud et conseil IT — en France, au Bénin et à distance.',
         'contact.description': 'N\'hésitez pas à me contacter pour discuter de vos projets ou besoin de formation ou pour toute question.',
+        'contact.booking.title': 'Prendre rendez-vous',
+        'contact.booking.desc': 'Réservez un créneau de 30 minutes pour échanger sur votre projet.',
+        'contact.booking.cta': 'Réserver sur Calendly',
+        'contact.booking.widget.title': 'Choisissez votre créneau',
+        'contact.booking.widget.desc': 'Sélectionnez directement un horaire disponible dans mon agenda.',
         'contact.download.cv': 'Télécharger mon CV',
         
         // Footer
@@ -604,6 +609,11 @@ const translations = {
         'contact.talk': 'Let\'s talk about your project',
         'contact.intro': 'Available for web, mobile, cloud and IT consulting projects — in France, Benin and remotely.',
         'contact.description': 'Feel free to contact me to discuss your projects, training needs, or any questions.',
+        'contact.booking.title': 'Book a meeting',
+        'contact.booking.desc': 'Book a 30-minute slot to discuss your project.',
+        'contact.booking.cta': 'Book on Calendly',
+        'contact.booking.widget.title': 'Pick your time slot',
+        'contact.booking.widget.desc': 'Select an available time directly in my calendar.',
         'contact.download.cv': 'Download my CV',
         
         // Footer
