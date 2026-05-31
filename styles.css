@@ -2615,12 +2615,22 @@ header.header-scrolled .nav-links a {
     color: #cbd5e1;
     max-width: 620px;
     margin: 0 0 0.85rem;
+    min-height: 1.8em;
 }
 
 .hero-roles-label {
     font-weight: 700;
     color: #f1f5f9;
     margin-right: 0.35rem;
+}
+
+.hero-typing-text {
+    color: #38bdf8;
+    font-weight: 700;
+}
+
+.hero-typing-text--learning {
+    color: #a5f3fc;
 }
 
 .hero-roles-line--learning {
@@ -2631,14 +2641,14 @@ header.header-scrolled .nav-links a {
     color: #7dd3fc;
 }
 
-.hero-roles-line--learning span:last-child {
-    color: #a5f3fc;
-}
-
 .typing-cursor {
     color: #38bdf8;
     animation: cursorBlink 0.9s step-end infinite;
     margin-left: 2px;
+}
+
+.typing-cursor--learning {
+    color: #a5f3fc;
 }
 
 @keyframes cursorBlink {

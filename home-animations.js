@@ -1,5 +1,5 @@
 /**
- * Animations hero page d'accueil — particules, phrases rôles, parallax
+ * Animations hero page d'accueil — particules, typing rôles, parallax
  */
 (function () {
     const FALLBACK_CURRENT = [
@@ -17,6 +17,9 @@
         'Business analyst'
     ];
 
+    let clearCurrentTyping = null;
+    let clearLearningTyping = null;
+
     function getLangPack() {
         const lang = (localStorage.getItem('language') || 'fr').toLowerCase();
         if (window.translations && window.translations[lang]) {
@@ -29,23 +32,93 @@
         return roles.join(', ');
     }
 
-    function populateRoleLines(t) {
+    function createTypingAnimation(element, roles, options) {
+        const opts = Object.assign({
+            typeSpeed: 52,
+            deleteSpeed: 26,
+            pauseEnd: 2400,
+            pauseStart: 450,
+            startDelay: 800
+        }, options);
+
+        let timer = null;
+        let roleIndex = 0;
+        let charIndex = 0;
+        let deleting = false;
+
+        function clear() {
+            if (timer) {
+                clearTimeout(timer);
+                timer = null;
+            }
+        }
+
+        function tick() {
+            const text = roles[roleIndex];
+            if (!text) return;
+
+            if (!deleting) {
+                charIndex += 1;
+                element.textContent = text.slice(0, charIndex);
+                if (charIndex === text.length) {
+                    timer = setTimeout(function () {
+                        deleting = true;
+                        tick();
+                    }, opts.pauseEnd);
+                    return;
+                }
+                timer = setTimeout(tick, opts.typeSpeed);
+            } else {
+                charIndex -= 1;
+                element.textContent = text.slice(0, charIndex);
+                if (charIndex === 0) {
+                    deleting = false;
+                    roleIndex = (roleIndex + 1) % roles.length;
+                    timer = setTimeout(tick, opts.pauseStart);
+                    return;
+                }
+                timer = setTimeout(tick, opts.deleteSpeed);
+            }
+        }
+
+        element.textContent = roles[0];
+        charIndex = roles[0].length;
+        deleting = true;
+        timer = setTimeout(tick, opts.startDelay);
+
+        return clear;
+    }
+
+    function initRoleTyping(t) {
         const currentEl = document.getElementById('hero-roles-current-text');
         const learningEl = document.getElementById('hero-roles-learning-text');
         if (!currentEl || !learningEl) return;
 
+        if (clearCurrentTyping) clearCurrentTyping();
+        if (clearLearningTyping) clearLearningTyping();
+        clearCurrentTyping = null;
+        clearLearningTyping = null;
+
         const current = Array.isArray(t['hero.roles.current']) ? t['hero.roles.current'] : FALLBACK_CURRENT;
         const learning = Array.isArray(t['hero.roles.learning']) ? t['hero.roles.learning'] : FALLBACK_LEARNING;
 
-        currentEl.textContent = formatRoleList(current);
-        learningEl.textContent = formatRoleList(learning);
+        if (!current.length || !learning.length) return;
+
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            currentEl.textContent = formatRoleList(current);
+            learningEl.textContent = formatRoleList(learning);
+            return;
+        }
+
+        clearCurrentTyping = createTypingAnimation(currentEl, current, { startDelay: 900 });
+        clearLearningTyping = createTypingAnimation(learningEl, learning, { startDelay: 1400 });
     }
 
     function initHeroHome() {
         const hero = document.querySelector('.hero-modern');
         if (!hero) return;
 
-        populateRoleLines(getLangPack());
+        initRoleTyping(getLangPack());
     }
 
     function initParticles() {
