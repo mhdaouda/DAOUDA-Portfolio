@@ -197,6 +197,10 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Initial content update
     updateContent();
+
+    if (typeof window.initHeroHome === 'function') {
+        window.initHeroHome();
+    }
     
     // Add data-translate attributes to elements
     document.querySelectorAll('a[href="index.html"]').forEach(el => el.setAttribute('data-translate', 'nav.home'));

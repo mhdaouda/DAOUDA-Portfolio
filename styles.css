@@ -3136,6 +3136,18 @@ header.header-scrolled .nav-links a {
     }
 }
 
+@media (prefers-reduced-motion: reduce) {
+    .hero-animate-in {
+        opacity: 1;
+        transform: none;
+        animation: none;
+    }
+
+    .hero-roles-tags li {
+        animation: none;
+    }
+}
+
 /* Scroll reveal étendu */
 .fade-up {
     opacity: 0;
