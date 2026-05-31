@@ -96,6 +96,8 @@ const translations = {
         
         // Language Switch
         'lang.switch': 'Switch to English',
+        'theme.light': 'Activer le mode clair',
+        'theme.dark': 'Activer le mode sombre',
         
         // Politique de confidentialité
         'privacy.title': 'Politique de Confidentialité',
@@ -571,6 +573,8 @@ const translations = {
         
         // Language Switch
         'lang.switch': 'Passer en Français',
+        'theme.light': 'Switch to light mode',
+        'theme.dark': 'Switch to dark mode',
         
         // Privacy Policy
         'privacy.title': 'Privacy Policy',

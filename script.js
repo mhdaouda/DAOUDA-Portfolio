@@ -67,6 +67,10 @@ function updateContent() {
     if (langSwitch) {
         langSwitch.textContent = translations[currentLang]['lang.switch'];
     }
+
+    if (typeof updateThemeToggleUI === 'function') {
+        updateThemeToggleUI();
+    }
 }
 
 // Mobile Navigation
@@ -162,14 +166,26 @@ menuItems.forEach(item => {
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
-    // Add language switcher to all pages
+    const toolbar = document.createElement('div');
+    toolbar.className = 'site-toolbar';
+
+    const themeBtn = document.createElement('button');
+    themeBtn.type = 'button';
+    themeBtn.className = 'theme-toggle';
+    themeBtn.addEventListener('click', () => {
+        if (typeof toggleTheme === 'function') toggleTheme();
+    });
+    toolbar.appendChild(themeBtn);
+
     const langSwitch = document.createElement('div');
     langSwitch.className = 'language-switcher';
     langSwitch.textContent = translations[currentLang]['lang.switch'];
     langSwitch.addEventListener('click', () => {
         setLanguage(currentLang === 'fr' ? 'en' : 'fr');
     });
-    document.body.appendChild(langSwitch);
+    toolbar.appendChild(langSwitch);
+
+    document.body.appendChild(toolbar);
     
     // Initial content update
     updateContent();
