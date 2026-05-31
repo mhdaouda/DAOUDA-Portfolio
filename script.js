@@ -185,7 +185,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     toolbar.appendChild(langSwitch);
 
-    document.body.appendChild(toolbar);
+    const nav = document.querySelector('nav');
+    const burger = document.querySelector('.burger');
+    if (nav && burger) {
+        nav.insertBefore(toolbar, burger);
+    } else {
+        document.body.appendChild(toolbar);
+    }
     
     // Initial content update
     updateContent();
