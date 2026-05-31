@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Expériences Professionnelles - Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -32,9 +35,15 @@
     </header>
 
     <main>
+        <section class="page-hero">
+            <div class="page-hero-content">
+                <span class="page-hero-badge fade-up">Carrière</span>
+                <h1 class="fade-up delay-1" data-translate="projects.experience">Expériences Professionnelles 💼</h1>
+                <p class="fade-up delay-2">Banque, assurance, énergie et grands comptes — missions techniques et leadership.</p>
+            </div>
+        </section>
         <section class="experience-section">
-            <h2 data-translate="projects.experience">Expériences Professionnelles 💼</h2>
-            <div class="experiences-container">
+            <div class="experiences-container stagger-children">
                 <div class="experience-card">
                     <div class="experience-header">
                         <img src="images/banquepostale.png" alt="La Banque Postale" class="company-logo">
@@ -163,5 +172,6 @@
     <script src="script.js"></script>
     <script src="chatbot-data.js"></script>
     <script src="chatbot.js"></script>
+    <script src="portfolio-animations.js"></script>
 </body>
 </html> 

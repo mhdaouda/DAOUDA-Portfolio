@@ -8,8 +8,12 @@ const translations = {
         'nav.skills': 'Compétences',
         
         // Hero Section
-        'hero.title': 'Je suis Ingénieur en Informatique 💻',
-        'hero.subtitle': 'Créateur de solutions web innovantes',
+        'hero.title': 'Hey, je suis Mohamed DAOUDA',
+        'hero.subtitle': 'Je suis Ingénieur en Informatique 💻',
+        'hero.badge': 'Ingénieur logiciel & consultant IT',
+        'hero.stat.projects': 'Projets livrés',
+        'hero.stat.experience': "Années d'expérience",
+        'hero.stat.domains': "Domaines d'expertise",
         'hero.cta': 'Découvrir mes services',
         'hero.cv': 'Télécharger mon CV',
         'hero.description': 'Ingénieur passionné créant des solutions innovantes et partipants à des projets décisifs',
@@ -83,6 +87,7 @@ const translations = {
         
         // Contact Section
         'contact.talk': 'Parlons de votre projet',
+        'contact.intro': 'Disponible pour vos projets web, mobile, cloud et conseil IT — en France, au Bénin et à distance.',
         'contact.description': 'N\'hésitez pas à me contacter pour discuter de vos projets ou besoin de formation ou pour toute question.',
         'contact.download.cv': 'Télécharger mon CV',
         
@@ -478,8 +483,12 @@ const translations = {
         'nav.skills': 'Skills',
         
         // Hero Section
-        'hero.title': 'I am a Computer Engineer 💻',
-        'hero.subtitle': 'Creator of innovative web solutions',
+        'hero.title': 'Hey, I\'m Mohamed DAOUDA',
+        'hero.subtitle': 'I am a Computer Engineer 💻',
+        'hero.badge': 'Software engineer & IT consultant',
+        'hero.stat.projects': 'Projects delivered',
+        'hero.stat.experience': 'Years of experience',
+        'hero.stat.domains': 'Areas of expertise',
         'hero.cta': 'Discover my services',
         'hero.cv': 'Download my CV',
         'hero.description': 'Passionate engineer creating innovative solutions and participating in decisive projects',
@@ -553,6 +562,7 @@ const translations = {
         
         // Contact Section
         'contact.talk': 'Let\'s talk about your project',
+        'contact.intro': 'Available for web, mobile, cloud and IT consulting projects — in France, Benin and remotely.',
         'contact.description': 'Feel free to contact me to discuss your projects, training needs, or any questions.',
         'contact.download.cv': 'Download my CV',
         

@@ -47,6 +47,9 @@
   <meta property="og:url" content="https://www.daoudayinde.com/" />
   <meta property="og:type" content="website" />
     <title>Portfolio - Mohamed DAOUDA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
@@ -79,13 +82,18 @@
     </header>
 
     <main>
-        <section id="accueil" class="hero">
+        <section id="accueil" class="hero hero-modern">
+            <div class="hero-bg" aria-hidden="true">
+                <div class="hero-grid"></div>
+                <div class="hero-glow hero-glow-1"></div>
+                <div class="hero-glow hero-glow-2"></div>
+            </div>
             <div class="hero-content">
-
-                <h1 class="hero-title" data-translate="hero.title">Hey, je suis Mohamed DAOUDA</h1>
-                <p class="tagline" data-translate="hero.subtitle">Je suis Ingénieur en Informatique 💻</p>
-                <p class="description" data-translate="hero.description">Ingénieur passionné créant des solutions innovantes et partipants à des projets décisifs</p>
-                <div class="hero-buttons">
+                <span class="hero-badge hero-animate-in" data-translate="hero.badge">Ingénieur logiciel &amp; consultant IT</span>
+                <h1 class="hero-title hero-animate-in delay-1" data-translate="hero.title">Hey, je suis Mohamed DAOUDA</h1>
+                <p class="tagline hero-animate-in delay-2" data-translate="hero.subtitle">Je suis Ingénieur en Informatique 💻</p>
+                <p class="description hero-animate-in delay-3" data-translate="hero.description">Ingénieur passionné créant des solutions innovantes et partipants à des projets décisifs</p>
+                <div class="hero-buttons hero-animate-in delay-4">
                     <a href="projets.html" class="cta-button secondary" data-translate="hero.projects">Voir Mes projets en ligne</a>
                     <a href="services.html" class="cta-button secondary" data-translate="hero.services">Découvrir Mes services</a>
                     <a href="competences.html" class="cta-button secondary" data-translate="skills.view">Voir mes compétences</a>
@@ -94,21 +102,35 @@
                         <i class="fas fa-download"></i> Télécharger mon CV
                     </a>
                 </div>
+                <div class="hero-stats-inline hero-animate-in delay-5">
+                    <div class="stat">
+                        <span class="stat-number" data-count="50" data-suffix="+">0+</span>
+                        <span class="stat-label" data-translate="hero.stat.projects">Projets livrés</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number" data-count="5" data-suffix="+">0+</span>
+                        <span class="stat-label" data-translate="hero.stat.experience">Années d'expérience</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number" data-count="8" data-suffix="+">0+</span>
+                        <span class="stat-label" data-translate="hero.stat.domains">Domaines d'expertise</span>
+                    </div>
+                </div>
             </div>
         </section>
 
         <section id="apropos" class="about">
-            <h2 class="about-title">
+            <h2 class="about-title fade-up">
                 <img class="about-title-photo" src="images/profile-pic.png" alt="Photo de profil">
                 <span data-translate="about.title">À propos de moi</span>
             </h2>
             <div class="about-content">
-                <div class="about-text">
+                <div class="about-text fade-up delay-1">
                     <h3 data-translate="about.title">À propos de moi</h3>
                     <p data-translate="about.description">Passionné par le développement logiciel, je m'engage à créer des solutions robustes et innovantes. Mon approche combine une expertise technique approfondie avec une attention particulière à la qualité du code et à l'expérience utilisateur. Je m'efforce constamment d'améliorer mes compétences et de rester à jour avec les dernières technologies.</p>
                     
                     <h3 data-translate="about.education">Formation</h3>
-                    <div class="education-timeline">
+                    <div class="education-timeline stagger-children">
                         <div class="education-item">
                             <div class="education-year">2020</div>
                             <div class="education-details">
@@ -146,7 +168,7 @@
                         </div>
                     </div>
                 </div>
-                    <div class="goals">
+                    <div class="goals stagger-children">
                         <div class="goal-item">
                         <i class="fas fa-code"></i>
                         <h4 data-translate="about.goals.technical">Expertise Technique</h4>
@@ -177,5 +199,6 @@
     <script src="script.js"></script>
     <script src="chatbot-data.js"></script>
     <script src="chatbot.js"></script>
+    <script src="portfolio-animations.js"></script>
 </body>
 </html> 

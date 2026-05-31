@@ -5,21 +5,42 @@ class PortfolioAnimations {
     }
 
     init() {
+        this.setupHeaderScroll();
         this.setupScrollAnimations();
+        this.setupStaggerAnimations();
         this.setupParallaxEffects();
         this.setupSkillBars();
         this.setupTimelineAnimations();
+        this.setupStatCounters();
+    }
+
+    setupHeaderScroll() {
+        const header = document.querySelector('header');
+        if (!header) return;
+
+        const onScroll = () => {
+            header.classList.toggle('header-scrolled', window.scrollY > 40);
+        };
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
     }
 
     // Animations au scroll
     setupScrollAnimations() {
+        const selectors = [
+            '.scroll-animate',
+            '.scroll-animate-left',
+            '.scroll-animate-right',
+            '.fade-up'
+        ].join(', ');
+
         const observerOptions = {
             root: null,
-            rootMargin: '0px 0px -100px 0px',
-            threshold: 0.1
+            rootMargin: '0px 0px -80px 0px',
+            threshold: 0.12
         };
 
-        const observer = new IntersectionObserver((entries) => {
+        this.scrollObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('animate');
@@ -27,9 +48,57 @@ class PortfolioAnimations {
             });
         }, observerOptions);
 
-        // Observer tous les éléments avec les classes d'animation
-        document.querySelectorAll('.scroll-animate, .scroll-animate-left, .scroll-animate-right').forEach(el => {
-            observer.observe(el);
+        document.querySelectorAll(selectors).forEach(el => {
+            this.scrollObserver.observe(el);
+        });
+    }
+
+    observeScrollElements(container) {
+        if (!this.scrollObserver || !container) return;
+        container.querySelectorAll('.scroll-animate, .scroll-animate-left, .scroll-animate-right, .fade-up').forEach(el => {
+            this.scrollObserver.observe(el);
+        });
+    }
+
+    setupStaggerAnimations() {
+        const staggerObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-children');
+                }
+            });
+        }, { rootMargin: '0px 0px -60px 0px', threshold: 0.15 });
+
+        document.querySelectorAll('.stagger-children').forEach(el => {
+            staggerObserver.observe(el);
+        });
+    }
+
+    setupStatCounters() {
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting || entry.target.dataset.counted) return;
+                entry.target.dataset.counted = 'true';
+                const el = entry.target;
+                const target = parseInt(el.dataset.count, 10);
+                const suffix = el.dataset.suffix || '';
+                if (Number.isNaN(target)) return;
+
+                const duration = 1400;
+                const start = performance.now();
+
+                const tick = (now) => {
+                    const progress = Math.min((now - start) / duration, 1);
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    el.textContent = Math.round(target * eased) + suffix;
+                    if (progress < 1) requestAnimationFrame(tick);
+                };
+                requestAnimationFrame(tick);
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('[data-count]').forEach(el => {
+            counterObserver.observe(el);
         });
     }
 

@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact - Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -38,16 +41,24 @@
     </header>
 
     <main>
-        <section id="contact" class="contact">
-            <h2 data-translate="contact.title">Contactez-moi</h2>
+        <section class="page-hero">
+            <div class="page-hero-content">
+                <span class="page-hero-badge fade-up">Contact</span>
+                <h1 class="fade-up delay-1" data-translate="contact.title">Contactez-moi</h1>
+                <p class="fade-up delay-2" data-translate="contact.description">N'hésitez pas à me contacter pour discuter de vos projets ou besoin de formation ou pour toute question.</p>
+            </div>
+        </section>
+        <section id="contact" class="contact contact-page">
             <div class="contact-content">
-                <div class="contact-photo">
-                    <img src="images/profile-pic.png" alt="Photo de contact">
+                <div class="contact-photo fade-up">
+                    <div class="contact-photo-frame">
+                        <img src="images/contact-photo.png" alt="Mohamed DAOUDA — photo de contact">
+                    </div>
                 </div>
-                <div class="contact-info">
+                <div class="contact-info fade-up delay-1">
                     <div class="contact-details">
                         <h3 data-translate="contact.talk">Parlons de votre projet</h3>
-                        <p data-translate="contact.description">N'hésitez pas à me contacter pour discuter de vos projets ou besoin de formation ou pour toute question.</p>
+                        <p data-translate="contact.intro">Disponible pour vos projets web, mobile, cloud et conseil IT — en France, au Bénin et à distance.</p>
                         <div class="contact-methods">
                             <div class="contact-method">
                                 <i class="fas fa-envelope"></i>
@@ -99,7 +110,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-container">
+                <div class="form-container fade-up delay-2">
                     <form id="contact-form" action="https://formsubmit.co/daoudayinde@gmail.com" method="POST" onsubmit="return handleSubmit(event)">
                         <!-- Honeypot -->
                         <input type="text" name="_honey" style="display:none">
@@ -126,5 +137,6 @@
     <script src="script.js"></script>
     <script src="chatbot-data.js"></script>
     <script src="chatbot.js"></script>
+    <script src="portfolio-animations.js"></script>
 </body>
 </html> 
