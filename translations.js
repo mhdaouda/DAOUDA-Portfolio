@@ -15,6 +15,8 @@ const translations = {
         'hero.badge': 'Consultant IT & transformation digitale',
         'hero.typing.prefix.active': 'Je suis ',
         'hero.typing.prefix.learning': 'Je me forme en ',
+        'hero.roles.current.title': 'Postes actuels',
+        'hero.roles.learning.title': 'Formations visées',
         'hero.roles.current': [
             'Ingénieur DevOps',
             'Ingénieur prod',
@@ -510,6 +512,8 @@ const translations = {
         'hero.badge': 'IT consultant & digital transformation',
         'hero.typing.prefix.active': 'I am a ',
         'hero.typing.prefix.learning': 'Training to become a ',
+        'hero.roles.current.title': 'Current roles',
+        'hero.roles.learning.title': 'Training goals',
         'hero.roles.current': [
             'DevOps Engineer',
             'Production Engineer',

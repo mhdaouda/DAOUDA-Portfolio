@@ -2605,8 +2605,8 @@ header.header-scrolled .nav-links a {
 .hero-tagline {
     font-size: clamp(1.05rem, 2.2vw, 1.35rem);
     color: #cbd5e1;
-    margin-bottom: 1rem;
-    min-height: 1.6em;
+    margin-bottom: 1.25rem;
+    min-height: 1.8em;
 }
 
 #hero-typing-prefix {
@@ -2617,6 +2617,65 @@ header.header-scrolled .nav-links a {
 .hero-typing-text {
     color: #38bdf8;
     font-weight: 700;
+}
+
+.hero-roles-panel {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    max-width: 560px;
+}
+
+.hero-roles-heading {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #64748b;
+    margin: 0 0 0.55rem;
+}
+
+.hero-roles-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.hero-roles-tags li {
+    padding: 0.4rem 0.85rem;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #e2e8f0;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    animation: roleTagIn 0.5s ease backwards;
+}
+
+.hero-roles-tags li:nth-child(1) { animation-delay: 0.05s; }
+.hero-roles-tags li:nth-child(2) { animation-delay: 0.1s; }
+.hero-roles-tags li:nth-child(3) { animation-delay: 0.15s; }
+.hero-roles-tags li:nth-child(4) { animation-delay: 0.2s; }
+.hero-roles-tags li:nth-child(5) { animation-delay: 0.25s; }
+
+.hero-roles-tags--learning li {
+    color: #a5f3fc;
+    border-color: rgba(56, 189, 248, 0.25);
+    background: rgba(56, 189, 248, 0.08);
+}
+
+@keyframes roleTagIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .typing-cursor {
@@ -3067,7 +3126,8 @@ header.header-scrolled .nav-links a {
 .hero-animate-in.delay-2 { animation-delay: 0.24s; }
 .hero-animate-in.delay-3 { animation-delay: 0.36s; }
 .hero-animate-in.delay-4 { animation-delay: 0.48s; }
-.hero-animate-in.delay-5 { animation-delay: 0.6s; }
+.hero-animate-in.delay-5 { animation-delay: 0.48s; }
+.hero-animate-in.delay-6 { animation-delay: 0.6s; }
 
 @keyframes heroFadeUp {
     to {
@@ -3281,6 +3341,10 @@ footer p {
 
     .hero-stats-inline {
         justify-content: center;
+    }
+
+    .hero-roles-panel {
+        max-width: 100%;
     }
 
     .hero-stats-inline {

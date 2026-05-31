@@ -1,31 +1,133 @@
 /**
- * Animations hero page d'accueil — particules, typing, parallax
+ * Animations hero page d'accueil — particules, typing, badges rôles, parallax
  */
 (function () {
-    const hero = document.querySelector('.hero-modern');
-    if (!hero) return;
+    const FALLBACK_CURRENT = [
+        'Ingénieur DevOps',
+        'Ingénieur prod',
+        'Web intégrateur',
+        'Tech lead',
+        'Chef de projet technique'
+    ];
+    const FALLBACK_LEARNING = [
+        'Data Scientist',
+        'Ingénieur IA',
+        'Product Builder',
+        'Ingénieur sécurité informatique',
+        'Business analyst'
+    ];
 
-    const lang = localStorage.getItem('language') || 'fr';
-    const t = (window.translations && window.translations[lang]) || {};
+    let typingTimer = null;
 
-    function buildRoleSlides() {
+    function getLangPack() {
+        const lang = (localStorage.getItem('language') || 'fr').toLowerCase();
+        if (window.translations && window.translations[lang]) {
+            return window.translations[lang];
+        }
+        return (window.translations && window.translations.fr) || {};
+    }
+
+    function buildRoleSlides(t) {
         const activePrefix = t['hero.typing.prefix.active'] || 'Je suis ';
         const learningPrefix = t['hero.typing.prefix.learning'] || 'Je me forme en ';
-        const current = t['hero.roles.current'] || [];
-        const learning = t['hero.roles.learning'] || [];
+        const current = Array.isArray(t['hero.roles.current']) ? t['hero.roles.current'] : FALLBACK_CURRENT;
+        const learning = Array.isArray(t['hero.roles.learning']) ? t['hero.roles.learning'] : FALLBACK_LEARNING;
 
         return [
-            ...current.map(role => ({ prefix: activePrefix, text: role })),
-            ...learning.map(role => ({ prefix: learningPrefix, text: role }))
+            ...current.map(text => ({ prefix: activePrefix, text })),
+            ...learning.map(text => ({ prefix: learningPrefix, text }))
         ];
     }
 
-    const roleSlides = buildRoleSlides();
+    function populateRoleTags(t) {
+        const currentEl = document.getElementById('hero-roles-current');
+        const learningEl = document.getElementById('hero-roles-learning');
+        if (!currentEl || !learningEl) return;
 
-    /* --- Particules canvas --- */
-    const canvas = hero.querySelector('.hero-particles');
-    if (canvas) {
+        const current = Array.isArray(t['hero.roles.current']) ? t['hero.roles.current'] : FALLBACK_CURRENT;
+        const learning = Array.isArray(t['hero.roles.learning']) ? t['hero.roles.learning'] : FALLBACK_LEARNING;
+
+        currentEl.innerHTML = current.map(role => `<li>${role}</li>`).join('');
+        learningEl.innerHTML = learning.map(role => `<li>${role}</li>`).join('');
+    }
+
+    function initTyping(roleSlides) {
+        const typingEl = document.getElementById('hero-typing');
+        const prefixEl = document.getElementById('hero-typing-prefix');
+        if (!typingEl || !roleSlides.length) return;
+
+        if (typingTimer) {
+            clearTimeout(typingTimer);
+            typingTimer = null;
+        }
+
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            if (prefixEl) prefixEl.textContent = roleSlides[0].prefix;
+            typingEl.textContent = roleSlides[0].text;
+            return;
+        }
+
+        let slideIndex = 0;
+        let charIndex = 0;
+        let deleting = false;
+
+        function applySlide(slide, typedLength) {
+            if (prefixEl) prefixEl.textContent = slide.prefix;
+            typingEl.textContent = slide.text.slice(0, typedLength);
+        }
+
+        function schedule(fn, delay) {
+            typingTimer = setTimeout(fn, delay);
+        }
+
+        function tick() {
+            const slide = roleSlides[slideIndex];
+            if (!slide) return;
+
+            if (!deleting) {
+                charIndex++;
+                applySlide(slide, charIndex);
+                if (charIndex === slide.text.length) {
+                    schedule(() => { deleting = true; tick(); }, 2400);
+                    return;
+                }
+                schedule(tick, 52);
+            } else {
+                charIndex--;
+                applySlide(slide, charIndex);
+                if (charIndex === 0) {
+                    deleting = false;
+                    slideIndex = (slideIndex + 1) % roleSlides.length;
+                    schedule(tick, 450);
+                    return;
+                }
+                schedule(tick, 26);
+            }
+        }
+
+        applySlide(roleSlides[0], roleSlides[0].text.length);
+        charIndex = roleSlides[0].text.length;
+        deleting = true;
+        schedule(tick, 1200);
+    }
+
+    function initHeroHome() {
+        const hero = document.querySelector('.hero-modern');
+        if (!hero) return;
+
+        const t = getLangPack();
+        populateRoleTags(t);
+        initTyping(buildRoleSlides(t));
+    }
+
+    function initParticles() {
+        const hero = document.querySelector('.hero-modern');
+        const canvas = hero && hero.querySelector('.hero-particles');
+        if (!canvas || !hero) return;
+
         const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+
         let particles = [];
         let w, h;
         const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -35,7 +137,7 @@
             h = canvas.height = hero.offsetHeight;
         }
 
-        function initParticles() {
+        function initParticleList() {
             const count = Math.min(55, Math.floor(w / 28));
             particles = Array.from({ length: count }, () => ({
                 x: Math.random() * w,
@@ -79,106 +181,82 @@
         }
 
         resize();
-        initParticles();
-        window.addEventListener('resize', () => { resize(); initParticles(); });
+        initParticleList();
+        window.addEventListener('resize', () => { resize(); initParticleList(); });
         if (!prefersReduced) drawParticles();
     }
 
-    /* --- Effet typing : postes actuels + formations visées --- */
-    const typingEl = document.getElementById('hero-typing');
-    const prefixEl = document.getElementById('hero-typing-prefix');
+    function initParallax() {
+        const hero = document.querySelector('.hero-modern');
+        if (!hero || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    if (typingEl && roleSlides.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        let slideIndex = 0;
-        let charIndex = 0;
-        let deleting = false;
+        const glows = hero.querySelectorAll('.hero-glow');
+        const visual = hero.querySelector('.hero-visual');
+        let targetX = 0, targetY = 0, currentX = 0, currentY = 0;
 
-        function applySlide(slide, typedLength) {
-            if (prefixEl) prefixEl.textContent = slide.prefix;
-            typingEl.textContent = slide.text.slice(0, typedLength);
-        }
-
-        function tick() {
-            const slide = roleSlides[slideIndex];
-            if (!slide) return;
-
-            if (!deleting) {
-                charIndex++;
-                applySlide(slide, charIndex);
-                if (charIndex === slide.text.length) {
-                    setTimeout(() => { deleting = true; tick(); }, 2400);
-                    return;
-                }
-                setTimeout(tick, 52);
-            } else {
-                charIndex--;
-                applySlide(slide, charIndex);
-                if (charIndex === 0) {
-                    deleting = false;
-                    slideIndex = (slideIndex + 1) % roleSlides.length;
-                    setTimeout(tick, 450);
-                    return;
-                }
-                setTimeout(tick, 26);
-            }
-        }
-
-        applySlide(roleSlides[0], 0);
-        setTimeout(tick, 800);
-    } else if (typingEl && roleSlides.length) {
-        if (prefixEl) prefixEl.textContent = roleSlides[0].prefix;
-        typingEl.textContent = roleSlides[0].text;
-    }
-
-    /* --- Parallax souris sur glows + visuel --- */
-    const glows = hero.querySelectorAll('.hero-glow');
-    const visual = hero.querySelector('.hero-visual');
-    let targetX = 0, targetY = 0, currentX = 0, currentY = 0;
-
-    hero.addEventListener('mousemove', (e) => {
-        const rect = hero.getBoundingClientRect();
-        targetX = (e.clientX - rect.left) / rect.width - 0.5;
-        targetY = (e.clientY - rect.top) / rect.height - 0.5;
-    });
-
-    hero.addEventListener('mouseleave', () => {
-        targetX = 0;
-        targetY = 0;
-    });
-
-    function parallaxLoop() {
-        currentX += (targetX - currentX) * 0.06;
-        currentY += (targetY - currentY) * 0.06;
-
-        glows.forEach((g, i) => {
-            const factor = i === 0 ? 28 : 20;
-            g.style.transform = `translate(${currentX * factor}px, ${currentY * factor}px)`;
+        hero.addEventListener('mousemove', (e) => {
+            const rect = hero.getBoundingClientRect();
+            targetX = (e.clientX - rect.left) / rect.width - 0.5;
+            targetY = (e.clientY - rect.top) / rect.height - 0.5;
         });
-        if (visual) {
-            visual.style.transform = `translate(${currentX * -12}px, ${currentY * -10}px)`;
+
+        hero.addEventListener('mouseleave', () => {
+            targetX = 0;
+            targetY = 0;
+        });
+
+        function parallaxLoop() {
+            currentX += (targetX - currentX) * 0.06;
+            currentY += (targetY - currentY) * 0.06;
+
+            glows.forEach((g, i) => {
+                const factor = i === 0 ? 28 : 20;
+                g.style.transform = `translate(${currentX * factor}px, ${currentY * factor}px)`;
+            });
+            if (visual) {
+                visual.style.transform = `translate(${currentX * -12}px, ${currentY * -10}px)`;
+            }
+            requestAnimationFrame(parallaxLoop);
         }
-        requestAnimationFrame(parallaxLoop);
-    }
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         parallaxLoop();
     }
 
-    /* --- Compteurs stats au chargement (hero visible) --- */
-    hero.querySelectorAll('[data-count]').forEach(el => {
-        if (el.dataset.counted) return;
-        el.dataset.counted = 'true';
-        const target = parseInt(el.dataset.count, 10);
-        const suffix = el.dataset.suffix || '';
-        if (Number.isNaN(target)) return;
-        const duration = 1600;
-        const start = performance.now() + 600;
-        function tickCounter(now) {
-            if (now < start) { requestAnimationFrame(tickCounter); return; }
-            const progress = Math.min((now - start) / duration, 1);
-            const eased = 1 - Math.pow(1 - progress, 3);
-            el.textContent = Math.round(target * eased) + suffix;
-            if (progress < 1) requestAnimationFrame(tickCounter);
-        }
-        requestAnimationFrame(tickCounter);
-    });
+    function initStatCounters() {
+        const hero = document.querySelector('.hero-modern');
+        if (!hero) return;
+
+        hero.querySelectorAll('[data-count]').forEach(el => {
+            if (el.dataset.counted) return;
+            el.dataset.counted = 'true';
+            const target = parseInt(el.dataset.count, 10);
+            const suffix = el.dataset.suffix || '';
+            if (Number.isNaN(target)) return;
+
+            const duration = 1600;
+            const start = performance.now() + 600;
+            function tickCounter(now) {
+                if (now < start) { requestAnimationFrame(tickCounter); return; }
+                const progress = Math.min((now - start) / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                el.textContent = Math.round(target * eased) + suffix;
+                if (progress < 1) requestAnimationFrame(tickCounter);
+            }
+            requestAnimationFrame(tickCounter);
+        });
+    }
+
+    function initAll() {
+        initHeroHome();
+        initParticles();
+        initParallax();
+        initStatCounters();
+    }
+
+    window.initHeroHome = initHeroHome;
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initAll);
+    } else {
+        initAll();
+    }
 })();

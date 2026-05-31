@@ -78,6 +78,7 @@ const burger = document.querySelector('.burger');
 const nav = document.querySelector('.nav-links');
 const navLinks = document.querySelectorAll('.nav-links li');
 
+if (burger && nav) {
 burger.addEventListener('click', () => {
     // Toggle Nav
     nav.classList.toggle('nav-active');
@@ -94,6 +95,7 @@ burger.addEventListener('click', () => {
     // Burger Animation
     burger.classList.toggle('toggle');
 });
+}
 
 // Gestion du formulaire de contact
 const contactForm = document.getElementById('contact-form');
