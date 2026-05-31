@@ -3,16 +3,29 @@
     const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     const theme = stored === 'dark' || stored === 'light' ? stored : (prefersDark ? 'dark' : 'light');
     document.documentElement.setAttribute('data-theme', theme);
+    updateThemeColorMeta(theme);
 })();
 
 function getTheme() {
     return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
 }
 
+function updateThemeColorMeta(theme) {
+    let meta = document.querySelector('meta[name="theme-color"]');
+    if (!meta) {
+        meta = document.createElement('meta');
+        meta.name = 'theme-color';
+        document.head.appendChild(meta);
+    }
+    meta.content = theme === 'dark' ? '#0b1120' : '#f8fafc';
+}
+
 function setTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
+    updateThemeColorMeta(theme);
     updateThemeToggleUI();
+    window.dispatchEvent(new CustomEvent('themechange', { detail: { theme } }));
 }
 
 function toggleTheme() {
