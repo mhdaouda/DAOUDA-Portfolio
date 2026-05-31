@@ -9,15 +9,23 @@ const translations = {
         
         // Hero Section
         'hero.title': 'Hey, je suis Mohamed DAOUDA',
+        'hero.greeting': 'Hey, je suis',
         'hero.subtitle': 'Je suis Ingénieur en Informatique 💻',
         'hero.badge': 'Ingénieur logiciel & consultant IT',
+        'hero.typing.prefix': 'Je suis ',
+        'hero.roles.list': [
+            'Ingénieur Full-Stack',
+            'Consultant IT & Digital',
+            'Tech Lead Java / Cloud',
+            'Fondateur de TurboTech'
+        ],
         'hero.stat.projects': 'Projets livrés',
         'hero.stat.experience': "Années d'expérience",
         'hero.stat.domains': "Domaines d'expertise",
         'hero.cta': 'Découvrir mes services',
         'hero.cv': 'Télécharger mon CV',
-        'hero.description': 'Ingénieur passionné créant des solutions innovantes et partipants à des projets décisifs',
-        'hero.projects': 'Voir Mes projets',
+        'hero.description': 'Ingénieur passionné créant des solutions innovantes et participant à des projets décisifs',
+        'hero.projects': 'Voir mes projets',
         'hero.services': 'Découvrir Mes services',
         'hero.contact': 'Me contacter',
         
@@ -486,15 +494,23 @@ const translations = {
         
         // Hero Section
         'hero.title': 'Hey, I\'m Mohamed DAOUDA',
+        'hero.greeting': 'Hey, I\'m',
         'hero.subtitle': 'I am a Computer Engineer 💻',
         'hero.badge': 'Software engineer & IT consultant',
+        'hero.typing.prefix': 'I am a ',
+        'hero.roles.list': [
+            'Full-Stack Engineer',
+            'IT & Digital Consultant',
+            'Java / Cloud Tech Lead',
+            'Founder of TurboTech'
+        ],
         'hero.stat.projects': 'Projects delivered',
         'hero.stat.experience': 'Years of experience',
         'hero.stat.domains': 'Areas of expertise',
         'hero.cta': 'Discover my services',
         'hero.cv': 'Download my CV',
         'hero.description': 'Passionate engineer creating innovative solutions and participating in decisive projects',
-        'hero.projects': 'View My Projects',
+        'hero.projects': 'View my projects',
         'hero.services': 'Discover My Services',
         'hero.contact': 'Contact me',
         

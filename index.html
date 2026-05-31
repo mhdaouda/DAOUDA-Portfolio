@@ -84,40 +84,65 @@
 
     <main>
         <section id="accueil" class="hero hero-modern">
+            <canvas class="hero-particles" aria-hidden="true"></canvas>
             <div class="hero-bg" aria-hidden="true">
                 <div class="hero-grid"></div>
                 <div class="hero-glow hero-glow-1"></div>
                 <div class="hero-glow hero-glow-2"></div>
+                <div class="hero-glow hero-glow-3"></div>
             </div>
-            <div class="hero-content">
-                <span class="hero-badge hero-animate-in" data-translate="hero.badge">Ingénieur logiciel &amp; consultant IT</span>
-                <h1 class="hero-title hero-animate-in delay-1" data-translate="hero.title">Hey, je suis Mohamed DAOUDA</h1>
-                <p class="tagline hero-animate-in delay-2" data-translate="hero.subtitle">Je suis Ingénieur en Informatique 💻</p>
-                <p class="description hero-animate-in delay-3" data-translate="hero.description">Ingénieur passionné créant des solutions innovantes et partipants à des projets décisifs</p>
-                <div class="hero-buttons hero-animate-in delay-4">
-                    <a href="projets.html" class="cta-button secondary" data-translate="hero.projects">Voir Mes projets en ligne</a>
-                    <a href="services.html" class="cta-button secondary" data-translate="hero.services">Découvrir Mes services</a>
-                    <a href="competences.html" class="cta-button secondary" data-translate="skills.view">Voir mes compétences</a>
-                    <a href="contact.html" class="cta-button secondary" data-translate="hero.contact">Me contacter</a>
-                    <a class="cta-button secondary" download data-translate="hero.cv" data-cv-fr="files/CV_DAOUDA.pdf" data-cv-en="files/Resume_DAOUDA.pdf">
-                        <i class="fas fa-download"></i> Télécharger mon CV
-                    </a>
+            <div class="hero-inner">
+                <div class="hero-copy">
+                    <span class="hero-badge hero-animate-in" data-translate="hero.badge">Ingénieur logiciel &amp; consultant IT</span>
+                    <h1 class="hero-title hero-animate-in delay-1">
+                        <span class="hero-title-line" data-translate="hero.greeting">Hey, je suis</span>
+                        <span class="hero-name">Mohamed DAOUDA</span>
+                    </h1>
+                    <p class="hero-tagline hero-animate-in delay-2">
+                        <span data-translate="hero.typing.prefix">Je suis </span><span id="hero-typing" class="hero-typing-text"></span><span class="typing-cursor" aria-hidden="true">|</span>
+                    </p>
+                    <p class="hero-lead hero-animate-in delay-3" data-translate="hero.description">Ingénieur passionné créant des solutions innovantes et participant à des projets décisifs</p>
+                    <div class="hero-actions hero-animate-in delay-4">
+                        <a href="projets.html" class="cta-button hero-cta-primary" data-translate="hero.projects">Voir mes projets</a>
+                        <div class="hero-actions-secondary">
+                            <a href="services.html" class="hero-link-btn" data-translate="hero.services">Services</a>
+                            <a href="competences.html" class="hero-link-btn" data-translate="nav.skills">Compétences</a>
+                            <a href="contact.html" class="hero-link-btn" data-translate="hero.contact">Contact</a>
+                            <a class="hero-link-btn hero-link-cv" download data-translate="hero.cv" data-cv-fr="files/CV_DAOUDA.pdf" data-cv-en="files/Resume_DAOUDA.pdf">
+                                <i class="fas fa-download"></i> CV
+                            </a>
+                        </div>
+                    </div>
+                    <div class="hero-stats-inline hero-animate-in delay-5">
+                        <div class="hero-stat-card">
+                            <span class="stat-number" data-count="50" data-suffix="+">0+</span>
+                            <span class="stat-label" data-translate="hero.stat.projects">Projets livrés</span>
+                        </div>
+                        <div class="hero-stat-card">
+                            <span class="stat-number" data-count="5" data-suffix="+">0+</span>
+                            <span class="stat-label" data-translate="hero.stat.experience">Années d'expérience</span>
+                        </div>
+                        <div class="hero-stat-card">
+                            <span class="stat-number" data-count="8" data-suffix="+">0+</span>
+                            <span class="stat-label" data-translate="hero.stat.domains">Domaines d'expertise</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="hero-stats-inline hero-animate-in delay-5">
-                    <div class="stat">
-                        <span class="stat-number" data-count="50" data-suffix="+">0+</span>
-                        <span class="stat-label" data-translate="hero.stat.projects">Projets livrés</span>
+                <div class="hero-visual hero-animate-in delay-2" aria-hidden="true">
+                    <div class="hero-orbit-ring hero-orbit-ring-1"></div>
+                    <div class="hero-orbit-ring hero-orbit-ring-2"></div>
+                    <div class="hero-photo-ring">
+                        <img src="images/contact-photo.png" alt="">
                     </div>
-                    <div class="stat">
-                        <span class="stat-number" data-count="5" data-suffix="+">0+</span>
-                        <span class="stat-label" data-translate="hero.stat.experience">Années d'expérience</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number" data-count="8" data-suffix="+">0+</span>
-                        <span class="stat-label" data-translate="hero.stat.domains">Domaines d'expertise</span>
-                    </div>
+                    <span class="hero-float-chip chip-1">React</span>
+                    <span class="hero-float-chip chip-2">Cloud</span>
+                    <span class="hero-float-chip chip-3">Java</span>
+                    <span class="hero-float-chip chip-4">IA</span>
                 </div>
             </div>
+            <a href="#apropos" class="hero-scroll-hint hero-animate-in delay-5" aria-label="Défiler vers le contenu">
+                <span class="hero-scroll-mouse"></span>
+            </a>
         </section>
 
         <section id="apropos" class="about">
@@ -201,5 +226,6 @@
     <script src="chatbot-data.js"></script>
     <script src="chatbot.js"></script>
     <script src="portfolio-animations.js"></script>
+    <script src="home-animations.js"></script>
 </body>
 </html> 
