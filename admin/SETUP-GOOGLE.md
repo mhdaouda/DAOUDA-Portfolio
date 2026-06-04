@@ -135,6 +135,23 @@ git push
 
 ---
 
+## Mise à jour du script (campagnes e-mail, déconnexion)
+
+Après une mise à jour de `PortfolioAPI.gs` dans le repo :
+
+1. Recopiez le fichier dans Apps Script → **Enregistrer**
+2. **Déployer** → **Gérer les déploiements** → ✏️ → **Nouvelle version** → **Déployer**
+3. L’URL `/exec` reste la même
+
+Propriétés optionnelles :
+
+| Propriété | Usage |
+|-----------|--------|
+| `MAIL_FROM_NAME` | Nom affiché comme expéditeur (ex. Mohamed DAOUDA) |
+| `CAMPAIGN_TEST_EMAIL` | E-mail pour le bouton « Envoyer un test » |
+
+---
+
 ## Étape 8 — Tester
 
 ### Test A — Dashboard

@@ -67,11 +67,15 @@
     function showLogin() {
         $('#admin-app')?.classList.add('admin-hidden');
         $('#admin-login')?.classList.remove('admin-hidden');
+        $('#admin-session-user')?.classList.add('admin-hidden');
+        const pwd = $('#login-password');
+        if (pwd) pwd.value = '';
     }
 
     function showApp() {
         $('#admin-login')?.classList.add('admin-hidden');
         $('#admin-app')?.classList.remove('admin-hidden');
+        $('#admin-session-user')?.classList.remove('admin-hidden');
     }
 
     async function loadData() {
@@ -335,11 +339,85 @@
             : '<p class="admin-muted">—</p>';
     }
 
+    function countCampaignRecipients(audience) {
+        const seen = new Set();
+        return contacts.filter((c) => {
+            const email = (c.email || '').trim().toLowerCase();
+            if (!email.includes('@')) return false;
+            if (audience === 'nouveau' && c.status !== 'nouveau') return false;
+            if (audience === 'form' && c.source !== 'form') return false;
+            if (audience === 'chatbot' && c.source !== 'chatbot') return false;
+            if (seen.has(email)) return false;
+            seen.add(email);
+            return true;
+        }).length;
+    }
+
+    function updateCampaignRecipientCount() {
+        const audience = $('#campaign-audience')?.value || 'all';
+        const n = countCampaignRecipients(audience);
+        const el = $('#campaign-recipient-count');
+        if (el) el.textContent = `${n} destinataire(s) pour cette sélection`;
+    }
+
+    async function handleCampaignSubmit(e, testOnly) {
+        if (e) e.preventDefault();
+        const subject = $('#campaign-subject')?.value.trim();
+        const message = $('#campaign-message')?.value.trim();
+        const audience = $('#campaign-audience')?.value || 'all';
+        const resultEl = $('#campaign-result');
+        const sendBtn = $('#btn-campaign-send');
+        const testBtn = $('#btn-campaign-test');
+
+        if (!subject || !message) {
+            showCampaignResult('Remplissez l’objet et le message.', false);
+            return;
+        }
+
+        if (!testOnly) {
+            const n = countCampaignRecipients(audience);
+            if (!n) {
+                showCampaignResult('Aucun destinataire pour cette sélection.', false);
+                return;
+            }
+            if (!confirm(`Envoyer cette campagne à ${n} personne(s) ?\n\nCette action utilise votre quota Gmail.`)) {
+                return;
+            }
+        }
+
+        if (sendBtn) sendBtn.disabled = true;
+        if (testBtn) testBtn.disabled = true;
+        showCampaignResult('Envoi en cours…', true);
+
+        const result = await PortfolioAPI.sendCampaign({ subject, message, audience, testOnly });
+        if (sendBtn) sendBtn.disabled = false;
+        if (testBtn) testBtn.disabled = false;
+
+        if (!result.ok) {
+            showCampaignResult(result.error || 'Échec de l’envoi', false);
+            return;
+        }
+        if (result.test) {
+            showCampaignResult('E-mail de test envoyé. Vérifiez votre boîte Gmail.', true);
+            return;
+        }
+        showCampaignResult(`Campagne terminée : ${result.sent} envoyé(s), ${result.failed} échec(s) sur ${result.total}.`, true);
+    }
+
+    function showCampaignResult(text, ok) {
+        const el = $('#campaign-result');
+        if (!el) return;
+        el.textContent = text;
+        el.classList.remove('admin-hidden', 'is-ok', 'is-error');
+        el.classList.add(ok ? 'is-ok' : 'is-error');
+    }
+
     function renderAll() {
         renderOverview();
         renderContacts();
         renderChatbot();
         renderVisitors();
+        updateCampaignRecipientCount();
     }
 
     function openContactModal(id) {
@@ -423,8 +501,9 @@
         }
     }
 
-    function handleLogout() {
-        PortfolioAPI.logout();
+    async function handleLogout() {
+        if (!confirm('Se déconnecter du dashboard admin ?')) return;
+        await PortfolioAPI.logout();
         showLogin();
     }
 
@@ -458,6 +537,10 @@
         $('#login-form')?.addEventListener('submit', handleLogin);
         $('#btn-logout')?.addEventListener('click', handleLogout);
         $('#btn-refresh')?.addEventListener('click', () => loadData().catch((e) => alert(e.message)));
+        $('#btn-campaigns-header')?.addEventListener('click', () => switchTab('campaigns'));
+        $('#campaign-audience')?.addEventListener('change', updateCampaignRecipientCount);
+        $('#campaign-form')?.addEventListener('submit', (e) => handleCampaignSubmit(e, false));
+        $('#btn-campaign-test')?.addEventListener('click', (e) => handleCampaignSubmit(e, true));
 
         $$('.admin-tab').forEach((tab) => {
             tab.addEventListener('click', () => switchTab(tab.dataset.tab));

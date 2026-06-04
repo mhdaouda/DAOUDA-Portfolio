@@ -3379,6 +3379,22 @@ footer {
     padding: 2.5rem 1.5rem;
 }
 
+.site-admin-link {
+    margin-top: 0.75rem !important;
+    font-size: 0.8rem;
+    opacity: 0.45;
+}
+
+.site-admin-link a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.site-admin-link a:hover {
+    opacity: 1;
+    text-decoration: underline;
+}
+
 footer p {
     margin: 0;
 }

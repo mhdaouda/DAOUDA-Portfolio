@@ -33,9 +33,11 @@
         <header class="admin-header">
             <h1>Dashboard Admin Portfolio</h1>
             <div class="admin-header-actions">
+                <button type="button" id="btn-campaigns-header" class="admin-btn admin-btn--teal"><i class="fas fa-paper-plane"></i> Campagnes e-mail</button>
                 <button type="button" id="btn-refresh" class="admin-btn admin-btn--ghost"><i class="fas fa-sync-alt"></i> Actualiser</button>
                 <button type="button" id="btn-logout" class="admin-btn admin-btn--danger"><i class="fas fa-sign-out-alt"></i> Déconnexion</button>
             </div>
+            <p id="admin-session-user" class="admin-session-bar admin-hidden"><i class="fas fa-user-shield"></i> Session admin active</p>
         </header>
 
         <nav class="admin-tabs" aria-label="Sections">
@@ -43,6 +45,7 @@
             <button type="button" class="admin-tab" data-tab="contacts"><i class="fas fa-envelope"></i> Contacts</button>
             <button type="button" class="admin-tab" data-tab="chatbot"><i class="fas fa-comments"></i> Analytics Chatbot</button>
             <button type="button" class="admin-tab" data-tab="visitors"><i class="fas fa-globe"></i> Analytics Visiteurs</button>
+            <button type="button" class="admin-tab" data-tab="campaigns"><i class="fas fa-paper-plane"></i> Campagnes e-mail</button>
         </nav>
 
         <main class="admin-main">
@@ -151,6 +154,42 @@
                 <div class="admin-card">
                     <h2>Derniers leads chatbot</h2>
                     <div id="cb-recent-leads"></div>
+                </div>
+            </section>
+
+            <section id="panel-campaigns" class="admin-panel">
+                <div class="admin-card admin-card--wide">
+                    <h2><i class="fas fa-paper-plane"></i> Campagne e-mail</h2>
+                    <p class="admin-card-sub">Envoi via votre compte Gmail (Google Apps Script). Variables : <code>{{name}}</code>, <code>{{email}}</code>, <code>{{company}}</code></p>
+                    <form id="campaign-form" class="admin-campaign-form">
+                        <label for="campaign-audience">Destinataires</label>
+                        <select id="campaign-audience" name="audience">
+                            <option value="all">Tous les contacts (e-mails uniques)</option>
+                            <option value="nouveau">Statut « nouveau » uniquement</option>
+                            <option value="form">Formulaire contact</option>
+                            <option value="chatbot">Leads chatbot</option>
+                        </select>
+                        <p class="admin-muted" id="campaign-recipient-count">0 destinataire(s)</p>
+
+                        <label for="campaign-subject">Objet</label>
+                        <input type="text" id="campaign-subject" required maxlength="200" placeholder="Ex. : Nouveautés sur mon portfolio">
+
+                        <label for="campaign-message">Message</label>
+                        <textarea id="campaign-message" required rows="10" placeholder="Bonjour {{name}},&#10;&#10;..."></textarea>
+
+                        <div class="admin-campaign-actions">
+                            <button type="button" id="btn-campaign-test" class="admin-btn admin-btn--ghost">Envoyer un test à moi</button>
+                            <button type="submit" id="btn-campaign-send" class="admin-btn admin-btn--teal">Lancer la campagne</button>
+                        </div>
+                        <p id="campaign-result" class="admin-campaign-result admin-hidden" role="status"></p>
+                    </form>
+                    <p class="admin-muted" style="font-size:0.8rem;margin-top:1rem">
+                        Limite Gmail : environ 100 e-mails/jour (compte personnel). Respectez le RGPD : envoyez uniquement aux personnes qui vous ont contacté.
+                    </p>
+                </div>
+                <div class="admin-card">
+                    <h2>Historique</h2>
+                    <p class="admin-muted">Chaque campagne est enregistrée dans l’onglet <strong>Campaigns</strong> de votre feuille Google (date, objet, destinataires, envoyés / échecs).</p>
                 </div>
             </section>
 

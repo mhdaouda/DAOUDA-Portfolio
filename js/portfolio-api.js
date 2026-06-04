@@ -129,7 +129,11 @@
         return { ok: false, error: result.error || 'Identifiants incorrects' };
     }
 
-    function logout() {
+    async function logout() {
+        const token = getToken();
+        if (token && getBaseUrl()) {
+            await request('logout', { token });
+        }
         setToken(null);
     }
 
@@ -155,6 +159,12 @@
         return request('updateStatus', { token, id, status });
     }
 
+    async function sendCampaign({ subject, message, audience, testOnly }) {
+        const token = getToken();
+        if (!token) return { ok: false, error: 'Non connecté' };
+        return request('sendCampaign', { token, subject, message, audience, testOnly: !!testOnly });
+    }
+
     window.PortfolioAPI = {
         escapeHtml,
         insertContact,
@@ -164,6 +174,7 @@
         isLoggedIn,
         fetchDashboard,
         updateContactStatus,
+        sendCampaign,
         isConfigured: () => !!getBaseUrl()
     };
 

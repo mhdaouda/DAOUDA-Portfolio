@@ -82,6 +82,12 @@ function handleRequest_(e) {
       case 'updateStatus':
         result = actionUpdateStatus_(body.token, body.id, body.status);
         break;
+      case 'logout':
+        result = actionLogout_(body.token);
+        break;
+      case 'sendCampaign':
+        result = actionSendCampaign_(body.token, body);
+        break;
       default:
         result = { error: 'Action inconnue' };
     }
@@ -172,6 +178,115 @@ function actionData_(token) {
     contacts: readSheetAsObjects_(SHEET_CONTACTS),
     visits: readSheetAsObjects_(SHEET_VISITS)
   };
+}
+
+function actionLogout_(token) {
+  if (token) {
+    CacheService.getScriptCache().remove('tok_' + token);
+  }
+  return { ok: true };
+}
+
+function actionSendCampaign_(token, body) {
+  if (!isValidToken_(token)) {
+    return { error: 'Session expirée — reconnectez-vous' };
+  }
+
+  var subject = sanitize_(body.subject, 200);
+  var message = sanitize_(body.message, 50000);
+  var audience = sanitize_(body.audience, 30) || 'all';
+  var testOnly = body.testOnly === true || body.testOnly === 'true';
+
+  if (!subject || !message) {
+    return { error: 'Sujet et message requis' };
+  }
+
+  var contacts = readSheetAsObjects_(SHEET_CONTACTS);
+  var recipients = filterCampaignRecipients_(contacts, audience);
+
+  if (testOnly) {
+    var testEmail = PropertiesService.getScriptProperties().getProperty('CAMPAIGN_TEST_EMAIL');
+    if (!testEmail) {
+      testEmail = Session.getActiveUser().getEmail();
+    }
+    if (!testEmail) {
+      return { error: 'E-mail de test introuvable (ajoutez CAMPAIGN_TEST_EMAIL dans les propriétés du script)' };
+    }
+    MailApp.sendEmail({
+      to: testEmail,
+      subject: '[TEST] ' + subject,
+      body: personalizeCampaign_(message, { name: 'Test', email: testEmail, company: 'Test' })
+    });
+    return { ok: true, sent: 1, failed: 0, total: 1, test: true };
+  }
+
+  if (!recipients.length) {
+    return { error: 'Aucun destinataire pour cette sélection' };
+  }
+
+  var fromName = PropertiesService.getScriptProperties().getProperty('MAIL_FROM_NAME') || 'Mohamed DAOUDA - Portfolio';
+  var sent = 0;
+  var failed = 0;
+
+  for (var i = 0; i < recipients.length; i++) {
+    try {
+      MailApp.sendEmail({
+        to: recipients[i].email,
+        subject: subject,
+        body: personalizeCampaign_(message, recipients[i]),
+        name: fromName
+      });
+      sent++;
+      Utilities.sleep(300);
+    } catch (err) {
+      failed++;
+    }
+  }
+
+  logCampaign_(subject, audience, sent, failed);
+  return { ok: true, sent: sent, failed: failed, total: recipients.length };
+}
+
+function filterCampaignRecipients_(contacts, audience) {
+  var seen = {};
+  var list = [];
+
+  for (var i = 0; i < contacts.length; i++) {
+    var c = contacts[i];
+    var email = String(c.email || '').trim().toLowerCase();
+    if (!email || email.indexOf('@') < 1) continue;
+
+    if (audience === 'nouveau' && c.status !== 'nouveau') continue;
+    if (audience === 'form' && c.source !== 'form') continue;
+    if (audience === 'chatbot' && c.source !== 'chatbot') continue;
+
+    if (seen[email]) continue;
+    seen[email] = true;
+    list.push({
+      name: c.name || '',
+      email: email,
+      company: c.company || ''
+    });
+  }
+  return list;
+}
+
+function personalizeCampaign_(template, contact) {
+  return template
+    .replace(/\{\{name\}\}/gi, contact.name || '')
+    .replace(/\{\{email\}\}/gi, contact.email || '')
+    .replace(/\{\{company\}\}/gi, contact.company || '');
+}
+
+function logCampaign_(subject, audience, sent, failed) {
+  var ss = getSpreadsheet_();
+  var sh = ss.getSheetByName('Campaigns');
+  if (!sh) {
+    sh = ss.insertSheet('Campaigns');
+    sh.appendRow(['created_at', 'subject', 'audience', 'sent', 'failed']);
+    sh.getRange(1, 1, 1, 5).setFontWeight('bold');
+  }
+  sh.appendRow([new Date().toISOString(), subject, audience, sent, failed]);
 }
 
 function actionUpdateStatus_(token, id, status) {
