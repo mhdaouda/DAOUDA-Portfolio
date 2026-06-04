@@ -31,14 +31,14 @@ class ChatbotDataManager {
         }
     }
 
-    // Send lead data to Supabase (dashboard admin)
+    // Send lead data to Google Sheets API (dashboard admin)
     async sendLead(leadData) {
-        if (!window.PortfolioSupabase?.insertContact) {
-            return { success: false, message: 'Supabase non configuré' };
+        if (!window.PortfolioAPI?.insertContact) {
+            return { success: false, message: 'API non configurée' };
         }
 
         const summary = this.generateLeadSummary(leadData);
-        const result = await PortfolioSupabase.insertContact({
+        const result = await PortfolioAPI.insertContact({
             source: 'chatbot',
             name: leadData.contact.name,
             email: leadData.contact.email,

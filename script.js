@@ -97,7 +97,7 @@ burger.addEventListener('click', () => {
 });
 }
 
-// Gestion du formulaire de contact (email + dashboard Supabase)
+// Gestion du formulaire de contact (email + Google Sheets API)
 const contactForm = document.getElementById('contact-form');
 if (contactForm) {
     contactForm.addEventListener('submit', async function(e) {
@@ -115,20 +115,20 @@ if (contactForm) {
             message: formData.get('message')
         };
 
-        const supabasePromise = window.PortfolioSupabase
-            ? PortfolioSupabase.insertContact(payload)
+        const apiPromise = window.PortfolioAPI
+            ? PortfolioAPI.insertContact(payload)
             : Promise.resolve({ ok: true });
 
         const emailPromise = fetch(form.action, { method: 'POST', body: formData });
 
         try {
-            const [sbResult, emailRes] = await Promise.all([supabasePromise, emailPromise]);
-            if (!emailRes.ok && !sbResult.ok) {
+            const [apiResult, emailRes] = await Promise.all([apiPromise, emailPromise]);
+            if (!emailRes.ok && !apiResult.ok) {
                 alert('Une erreur est survenue. Veuillez réessayer.');
                 return;
             }
-            if (!sbResult.ok) {
-                console.warn('Supabase:', sbResult.error);
+            if (!apiResult.ok) {
+                console.warn('Portfolio API:', apiResult.error);
             }
             showPopup();
             form.reset();

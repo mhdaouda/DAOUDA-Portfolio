@@ -23,7 +23,6 @@
     const BUDGET_LABELS = { low: '< 1000€', medium: '1000€ – 5000€', high: '> 5000€' };
     const TIMELINE_LABELS = { urgent: 'Urgent (1–2 sem.)', normal: 'Normal (1–2 mois)', flexible: 'Flexible (3+ mois)' };
 
-    let sb = null;
     let contacts = [];
     let visits = [];
 
@@ -61,10 +60,8 @@
         return map[ch] || ch;
     }
 
-    async function initSupabase() {
-        const cfg = window.PORTFOLIO_SUPABASE;
-        if (!cfg?.url || !cfg?.anonKey || !window.supabase) return null;
-        return window.supabase.createClient(cfg.url, cfg.anonKey);
+    function esc(str) {
+        return window.PortfolioAPI ? PortfolioAPI.escapeHtml(str) : String(str || '');
     }
 
     function showLogin() {
@@ -79,17 +76,12 @@
 
     async function loadData() {
         $('#admin-loading')?.classList.remove('admin-hidden');
-        const [cRes, vRes] = await Promise.all([
-            sb.from('portfolio_contacts').select('*').order('created_at', { ascending: false }).limit(500),
-            sb.from('portfolio_visits').select('*').order('created_at', { ascending: false }).limit(5000)
-        ]);
+        const result = await PortfolioAPI.fetchDashboard();
         $('#admin-loading')?.classList.add('admin-hidden');
 
-        if (cRes.error) throw new Error(cRes.error.message);
-        if (vRes.error) throw new Error(vRes.error.message);
-
-        contacts = cRes.data || [];
-        visits = vRes.data || [];
+        if (!result.ok) throw new Error(result.error);
+        contacts = (result.contacts || []).slice(0, 500);
+        visits = (result.visits || []).slice(0, 5000);
         renderAll();
     }
 
@@ -162,8 +154,8 @@
         $('#overview-contacts').innerHTML = recent.length
             ? recent.map((c) => `
                 <div class="admin-list-item">
-                    <strong>${PortfolioSupabase.escapeHtml(c.name)}</strong>
-                    <small>${PortfolioSupabase.escapeHtml(c.email)} · ${formatDate(c.created_at)} · ${statusBadge(c.status)}</small>
+                    <strong>${esc(c.name)}</strong>
+                    <small>${esc(c.email)} · ${formatDate(c.created_at)} · ${statusBadge(c.status)}</small>
                 </div>`).join('')
             : '<p class="admin-muted">Aucun message pour le moment.</p>';
 
@@ -177,11 +169,11 @@
 
         tbody.innerHTML = contacts.map((c) => `
             <tr data-id="${c.id}">
-                <td>${PortfolioSupabase.escapeHtml(c.name)}</td>
-                <td>${PortfolioSupabase.escapeHtml(c.email)}</td>
-                <td>${PortfolioSupabase.escapeHtml(c.phone || '—')}</td>
-                <td>${PortfolioSupabase.escapeHtml(c.company || '—')}</td>
-                <td><span class="admin-msg-preview">${PortfolioSupabase.escapeHtml(c.message)}</span></td>
+                <td>${esc(c.name)}</td>
+                <td>${esc(c.email)}</td>
+                <td>${esc(c.phone || '—')}</td>
+                <td>${esc(c.company || '—')}</td>
+                <td><span class="admin-msg-preview">${esc(c.message)}</span></td>
                 <td>${formatDate(c.created_at).split(' ')[0]}</td>
                 <td>${statusBadge(c.status)}</td>
                 <td><button type="button" class="admin-btn admin-btn--ghost admin-view-btn" data-id="${c.id}">Voir</button></td>
@@ -223,7 +215,7 @@
         const max = Math.max(...series.map((s) => s.count), 1);
         el.innerHTML = series.map((s) => `
             <div class="admin-month-row ${barClass || ''}">
-                <span class="month-label">${PortfolioSupabase.escapeHtml(s.label)}</span>
+                <span class="month-label">${esc(s.label)}</span>
                 <div class="month-bar-wrap">
                     <span class="month-bar" style="width:${s.count ? Math.round((s.count / max) * 100) : 0}%"></span>
                 </div>
@@ -249,7 +241,7 @@
         const max = list[0][1];
         el.innerHTML = list.map(([key, n]) => `
             <div class="admin-breakdown-item">
-                <span><span>${PortfolioSupabase.escapeHtml(labelMap[key] || key)}</span><strong>${n}</strong></span>
+                <span><span>${esc(labelMap[key] || key)}</span><strong>${n}</strong></span>
                 <div class="admin-channel-bar"><span style="width:${Math.round((n / max) * 100)}%"></span></div>
             </div>
         `).join('');
@@ -298,10 +290,10 @@
         $('#cb-recent-leads').innerHTML = recent.length
             ? recent.map((c) => `
                 <div class="admin-list-item">
-                    <strong>${PortfolioSupabase.escapeHtml(c.name)}</strong>
+                    <strong>${esc(c.name)}</strong>
                     <small>
-                        ${PortfolioSupabase.escapeHtml(SERVICE_LABELS[c.service] || c.service || '—')}
-                        · ${PortfolioSupabase.escapeHtml(c.company || 'Formation non renseignée')}
+                        ${esc(SERVICE_LABELS[c.service] || c.service || '—')}
+                        · ${esc(c.company || 'Formation non renseignée')}
                         · ${formatDate(c.created_at).split(' ')[0]}
                     </small>
                 </div>`).join('')
@@ -320,7 +312,7 @@
         const max = list[0][1];
         return list.map(([key, n]) => `
             <div class="admin-breakdown-item">
-                <span><span>${PortfolioSupabase.escapeHtml(labelMap[key] || key)}</span><strong>${n}</strong></span>
+                <span><span>${esc(labelMap[key] || key)}</span><strong>${n}</strong></span>
                 <div class="admin-channel-bar"><span style="width:${Math.round((n / max) * 100)}%"></span></div>
             </div>
         `).join('');
@@ -337,7 +329,7 @@
         $('#top-pages').innerHTML = s.topPages.length
             ? s.topPages.map(([path, count]) => `
                 <div class="admin-list-item">
-                    <strong>${PortfolioSupabase.escapeHtml(path)}</strong>
+                    <strong>${esc(path)}</strong>
                     <small>${count} vues (${DAYS} j)</small>
                 </div>`).join('')
             : '<p class="admin-muted">—</p>';
@@ -356,17 +348,17 @@
 
         const html = `
             <div class="admin-detail-row"><strong>Source</strong>${c.source === 'chatbot' ? 'Chatbot' : 'Formulaire'}</div>
-            <div class="admin-detail-row"><strong>Nom</strong>${PortfolioSupabase.escapeHtml(c.name)}</div>
-            <div class="admin-detail-row"><strong>Email</strong>${PortfolioSupabase.escapeHtml(c.email)}</div>
-            <div class="admin-detail-row"><strong>Téléphone</strong>${PortfolioSupabase.escapeHtml(c.phone || '—')}</div>
-            <div class="admin-detail-row"><strong>Formation / Entreprise</strong>${PortfolioSupabase.escapeHtml(c.company || '—')}</div>
-            <div class="admin-detail-row"><strong>Localisation</strong>${PortfolioSupabase.escapeHtml(c.location || '—')}</div>
-            <div class="admin-detail-row"><strong>Sujet</strong>${PortfolioSupabase.escapeHtml(c.subject || '—')}</div>
-            ${c.service ? `<div class="admin-detail-row"><strong>Service</strong>${PortfolioSupabase.escapeHtml(c.service)}</div>` : ''}
-            ${c.budget ? `<div class="admin-detail-row"><strong>Budget</strong>${PortfolioSupabase.escapeHtml(c.budget)}</div>` : ''}
-            ${c.timeline ? `<div class="admin-detail-row"><strong>Délai</strong>${PortfolioSupabase.escapeHtml(c.timeline)}</div>` : ''}
-            <div class="admin-detail-row"><strong>Message</strong><div class="admin-detail-message">${PortfolioSupabase.escapeHtml(c.message)}</div></div>
-            ${c.project_details ? `<div class="admin-detail-row"><strong>Détails projet</strong><div class="admin-detail-message">${PortfolioSupabase.escapeHtml(c.project_details)}</div></div>` : ''}
+            <div class="admin-detail-row"><strong>Nom</strong>${esc(c.name)}</div>
+            <div class="admin-detail-row"><strong>Email</strong>${esc(c.email)}</div>
+            <div class="admin-detail-row"><strong>Téléphone</strong>${esc(c.phone || '—')}</div>
+            <div class="admin-detail-row"><strong>Formation / Entreprise</strong>${esc(c.company || '—')}</div>
+            <div class="admin-detail-row"><strong>Localisation</strong>${esc(c.location || '—')}</div>
+            <div class="admin-detail-row"><strong>Sujet</strong>${esc(c.subject || '—')}</div>
+            ${c.service ? `<div class="admin-detail-row"><strong>Service</strong>${esc(c.service)}</div>` : ''}
+            ${c.budget ? `<div class="admin-detail-row"><strong>Budget</strong>${esc(c.budget)}</div>` : ''}
+            ${c.timeline ? `<div class="admin-detail-row"><strong>Délai</strong>${esc(c.timeline)}</div>` : ''}
+            <div class="admin-detail-row"><strong>Message</strong><div class="admin-detail-message">${esc(c.message)}</div></div>
+            ${c.project_details ? `<div class="admin-detail-row"><strong>Détails projet</strong><div class="admin-detail-message">${esc(c.project_details)}</div></div>` : ''}
             <div class="admin-detail-row"><strong>Date</strong>${formatDate(c.created_at)}</div>
             <div style="display:flex;gap:0.5rem;margin-top:1rem;flex-wrap:wrap">
                 <button type="button" class="admin-btn admin-btn--ghost" data-status="lu" data-id="${c.id}">Marquer lu</button>
@@ -396,9 +388,9 @@
     }
 
     async function updateStatus(id, status, reload = true) {
-        const { error } = await sb.from('portfolio_contacts').update({ status }).eq('id', id);
-        if (error) {
-            alert(error.message);
+        const result = await PortfolioAPI.updateContactStatus(id, status);
+        if (!result.ok) {
+            alert(result.error);
             return;
         }
         const row = contacts.find((c) => c.id === id);
@@ -413,43 +405,51 @@
 
     async function handleLogin(e) {
         e.preventDefault();
-        const email = $('#login-email').value.trim();
         const password = $('#login-password').value;
         const errEl = $('#login-error');
         errEl.classList.remove('is-visible');
 
-        const { data, error } = await sb.auth.signInWithPassword({ email, password });
-        if (error) {
-            errEl.textContent = error.message;
+        const result = await PortfolioAPI.login(password);
+        if (!result.ok) {
+            errEl.textContent = result.error;
             errEl.classList.add('is-visible');
             return;
         }
-        if (data.session) {
-            showApp();
+        showApp();
+        try {
             await loadData();
+        } catch (err) {
+            alert('Erreur chargement: ' + err.message);
         }
     }
 
-    async function handleLogout() {
-        await sb.auth.signOut();
+    function handleLogout() {
+        PortfolioAPI.logout();
         showLogin();
     }
 
     async function init() {
-        sb = await initSupabase();
-        if (!sb) {
-            $('#login-error').textContent = 'Supabase non chargé. Vérifiez la configuration.';
+        if (!window.PortfolioAPI) {
+            $('#login-error').textContent = 'Scripts API non chargés.';
             $('#login-error').classList.add('is-visible');
             return;
         }
 
-        const { data: { session } } = await sb.auth.getSession();
-        if (session) {
+        const setupEl = $('#login-setup');
+        if (!PortfolioAPI.isConfigured()) {
+            setupEl.textContent = 'Configurez js/portfolio-api-config.js (URL Apps Script) — guide : admin/SETUP-GOOGLE.md';
+            setupEl.classList.remove('admin-hidden');
+        }
+
+        if (PortfolioAPI.isLoggedIn() && PortfolioAPI.isConfigured()) {
             showApp();
             try {
                 await loadData();
             } catch (err) {
-                alert('Erreur chargement: ' + err.message);
+                PortfolioAPI.logout();
+                showLogin();
+                $('#login-error').textContent = err.message;
+                $('#login-error').classList.add('is-visible');
             }
         } else {
             showLogin();
