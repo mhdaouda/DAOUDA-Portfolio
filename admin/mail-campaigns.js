@@ -39,6 +39,14 @@
         return map[st] || st;
     }
 
+    function formatApiError(error) {
+        const msg = error || 'Erreur serveur';
+        if (msg === 'Action inconnue') {
+            return 'Script Google obsolète : recopiez admin/google-apps-script/PortfolioAPI.gs, exécutez setupSheets, puis Déployer → Gérer les déploiements → Nouvelle version.';
+        }
+        return msg;
+    }
+
     function countAudience(audience) {
         const seen = new Set();
         return contacts.filter((c) => {
@@ -83,7 +91,12 @@
 
     async function loadCampaigns() {
         const res = await PortfolioAPI.mailList();
-        if (res.ok) campaigns = res.campaigns || [];
+        if (!res.ok) {
+            alert(formatApiError(res.error));
+            campaigns = [];
+            return;
+        }
+        campaigns = res.campaigns || [];
     }
 
     function renderList() {
@@ -127,7 +140,7 @@
             btn.addEventListener('click', async () => {
                 if (!confirm('Supprimer cette campagne ?')) return;
                 const res = await PortfolioAPI.mailDelete(btn.dataset.delete);
-                if (!res.ok) alert(res.error);
+                if (!res.ok) alert(formatApiError(res.error));
                 else { await loadCampaigns(); renderList(); }
             });
         });
@@ -136,7 +149,7 @@
     async function openDetail(id) {
         const res = await PortfolioAPI.mailGet(id);
         if (!res.ok) {
-            alert(res.error);
+            alert(formatApiError(res.error));
             location.hash = 'list';
             return;
         }
@@ -289,26 +302,67 @@
                 body_html: $('#mail-body').value.trim(),
                 audience: $('#mail-audience').value
             });
-            if (!res.ok) { alert(res.error); return; }
+            if (!res.ok) { alert(formatApiError(res.error)); return; }
             location.hash = `detail=${res.campaignId}`;
         });
 
+        const isDemo = !!window.PORTFOLIO_MAIL_DEMO;
+
         $('#mail-btn-test')?.addEventListener('click', async () => {
-            alert('Démo : e-mail de test simulé.');
+            const subject = $('#mail-subject')?.value.trim();
+            const bodyHtml = $('#mail-body')?.value.trim();
+            if (!subject || !bodyHtml) {
+                alert('Renseignez l\'objet et le message avant d\'envoyer un test.');
+                return;
+            }
+            if (isDemo) {
+                alert('Démo : e-mail de test simulé.');
+                return;
+            }
+            const btn = $('#mail-btn-test');
+            if (btn) { btn.disabled = true; btn.textContent = 'Envoi…'; }
+            const res = await PortfolioAPI.mailTest({ subject, body_html: bodyHtml });
+            if (btn) { btn.disabled = false; btn.textContent = 'Envoyer un test'; }
+            if (!res.ok) {
+                alert(formatApiError(res.error));
+                return;
+            }
+            alert('E-mail de test envoyé. Vérifiez votre boîte mail (objet [TEST] …).');
         });
 
         $('#mail-btn-send')?.addEventListener('click', async () => {
-            if (!currentCampaign || !confirm('Simuler l\'envoi ?')) return;
-            await PortfolioAPI.mailSend(currentCampaign.id);
-            alert('Démo : campagne marquée comme envoyée.');
+            if (!currentCampaign) return;
+            const confirmMsg = isDemo
+                ? 'Simuler l\'envoi ?'
+                : `Envoyer cette campagne à ${currentCampaign.total} destinataire(s) ?`;
+            if (!confirm(confirmMsg)) return;
+            const btn = $('#mail-btn-send');
+            if (btn) { btn.disabled = true; btn.textContent = 'Envoi en cours…'; }
+            const res = await PortfolioAPI.mailSend(currentCampaign.id);
+            if (btn) {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-paper-plane"></i> Valider et envoyer';
+            }
+            if (!res.ok) {
+                alert(formatApiError(res.error));
+                return;
+            }
+            alert(isDemo
+                ? 'Démo : campagne marquée comme envoyée.'
+                : `Campagne envoyée : ${res.sent || 0} réussis, ${res.failed || 0} échecs.`);
             await openDetail(currentCampaign.id);
         });
 
         $('#mail-btn-delete')?.addEventListener('click', async () => {
-            if (!currentCampaign || !confirm('Supprimer ?')) return;
-            await PortfolioAPI.mailDelete(currentCampaign.id);
+            if (!currentCampaign || !confirm('Supprimer cette campagne ?')) return;
+            const res = await PortfolioAPI.mailDelete(currentCampaign.id);
+            if (!res.ok) { alert(formatApiError(res.error)); return; }
             location.hash = 'list';
-            campaigns = (await PortfolioAPI.mailList()).campaigns;
+            if (isDemo) {
+                campaigns = (await PortfolioAPI.mailList()).campaigns;
+            } else {
+                await loadCampaigns();
+            }
             renderList();
         });
 
@@ -337,60 +391,6 @@
 
         bindMailEvents();
 
-        $('#mail-audience')?.addEventListener('change', () => {
-            $('#mail-new-count').textContent = `${countAudience($('#mail-audience').value)} destinataire(s)`;
-        });
-        $('#mail-body')?.addEventListener('input', updatePreview);
-
-        $('#mail-create-form')?.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const res = await PortfolioAPI.mailCreate({
-                name: $('#mail-name').value.trim(),
-                description: $('#mail-description').value.trim(),
-                subject: $('#mail-subject').value.trim(),
-                body_html: $('#mail-body').value.trim(),
-                audience: $('#mail-audience').value
-            });
-            if (!res.ok) {
-                alert(res.error);
-                return;
-            }
-            await loadCampaigns();
-            location.hash = `detail=${res.campaignId}`;
-        });
-
-        $('#mail-btn-test')?.addEventListener('click', async () => {
-            const res = await PortfolioAPI.mailTest({
-                subject: $('#mail-subject').value.trim(),
-                body_html: $('#mail-body').value.trim()
-            });
-            alert(res.ok ? 'E-mail de test envoyé (pixel de suivi inclus).' : res.error);
-        });
-
-        $('#mail-btn-send')?.addEventListener('click', async () => {
-            if (!currentCampaign) return;
-            if (!confirm(`Envoyer la campagne à ${currentCampaign.total} destinataire(s) ?`)) return;
-            const res = await PortfolioAPI.mailSend(currentCampaign.id);
-            if (!res.ok) {
-                alert(res.error);
-                return;
-            }
-            alert(`Envoi terminé : ${res.sent} envoyés, ${res.failed} échecs, ${res.opens} ouvertures déjà enregistrées.`);
-            await openDetail(currentCampaign.id);
-        });
-
-        $('#mail-btn-delete')?.addEventListener('click', async () => {
-            if (!currentCampaign || !confirm('Supprimer ?')) return;
-            const res = await PortfolioAPI.mailDelete(currentCampaign.id);
-            if (!res.ok) alert(res.error);
-            else {
-                await loadCampaigns();
-                location.hash = 'list';
-            }
-        });
-
-        $('#recipient-search')?.addEventListener('input', renderRecipientTable);
-        window.addEventListener('hashchange', route);
         route();
     }
 

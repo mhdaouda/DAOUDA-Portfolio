@@ -49,6 +49,9 @@ function ensureSheet_(ss, name, headers) {
 function doGet(e) {
   var p = e.parameter || {};
   if (p.action === 'trackOpen' && p.rid) return actionTrackOpen_(p.rid);
+  if (p.action === 'version') {
+    return jsonResponse_({ ok: true, version: 3, mail: true });
+  }
   return handleRequest_(e);
 }
 

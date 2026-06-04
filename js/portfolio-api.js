@@ -58,7 +58,13 @@
                 headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                 body: JSON.stringify({ action, ...payload })
             });
-            const data = await res.json();
+            const text = await res.text();
+            let data;
+            try {
+                data = JSON.parse(text);
+            } catch {
+                return { ok: false, error: 'Réponse API invalide — vérifiez l\'URL Apps Script et le déploiement.' };
+            }
             if (!res.ok || data.error) {
                 return { ok: false, error: data.error || 'Erreur serveur' };
             }
