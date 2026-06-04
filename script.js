@@ -97,32 +97,45 @@ burger.addEventListener('click', () => {
 });
 }
 
-// Gestion du formulaire de contact
+// Gestion du formulaire de contact (email + dashboard Supabase)
 const contactForm = document.getElementById('contact-form');
 if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
+    contactForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         const form = e.target;
         const formData = new FormData(form);
-        
-        fetch(form.action, {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => {
-            if (response.ok) {
-                showPopup();
-                form.reset();
-            } else {
+
+        const payload = {
+            source: 'form',
+            name: formData.get('name'),
+            email: formData.get('email'),
+            phone: formData.get('phone'),
+            company: formData.get('company'),
+            subject: formData.get('subject'),
+            message: formData.get('message')
+        };
+
+        const supabasePromise = window.PortfolioSupabase
+            ? PortfolioSupabase.insertContact(payload)
+            : Promise.resolve({ ok: true });
+
+        const emailPromise = fetch(form.action, { method: 'POST', body: formData });
+
+        try {
+            const [sbResult, emailRes] = await Promise.all([supabasePromise, emailPromise]);
+            if (!emailRes.ok && !sbResult.ok) {
                 alert('Une erreur est survenue. Veuillez réessayer.');
+                return;
             }
-        })
-        .catch(error => {
+            if (!sbResult.ok) {
+                console.warn('Supabase:', sbResult.error);
+            }
+            showPopup();
+            form.reset();
+        } catch (error) {
             console.error('Erreur:', error);
             alert('Une erreur est survenue. Veuillez réessayer.');
-        });
-        
-        return false;
+        }
     });
 }
 

@@ -31,38 +31,32 @@ class ChatbotDataManager {
         }
     }
 
-    // Send lead data to server
+    // Send lead data to Supabase (dashboard admin)
     async sendLead(leadData) {
-        try {
-            const response = await fetch(this.apiEndpoint, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    name: leadData.contact.name,
-                    email: leadData.contact.email,
-                    phone: leadData.contact.phone,
-                    location: leadData.contact.location,
-                    company: leadData.contact.company,
-                    projectDetails: leadData.contact.projectDetails,
-                    service: leadData.service,
-                    budget: leadData.budget,
-                    timeline: leadData.timeline,
-                    source: 'Chatbot',
-                    timestamp: leadData.timestamp
-                })
-            });
-
-            if (response.ok) {
-                return { success: true, message: 'Lead sent successfully' };
-            } else {
-                throw new Error('Failed to send lead');
-            }
-        } catch (error) {
-            console.error('Error sending lead:', error);
-            return { success: false, message: 'Failed to send lead' };
+        if (!window.PortfolioSupabase?.insertContact) {
+            return { success: false, message: 'Supabase non configuré' };
         }
+
+        const summary = this.generateLeadSummary(leadData);
+        const result = await PortfolioSupabase.insertContact({
+            source: 'chatbot',
+            name: leadData.contact.name,
+            email: leadData.contact.email,
+            phone: leadData.contact.phone,
+            company: leadData.contact.company,
+            location: leadData.contact.location,
+            message: summary.trim(),
+            service: leadData.service,
+            budget: leadData.budget,
+            timeline: leadData.timeline,
+            project_details: leadData.contact.projectDetails || null
+        });
+
+        if (result.ok) {
+            return { success: true, message: 'Lead enregistré' };
+        }
+        console.error('Error sending lead:', result.error);
+        return { success: false, message: result.error || 'Failed to send lead' };
     }
 
     // Generate lead summary for email
