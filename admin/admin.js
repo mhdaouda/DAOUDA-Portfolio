@@ -555,10 +555,31 @@
         });
     }
 
+    function renderDemoCampaignHistory() {
+        const el = $('#campaign-history-list');
+        if (!el || !window.DEMO_CAMPAIGNS?.length) return;
+        el.innerHTML = window.DEMO_CAMPAIGNS.map((c) => `
+            <div class="admin-list-item">
+                <strong>${esc(c.subject)}</strong>
+                <small>${formatDate(c.date).split(' ')[0]} · ${esc(c.audience)} · ${c.sent} envoyé(s)${c.failed ? `, ${c.failed} échec` : ''}</small>
+            </div>
+        `).join('');
+    }
+
     function initDemo() {
         contacts = window.DEMO_CONTACTS || [];
         visits = window.DEMO_VISITS || [];
         renderAll();
+        renderDemoCampaignHistory();
+
+        const pre = window.DEMO_CAMPAIGN_PREFILL;
+        if (pre) {
+            const sub = $('#campaign-subject');
+            const msg = $('#campaign-message');
+            if (sub && !sub.value) sub.value = pre.subject;
+            if (msg && !msg.value) msg.value = pre.message;
+        }
+
         bindAdminUI();
     }
 
