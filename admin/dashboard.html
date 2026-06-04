@@ -42,6 +42,7 @@
         <nav class="admin-tabs" aria-label="Sections">
             <button type="button" class="admin-tab is-active" data-tab="overview"><i class="fas fa-chart-line"></i> Vue d'ensemble</button>
             <button type="button" class="admin-tab" data-tab="contacts"><i class="fas fa-envelope"></i> Contacts</button>
+            <button type="button" class="admin-tab" data-tab="chatbot"><i class="fas fa-comments"></i> Analytics Chatbot</button>
             <button type="button" class="admin-tab" data-tab="visitors"><i class="fas fa-globe"></i> Analytics Visiteurs</button>
         </nav>
 
@@ -99,6 +100,58 @@
                             <tbody id="contacts-table-body"></tbody>
                         </table>
                     </div>
+                </div>
+            </section>
+
+            <section id="panel-chatbot" class="admin-panel">
+                <div class="admin-stats">
+                    <div class="admin-stat-card">
+                        <div class="label">Leads chatbot (total)</div>
+                        <div class="value" id="cb-total">0</div>
+                    </div>
+                    <div class="admin-stat-card">
+                        <div class="label">30 derniers jours</div>
+                        <div class="value" id="cb-recent">0</div>
+                    </div>
+                    <div class="admin-stat-card">
+                        <div class="label">Formulaire (total)</div>
+                        <div class="value" id="cb-form-total">0</div>
+                    </div>
+                    <div class="admin-stat-card">
+                        <div class="label">Formation renseignée</div>
+                        <div class="value" id="cb-company-rate">0%</div>
+                    </div>
+                </div>
+
+                <div class="admin-card admin-card--wide">
+                    <h2>Statistiques détaillées</h2>
+                    <p class="admin-card-sub">Évolution sur les 6 derniers mois</p>
+                    <div class="admin-grid-2 admin-grid-2--charts">
+                        <div>
+                            <h3 class="admin-chart-title">Évolution des contacts chatbot</h3>
+                            <div id="chart-chatbot-monthly" class="admin-month-chart" role="img" aria-label="Graphique mensuel chatbot"></div>
+                        </div>
+                        <div>
+                            <h3 class="admin-chart-title">Évolution des messages formulaire</h3>
+                            <div id="chart-form-monthly" class="admin-month-chart" role="img" aria-label="Graphique mensuel formulaire"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="admin-grid-2">
+                    <div class="admin-card">
+                        <h2>Types de services demandés</h2>
+                        <div id="cb-services"></div>
+                    </div>
+                    <div class="admin-card">
+                        <h2>Budget &amp; délais (chatbot)</h2>
+                        <div id="cb-budget-timeline"></div>
+                    </div>
+                </div>
+
+                <div class="admin-card">
+                    <h2>Derniers leads chatbot</h2>
+                    <div id="cb-recent-leads"></div>
                 </div>
             </section>
 

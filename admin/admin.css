@@ -364,6 +364,85 @@ body.admin-body {
     color: var(--admin-muted);
 }
 
+.admin-card--wide { margin-bottom: 1.25rem; }
+
+.admin-card-sub {
+    margin: -0.5rem 0 1.25rem;
+    color: var(--admin-muted);
+    font-size: 0.88rem;
+}
+
+.admin-chart-title {
+    margin: 0 0 1rem;
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--admin-text);
+}
+
+.admin-grid-2--charts { align-items: start; }
+
+.admin-month-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+}
+
+.admin-month-row {
+    display: grid;
+    grid-template-columns: 7.5rem 1fr 2.5rem;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.55rem 0.75rem;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 10px;
+    font-size: 0.82rem;
+}
+
+.admin-month-row .month-label {
+    color: var(--admin-muted);
+    text-transform: capitalize;
+}
+
+.admin-month-row .month-bar-wrap {
+    height: 10px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+}
+
+.admin-month-row .month-bar {
+    display: block;
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #22d3ee, var(--admin-primary));
+    min-width: 2px;
+    transition: width 0.4s ease;
+}
+
+.admin-month-row--form .month-bar {
+    background: linear-gradient(90deg, #f472b6, #a855f7);
+}
+
+.admin-month-row .month-count {
+    font-weight: 800;
+    text-align: right;
+}
+
+.admin-breakdown-item {
+    margin-bottom: 1rem;
+}
+
+.admin-breakdown-item span {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    margin-bottom: 0.35rem;
+}
+
+.admin-breakdown-item .admin-channel-bar {
+    height: 10px;
+}
+
 @media (max-width: 768px) {
     .admin-header { flex-direction: column; align-items: flex-start; }
 }

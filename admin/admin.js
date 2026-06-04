@@ -5,6 +5,24 @@
     'use strict';
 
     const DAYS = 30;
+    const CHART_MONTHS = 6;
+
+    const SERVICE_LABELS = {
+        web_dev: 'Développement Web',
+        mobile_app: 'Application Mobile',
+        backend: 'Solutions Backend',
+        maintenance: 'Maintenance & Support',
+        seo: 'Optimisation SEO',
+        training: 'Formation & Conseil',
+        uiux: 'Design UI/UX',
+        security: 'Sécurité Web',
+        integration: 'Intégration Systèmes',
+        wordpress: 'Migration WordPress'
+    };
+
+    const BUDGET_LABELS = { low: '< 1000€', medium: '1000€ – 5000€', high: '> 5000€' };
+    const TIMELINE_LABELS = { urgent: 'Urgent (1–2 sem.)', normal: 'Normal (1–2 mois)', flexible: 'Flexible (3+ mois)' };
+
     let sb = null;
     let contacts = [];
     let visits = [];
@@ -175,6 +193,139 @@
         });
     }
 
+    function getLastMonthKeys(count) {
+        const months = [];
+        const now = new Date();
+        for (let i = count - 1; i >= 0; i--) {
+            const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+            months.push({
+                key: `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`,
+                label: d.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' })
+            });
+        }
+        return months;
+    }
+
+    function countByMonth(items, filterFn) {
+        const months = getLastMonthKeys(CHART_MONTHS);
+        const counts = Object.fromEntries(months.map((m) => [m.key, 0]));
+        items.filter(filterFn).forEach((item) => {
+            const d = new Date(item.created_at);
+            const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+            if (counts[key] !== undefined) counts[key]++;
+        });
+        return months.map((m) => ({ label: m.label, count: counts[m.key] }));
+    }
+
+    function renderMonthlyChart(containerId, series, barClass) {
+        const el = $(containerId);
+        if (!el) return;
+        const max = Math.max(...series.map((s) => s.count), 1);
+        el.innerHTML = series.map((s) => `
+            <div class="admin-month-row ${barClass || ''}">
+                <span class="month-label">${PortfolioSupabase.escapeHtml(s.label)}</span>
+                <div class="month-bar-wrap">
+                    <span class="month-bar" style="width:${s.count ? Math.round((s.count / max) * 100) : 0}%"></span>
+                </div>
+                <span class="month-count">${s.count}</span>
+            </div>
+        `).join('');
+    }
+
+    function renderBreakdown(containerId, items, keyField, labelMap) {
+        const el = $(containerId);
+        if (!el) return;
+        const counts = {};
+        items.forEach((item) => {
+            const k = item[keyField];
+            if (!k) return;
+            counts[k] = (counts[k] || 0) + 1;
+        });
+        const list = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+        if (!list.length) {
+            el.innerHTML = '<p class="admin-muted">Aucune donnée pour le moment.</p>';
+            return;
+        }
+        const max = list[0][1];
+        el.innerHTML = list.map(([key, n]) => `
+            <div class="admin-breakdown-item">
+                <span><span>${PortfolioSupabase.escapeHtml(labelMap[key] || key)}</span><strong>${n}</strong></span>
+                <div class="admin-channel-bar"><span style="width:${Math.round((n / max) * 100)}%"></span></div>
+            </div>
+        `).join('');
+    }
+
+    function renderChatbot() {
+        const chatbotLeads = contacts.filter((c) => c.source === 'chatbot');
+        const formLeads = contacts.filter((c) => c.source === 'form');
+        const recentChatbot = chatbotLeads.filter((c) => withinDays(c.created_at, DAYS));
+
+        $('#cb-total').textContent = chatbotLeads.length;
+        $('#cb-recent').textContent = recentChatbot.length;
+        $('#cb-form-total').textContent = formLeads.length;
+
+        const withCompany = chatbotLeads.filter((c) => (c.company || '').trim()).length;
+        const companyRate = chatbotLeads.length
+            ? Math.round((withCompany / chatbotLeads.length) * 100)
+            : 0;
+        $('#cb-company-rate').textContent = `${companyRate}%`;
+
+        renderMonthlyChart(
+            '#chart-chatbot-monthly',
+            countByMonth(contacts, (c) => c.source === 'chatbot')
+        );
+        renderMonthlyChart(
+            '#chart-form-monthly',
+            countByMonth(contacts, (c) => c.source === 'form'),
+            'admin-month-row--form'
+        );
+
+        renderBreakdown('#cb-services', chatbotLeads, 'service', SERVICE_LABELS);
+
+        const budgetEl = $('#cb-budget-timeline');
+        if (budgetEl) {
+            const budgetHtml = renderBreakdownHtml(chatbotLeads, 'budget', BUDGET_LABELS);
+            const timelineHtml = renderBreakdownHtml(chatbotLeads, 'timeline', TIMELINE_LABELS);
+            budgetEl.innerHTML = `
+                <p class="admin-muted" style="margin:0 0 0.5rem;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.05em">Budget</p>
+                ${budgetHtml}
+                <p class="admin-muted" style="margin:1.25rem 0 0.5rem;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.05em">Délai</p>
+                ${timelineHtml}
+            `;
+        }
+
+        const recent = chatbotLeads.slice(0, 8);
+        $('#cb-recent-leads').innerHTML = recent.length
+            ? recent.map((c) => `
+                <div class="admin-list-item">
+                    <strong>${PortfolioSupabase.escapeHtml(c.name)}</strong>
+                    <small>
+                        ${PortfolioSupabase.escapeHtml(SERVICE_LABELS[c.service] || c.service || '—')}
+                        · ${PortfolioSupabase.escapeHtml(c.company || 'Formation non renseignée')}
+                        · ${formatDate(c.created_at).split(' ')[0]}
+                    </small>
+                </div>`).join('')
+            : '<p class="admin-muted">Aucun lead chatbot enregistré.</p>';
+    }
+
+    function renderBreakdownHtml(items, keyField, labelMap) {
+        const counts = {};
+        items.forEach((item) => {
+            const k = item[keyField];
+            if (!k) return;
+            counts[k] = (counts[k] || 0) + 1;
+        });
+        const list = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+        if (!list.length) return '<p class="admin-muted">—</p>';
+        const max = list[0][1];
+        return list.map(([key, n]) => `
+            <div class="admin-breakdown-item">
+                <span><span>${PortfolioSupabase.escapeHtml(labelMap[key] || key)}</span><strong>${n}</strong></span>
+                <div class="admin-channel-bar"><span style="width:${Math.round((n / max) * 100)}%"></span></div>
+            </div>
+        `).join('');
+    }
+
     function renderVisitors() {
         const s = getStats();
         $('#vis-total').textContent = s.totalVisits;
@@ -195,6 +346,7 @@
     function renderAll() {
         renderOverview();
         renderContacts();
+        renderChatbot();
         renderVisitors();
     }
 
