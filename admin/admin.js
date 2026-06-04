@@ -541,13 +541,14 @@
             if (isDemo()) renderAll();
             else loadData().catch((e) => alert(e.message));
         });
-        $('#btn-campaigns-header')?.addEventListener('click', () => switchTab('campaigns'));
-        $('#campaign-audience')?.addEventListener('change', updateCampaignRecipientCount);
-        $('#campaign-form')?.addEventListener('submit', (e) => handleCampaignSubmit(e, false));
-        $('#btn-campaign-test')?.addEventListener('click', (e) => handleCampaignSubmit(e, true));
-
         $$('.admin-tab').forEach((tab) => {
-            tab.addEventListener('click', () => switchTab(tab.dataset.tab));
+            tab.addEventListener('click', () => {
+                if (tab.dataset.tab === 'campaigns' && !isDemo()) {
+                    window.location.href = 'mail-campaigns.html';
+                    return;
+                }
+                switchTab(tab.dataset.tab);
+            });
         });
 
         $('#admin-modal')?.addEventListener('click', (e) => {

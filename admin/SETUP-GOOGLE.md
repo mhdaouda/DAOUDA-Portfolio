@@ -135,6 +135,13 @@ git push
 
 ---
 
+## Campagnes e-mail et suivi des ouvertures
+
+- Module : `admin/mail-campaigns.html` (après connexion dashboard)
+- Chaque e-mail HTML contient un **pixel invisible** ; quand le destinataire ouvre le mail, le compteur **Ouverts** augmente
+- Feuilles Google : **MailCampaigns**, **MailRecipients**
+- Après mise à jour du script : exécuter **`setupSheets`** puis **nouveau déploiement** Web App
+
 ## Mise à jour du script (campagnes e-mail, déconnexion)
 
 Après une mise à jour de `PortfolioAPI.gs` dans le repo :

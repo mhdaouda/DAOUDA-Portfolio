@@ -159,10 +159,40 @@
         return request('updateStatus', { token, id, status });
     }
 
-    async function sendCampaign({ subject, message, audience, testOnly }) {
+    async function mailList() {
         const token = getToken();
         if (!token) return { ok: false, error: 'Non connecté' };
-        return request('sendCampaign', { token, subject, message, audience, testOnly: !!testOnly });
+        return request('mailList', { token });
+    }
+
+    async function mailGet(campaignId) {
+        const token = getToken();
+        if (!token) return { ok: false, error: 'Non connecté' };
+        return request('mailGet', { token, campaignId });
+    }
+
+    async function mailCreate(payload) {
+        const token = getToken();
+        if (!token) return { ok: false, error: 'Non connecté' };
+        return request('mailCreate', { token, ...payload });
+    }
+
+    async function mailSend(campaignId) {
+        const token = getToken();
+        if (!token) return { ok: false, error: 'Non connecté' };
+        return request('mailSend', { token, campaignId });
+    }
+
+    async function mailDelete(campaignId) {
+        const token = getToken();
+        if (!token) return { ok: false, error: 'Non connecté' };
+        return request('mailDelete', { token, campaignId });
+    }
+
+    async function mailTest(payload) {
+        const token = getToken();
+        if (!token) return { ok: false, error: 'Non connecté' };
+        return request('mailTest', { token, ...payload });
     }
 
     window.PortfolioAPI = {
@@ -174,7 +204,12 @@
         isLoggedIn,
         fetchDashboard,
         updateContactStatus,
-        sendCampaign,
+        mailList,
+        mailGet,
+        mailCreate,
+        mailSend,
+        mailDelete,
+        mailTest,
         isConfigured: () => !!getBaseUrl()
     };
 
