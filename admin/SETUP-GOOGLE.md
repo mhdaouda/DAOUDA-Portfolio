@@ -15,9 +15,31 @@ Temps estimé : **15–20 minutes**. Utilisez le **même compte Google** que pou
 
 ## Étape 2 — Ouvrir Apps Script
 
-1. Dans la feuille : menu **Extensions** → **Apps Script**
-2. Un nouvel onglet s’ouvre (éditeur Google Apps Script)
-3. Renommez le projet en haut à gauche : **Portfolio API**
+### Plan A (depuis la feuille) — si ça marche
+
+1. Dans **Portfolio Admin DAOUDA** : **Extensions** → **Apps Script**
+2. Un onglet `script.google.com` s’ouvre
+3. Renommez le projet : **Portfolio API**
+
+### Plan B — si erreur « Impossible d'ouvrir le fichier » (souvent 2 comptes Google)
+
+L’URL avec `authuser=1` = mauvais compte ou conflit de sessions.
+
+1. **Fermez** l’onglet en erreur
+2. Ouvrez **https://script.google.com/home** (connecté avec le **même** compte que la feuille)
+3. **Nouveau projet** → renommez **Portfolio API**
+4. Dans la feuille **Portfolio Admin DAOUDA**, copiez l’ID dans l’URL :
+   ```
+   https://docs.google.com/spreadsheets/d/ICI_LA_LONGUE_ID/edit
+   ```
+   (la partie entre `/d/` et `/edit`)
+5. Apps Script → engrenage ⚙️ → **Propriétés du script** → ajoutez :
+   - `SPREADSHEET_ID` = cet ID
+   - (vous ajouterez `ADMIN_PASSWORD` à l’étape 5)
+
+Puis continuez à l’étape 3 (coller le code) dans **ce** projet script.google.com.
+
+**Astuce compte :** en navigation privée, connectez-vous **uniquement** avec `daoudayinde@gmail.com`, puis refaites Extensions → Apps Script.
 
 ---
 
@@ -53,14 +75,17 @@ Si les onglets n’apparaissent pas, ré-exécutez `setupSheets`.
 
 ---
 
-## Étape 5 — Définir le mot de passe admin
+## Étape 5 — Propriétés du script
 
-1. Apps Script → icône **engrenage** ⚙️ à gauche → **Paramètres du projet**
-2. Descendez jusqu’à **Propriétés du script**
-3. Cliquez **Ajouter une propriété du script**
-   - **Propriété** : `ADMIN_PASSWORD` (exactement, sensible à la casse)
-   - **Valeur** : votre mot de passe (ex. une phrase longue que vous retiendrez)
-4. **Enregistrer les propriétés du script**
+Apps Script → engrenage ⚙️ → **Paramètres du projet** → **Propriétés du script** :
+
+| Propriété | Obligatoire | Exemple |
+|-----------|-------------|---------|
+| `ADMIN_PASSWORD` | Oui | votre mot de passe dashboard |
+| `SPREADSHEET_ID` | Oui si **Plan B** (script sur script.google.com) | id copié depuis l’URL de la feuille |
+| `SPREADSHEET_ID` | Non si **Plan A** (ouvert depuis Extensions) | — |
+
+Enregistrez les propriétés.
 
 > Ce mot de passe servira sur `admin/dashboard.html` — ce n’est **pas** le mot de passe Google.
 
@@ -139,6 +164,7 @@ git push
 | « Mot de passe incorrect » | Vérifier `ADMIN_PASSWORD` dans Propriétés du script (orthographe exacte) |
 | « Session expirée » | Se reconnecter (session 24 h) |
 | Aucune ligne dans Visits | URL `/exec` incorrecte ; ou déploiement « Moi » + « Tout le monde » mal configuré |
+| « Impossible d'ouvrir le fichier » sur Apps Script | **Plan B** : script.google.com/home + propriété `SPREADSHEET_ID` ; ou 1 seul compte Google |
 | Erreur après modification du script `.gs` | **Déployer** → **Gérer les déploiements** → ✏️ → **Nouvelle version** → **Déployer** |
 | Autorisation refusée | Ré-exécuter `setupSheets` et accepter toutes les autorisations |
 

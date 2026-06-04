@@ -1,8 +1,9 @@
 /**
  * Portfolio Admin API — Google Sheets
- * 1. Créer une feuille Google, coller ce script (Extensions → Apps Script)
- * 2. Exécuter setupSheets une fois
- * 3. Propriétés du script : ADMIN_PASSWORD = votre mot de passe admin
+ * 1. Créer une feuille Google + ce script (Extensions → Apps Script OU script.google.com)
+ * 2. Propriété SPREADSHEET_ID = id de la feuille (si script ouvert hors Extensions)
+ * 3. Exécuter setupSheets une fois
+ * 4. Propriétés du script : ADMIN_PASSWORD = votre mot de passe admin
  * 4. Déployer → Application web → Exécuter en tant que moi → Accès : Tout le monde
  * 5. Copier l'URL dans js/portfolio-api-config.js → baseUrl
  */
@@ -11,8 +12,21 @@ var SHEET_CONTACTS = 'Contacts';
 var SHEET_VISITS = 'Visits';
 var TOKEN_TTL = 86400;
 
-function setupSheets() {
+/** Feuille liée au script OU ouverte via SPREADSHEET_ID (propriété du script). */
+function getSpreadsheet_() {
+  var id = PropertiesService.getScriptProperties().getProperty('SPREADSHEET_ID');
+  if (id) {
+    return SpreadsheetApp.openById(id);
+  }
   var ss = SpreadsheetApp.getActiveSpreadsheet();
+  if (!ss) {
+    throw new Error('Aucune feuille active. Ajoutez SPREADSHEET_ID dans les propriétés du script (voir SETUP-GOOGLE.md).');
+  }
+  return ss;
+}
+
+function setupSheets() {
+  var ss = getSpreadsheet_();
   ensureSheet_(ss, SHEET_CONTACTS, [
     'id', 'created_at', 'source', 'name', 'email', 'phone', 'company',
     'subject', 'message', 'location', 'service', 'budget', 'timeline',
@@ -103,7 +117,7 @@ function isValidToken_(token) {
 }
 
 function actionContact_(body) {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var ss = getSpreadsheet_();
   var sh = ss.getSheetByName(SHEET_CONTACTS);
   if (!sh) setupSheets();
   sh = ss.getSheetByName(SHEET_CONTACTS);
@@ -130,7 +144,7 @@ function actionContact_(body) {
 }
 
 function actionVisit_(body) {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var ss = getSpreadsheet_();
   var sh = ss.getSheetByName(SHEET_VISITS);
   if (!sh) setupSheets();
   sh = ss.getSheetByName(SHEET_VISITS);
@@ -168,7 +182,7 @@ function actionUpdateStatus_(token, id, status) {
   if (!allowed[status]) {
     return { error: 'Statut invalide' };
   }
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var ss = getSpreadsheet_();
   var sh = ss.getSheetByName(SHEET_CONTACTS);
   var data = sh.getDataRange().getValues();
   var headers = data[0];
@@ -184,7 +198,7 @@ function actionUpdateStatus_(token, id, status) {
 }
 
 function readSheetAsObjects_(sheetName) {
-  var sh = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetName);
+  var sh = getSpreadsheet_().getSheetByName(sheetName);
   if (!sh || sh.getLastRow() < 2) return [];
   var values = sh.getDataRange().getValues();
   var headers = values[0];
