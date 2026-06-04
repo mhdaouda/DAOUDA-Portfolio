@@ -61,7 +61,17 @@
     }
 
     function esc(str) {
-        return window.PortfolioAPI ? PortfolioAPI.escapeHtml(str) : String(str || '');
+        if (window.PortfolioAPI?.escapeHtml) return PortfolioAPI.escapeHtml(str);
+        if (!str) return '';
+        return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;');
+    }
+
+    function isDemo() {
+        return !!window.PORTFOLIO_ADMIN_DEMO;
     }
 
     function showLogin() {
@@ -362,6 +372,17 @@
 
     async function handleCampaignSubmit(e, testOnly) {
         if (e) e.preventDefault();
+
+        if (isDemo()) {
+            showCampaignResult(
+                testOnly
+                    ? 'Démo : envoi test simulé avec succès (aucun e-mail réel).'
+                    : 'Démo : campagne simulée — en production, les e-mails partent via Gmail.',
+                true
+            );
+            return;
+        }
+
         const subject = $('#campaign-subject')?.value.trim();
         const message = $('#campaign-message')?.value.trim();
         const audience = $('#campaign-audience')?.value || 'all';
@@ -456,7 +477,7 @@
         });
         $('#modal-body').querySelector('.admin-modal-close')?.addEventListener('click', closeModal);
 
-        if (c.status === 'nouveau') {
+        if (!isDemo() && c.status === 'nouveau') {
             updateStatus(c.id, 'lu', false);
         }
     }
@@ -466,6 +487,12 @@
     }
 
     async function updateStatus(id, status, reload = true) {
+        if (isDemo()) {
+            const row = contacts.find((c) => c.id === id);
+            if (row) row.status = status;
+            if (reload) renderAll();
+            return;
+        }
         const result = await PortfolioAPI.updateContactStatus(id, status);
         if (!result.ok) {
             alert(result.error);
@@ -507,7 +534,40 @@
         showLogin();
     }
 
+    function bindAdminUI() {
+        $('#login-form')?.addEventListener('submit', handleLogin);
+        $('#btn-logout')?.addEventListener('click', handleLogout);
+        $('#btn-refresh')?.addEventListener('click', () => {
+            if (isDemo()) renderAll();
+            else loadData().catch((e) => alert(e.message));
+        });
+        $('#btn-campaigns-header')?.addEventListener('click', () => switchTab('campaigns'));
+        $('#campaign-audience')?.addEventListener('change', updateCampaignRecipientCount);
+        $('#campaign-form')?.addEventListener('submit', (e) => handleCampaignSubmit(e, false));
+        $('#btn-campaign-test')?.addEventListener('click', (e) => handleCampaignSubmit(e, true));
+
+        $$('.admin-tab').forEach((tab) => {
+            tab.addEventListener('click', () => switchTab(tab.dataset.tab));
+        });
+
+        $('#admin-modal')?.addEventListener('click', (e) => {
+            if (e.target.id === 'admin-modal') closeModal();
+        });
+    }
+
+    function initDemo() {
+        contacts = window.DEMO_CONTACTS || [];
+        visits = window.DEMO_VISITS || [];
+        renderAll();
+        bindAdminUI();
+    }
+
     async function init() {
+        if (isDemo()) {
+            initDemo();
+            return;
+        }
+
         if (!window.PortfolioAPI) {
             $('#login-error').textContent = 'Scripts API non chargés.';
             $('#login-error').classList.add('is-visible');
@@ -534,21 +594,7 @@
             showLogin();
         }
 
-        $('#login-form')?.addEventListener('submit', handleLogin);
-        $('#btn-logout')?.addEventListener('click', handleLogout);
-        $('#btn-refresh')?.addEventListener('click', () => loadData().catch((e) => alert(e.message)));
-        $('#btn-campaigns-header')?.addEventListener('click', () => switchTab('campaigns'));
-        $('#campaign-audience')?.addEventListener('change', updateCampaignRecipientCount);
-        $('#campaign-form')?.addEventListener('submit', (e) => handleCampaignSubmit(e, false));
-        $('#btn-campaign-test')?.addEventListener('click', (e) => handleCampaignSubmit(e, true));
-
-        $$('.admin-tab').forEach((tab) => {
-            tab.addEventListener('click', () => switchTab(tab.dataset.tab));
-        });
-
-        $('#admin-modal')?.addEventListener('click', (e) => {
-            if (e.target.id === 'admin-modal') closeModal();
-        });
+        bindAdminUI();
     }
 
     if (document.readyState === 'loading') {
