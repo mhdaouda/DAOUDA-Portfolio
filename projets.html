@@ -45,6 +45,38 @@
         <section class="projects-section">
             <div class="projects-grid stagger-children">
                 <div class="project-card">
+                    <div class="project-image project-image--dashboard" style="width: 350px; height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(135deg, #0f0a1e 0%, #4c1d95 42%, #7c3aed 72%, #db2777 100%); color: white; font-size: 1.5em; font-weight: 700; border-radius: 10px; text-align: center; padding: 0.75rem; gap: 0.35rem; text-shadow: 0 1px 3px rgba(0,0,0,0.35);">
+                        <span style="font-size:1.75em;line-height:1">📊</span>
+                        <span style="font-size:0.95em;letter-spacing:0.03em">Dashboard Analytics</span>
+                    </div>
+                    <div class="project-info">
+                        <h4>Dashboard Analytics Admin</h4>
+                        <p class="project-year">2026 · Sur demande client</p>
+                        <p>Développé suite à la demande de clients souhaitant piloter leurs sites vitrines comme un SaaS : tableau de bord admin sombre (thème violet / indigo), statistiques visiteurs, messages de contact avec formation et entreprise, analytics chatbot, et <strong>campagnes e-mail</strong> (ciblage, variables personnalisées, envoi test, historique).</p>
+                        <p style="margin-top:0.65rem;font-size:0.92em;opacity:0.9">Déployé pour mon <strong>portfolio</strong>, <a href="https://turbotechconsulting.com/" target="_blank" rel="noopener noreferrer">TurboTech Consulting</a> et <a href="https://www.gloriam-consulting.com/fr" target="_blank" rel="noopener noreferrer">Gloriam Consulting</a> — backend Google Sheets + Apps Script, sans base Supabase dédiée.</p>
+                        <ul class="project-feature-list">
+                            <li>Vue d’ensemble : messages, leads chatbot, visiteurs uniques, canaux d’acquisition</li>
+                            <li>Contacts : tableau complet, statuts (nouveau / lu / traité), détail des messages</li>
+                            <li>Analytics visiteurs : rebond, pages vues, trafic direct / Google / réseaux</li>
+                            <li>Analytics chatbot : évolution mensuelle, services, budget et délais</li>
+                            <li>Campagnes e-mail : segments, modèle <code>{{name}}</code>, design responsive admin</li>
+                        </ul>
+                        <div class="project-links">
+                            <a href="admin/dashboard.html" rel="nofollow">Voir le dashboard (démo portfolio)</a>
+                        </div>
+                        <h3 data-translate="projects.tech">Environnement Technique</h3>
+                        <div class="skill-tags">
+                            <span>HTML / CSS</span>
+                            <span>JavaScript</span>
+                            <span>Google Apps Script</span>
+                            <span>Google Sheets</span>
+                            <span>Gmail API</span>
+                            <span>GitHub Pages</span>
+                            <span>UX dark mode</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
                     <div class="project-image" style="width: 350px; height: 200px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #581c87 0%, #7c3aed 48%, #db2777 100%); color: white; font-size: 2em; border-radius: 10px;">
                         ⚡ FlashCoder
                     </div>
@@ -247,9 +279,10 @@
         </section>
     </main>
 
+    <a href="admin/dashboard.html" class="projets-admin-gate" rel="nofollow" aria-label="Accès administration" title="Administration">😉</a>
+
     <footer>
         <p>&copy; 2025 Portfolio de Mohamed DAOUDA. <span data-translate="footer.rights">Tous droits réservés.</span></p>
-        <p class="site-admin-link"><a href="admin/dashboard.html" rel="nofollow">Espace admin</a></p>
     </footer>
 
     <script src="js/portfolio-api-config.js"></script>

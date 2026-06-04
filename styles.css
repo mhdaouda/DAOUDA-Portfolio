@@ -3379,20 +3379,48 @@ footer {
     padding: 2.5rem 1.5rem;
 }
 
-.site-admin-link {
-    margin-top: 0.75rem !important;
-    font-size: 0.8rem;
-    opacity: 0.45;
-}
-
-.site-admin-link a {
-    color: inherit;
+/* Accès admin discret — page projets uniquement */
+.projets-admin-gate {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 50;
+    font-size: 1.35rem;
+    line-height: 1;
     text-decoration: none;
+    opacity: 0.28;
+    filter: grayscale(0.2);
+    transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
-.site-admin-link a:hover {
-    opacity: 1;
-    text-decoration: underline;
+.projets-admin-gate:hover,
+.projets-admin-gate:focus {
+    opacity: 0.85;
+    transform: scale(1.08);
+    outline: none;
+}
+
+.project-feature-list {
+    margin: 0.75rem 0 0;
+    padding-left: 1.15rem;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--text-secondary, rgba(255, 255, 255, 0.75));
+}
+
+.project-feature-list li {
+    margin-bottom: 0.35rem;
+}
+
+.project-feature-list code {
+    font-size: 0.88em;
+    padding: 0.1em 0.35em;
+    border-radius: 4px;
+    background: rgba(139, 92, 246, 0.2);
+}
+
+[data-theme="light"] .project-feature-list {
+    color: var(--text-secondary, #475569);
 }
 
 footer p {
