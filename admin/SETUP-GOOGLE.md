@@ -1,55 +1,164 @@
-# Dashboard admin sans Supabase (Google Sheets)
+# Configuration Google Sheets — guide pas à pas
 
-Le portfolio enregistre contacts et visites dans **Google Sheets** via un petit script gratuit. Aucun compte Supabase requis.
+Temps estimé : **15–20 minutes**. Utilisez le **même compte Google** que pour Gmail (`daoudayinde@gmail.com` recommandé).
 
-## Étapes (≈ 15 min)
+---
 
-### 1. Créer la feuille
+## Étape 1 — Créer la feuille Google
 
-1. [Google Sheets](https://sheets.google.com) → nouvelle feuille « Portfolio Admin »
-2. **Extensions → Apps Script**
-3. Supprimer le code par défaut et coller le contenu de `admin/google-apps-script/PortfolioAPI.gs`
-4. Enregistrer le projet
+1. Ouvrez [https://sheets.google.com](https://sheets.google.com)
+2. Cliquez **+ Blank** (feuille vide)
+3. Renommez en haut : **Portfolio Admin DAOUDA**
+4. Laissez l’onglet « Feuille 1 » tel quel pour l’instant (le script créera **Contacts** et **Visits**)
 
-### 2. Initialiser les onglets
+---
 
-1. Dans Apps Script : exécuter la fonction **`setupSheets`** (autoriser l’accès à la feuille)
-2. Vérifier que les onglets **Contacts** et **Visits** existent avec les en-têtes
+## Étape 2 — Ouvrir Apps Script
 
-### 3. Mot de passe admin
+1. Dans la feuille : menu **Extensions** → **Apps Script**
+2. Un nouvel onglet s’ouvre (éditeur Google Apps Script)
+3. Renommez le projet en haut à gauche : **Portfolio API**
 
-1. Apps Script → **Paramètres du projet** (engrenage) → **Propriétés du script**
-2. Ajouter : nom `ADMIN_PASSWORD`, valeur = votre mot de passe (ex. phrase longue)
+---
 
-### 4. Déployer l’API web
+## Étape 3 — Coller le code
 
-1. **Déployer → Nouveau déploiement → Application web**
-2. Exécuter en tant que : **Moi**
-3. Qui a accès : **Tout le monde**
-4. Copier l’URL se terminant par `/exec`
+1. Dans l’éditeur, **supprimez tout** le contenu de `Code.gs` (souvent `function myFunction() { ... }`)
+2. Sur votre ordinateur, ouvrez le fichier du repo :
+   ```
+   admin/google-apps-script/PortfolioAPI.gs
+   ```
+3. **Sélectionnez tout** (Ctrl+A / Cmd+A) → **Copier**
+4. **Collez** dans Apps Script
+5. Cliquez **Enregistrer** (icône disquette) ou Ctrl+S
 
-### 5. Configurer le site
+---
 
-Dans `js/portfolio-api-config.js` :
+## Étape 4 — Créer les onglets Contacts / Visits
+
+1. Dans Apps Script, en haut, menu déroulant des fonctions : choisissez **`setupSheets`**
+2. Cliquez **Exécuter** (▶)
+3. **Première fois** : Google demande des autorisations
+   - Cliquez **Examiner les autorisations**
+   - Choisissez votre compte Google
+   - Si « Google n’a pas validé cette application » → **Paramètres avancés** → **Accéder à Portfolio API (non sécurisé)**  
+     (c’est normal : c’est **votre** script sur **votre** feuille)
+   - Autorisez l’accès à la feuille de calcul
+4. Attendez **Exécution terminée** (barre en bas)
+5. Retournez dans **Google Sheets** : vous devez voir 2 onglets :
+   - **Contacts** (colonnes : id, created_at, source, name, email, …)
+   - **Visits** (colonnes : id, created_at, session_id, page_path, …)
+
+Si les onglets n’apparaissent pas, ré-exécutez `setupSheets`.
+
+---
+
+## Étape 5 — Définir le mot de passe admin
+
+1. Apps Script → icône **engrenage** ⚙️ à gauche → **Paramètres du projet**
+2. Descendez jusqu’à **Propriétés du script**
+3. Cliquez **Ajouter une propriété du script**
+   - **Propriété** : `ADMIN_PASSWORD` (exactement, sensible à la casse)
+   - **Valeur** : votre mot de passe (ex. une phrase longue que vous retiendrez)
+4. **Enregistrer les propriétés du script**
+
+> Ce mot de passe servira sur `admin/dashboard.html` — ce n’est **pas** le mot de passe Google.
+
+---
+
+## Étape 6 — Déployer l’application web
+
+1. Apps Script → bouton bleu **Déployer** → **Nouveau déploiement**
+2. Cliquez l’icône **engrenage** ⚙️ à côté de « Sélectionner le type » → **Application web**
+3. Remplissez :
+   - **Description** : `Portfolio API v1`
+   - **Exécuter en tant que** : **Moi** (votre email)
+   - **Qui a accès** : **Tout le monde** (obligatoire pour que le site puisse appeler l’API)
+4. **Déployer**
+5. Autorisez à nouveau si demandé
+6. **Copiez l’URL de l’application web** — elle ressemble à :
+   ```
+   https://script.google.com/macros/s/AKfycbxxxxxxxxxxxxxxxx/exec
+   ```
+   ⚠️ Elle doit se terminer par **`/exec`** (pas `/dev`)
+
+Gardez cette URL dans un fichier notes : vous en aurez besoin à l’étape 7.
+
+---
+
+## Étape 7 — Brancher le portfolio
+
+1. Ouvrez dans le projet : `js/portfolio-api-config.js`
+2. Remplacez par votre URL (exemple) :
 
 ```javascript
 window.PORTFOLIO_API = {
-    baseUrl: 'https://script.google.com/macros/s/VOTRE_ID/exec'
+    baseUrl: 'https://script.google.com/macros/s/AKfycbxxxxxxxxxxxxxxxx/exec'
 };
 ```
 
-Commit + push → le dashboard et le tracking fonctionnent.
+3. Enregistrez le fichier
+4. Dans le terminal (dossier du portfolio) :
 
-## Utilisation
+```bash
+git add js/portfolio-api-config.js
+git commit -m "config: URL Google Apps Script admin portfolio"
+git push
+```
 
-- **Dashboard** : `https://www.daoudayinde.com/admin/dashboard.html` → mot de passe défini à l’étape 3
-- **Données brutes** : directement dans la feuille Google (export CSV possible)
-- **Emails** : le formulaire contact envoie toujours un mail via FormSubmit
+5. Attendez **2–5 minutes** (déploiement GitHub Pages)
 
-## Sans configuration Google
+---
 
-Si `baseUrl` est vide :
+## Étape 8 — Tester
 
-- Le site et les emails FormSubmit marchent normalement
-- Le dashboard affiche un message de configuration
-- Aucune erreur pour les visiteurs
+### Test A — Dashboard
+
+1. Ouvrez : [https://www.daoudayinde.com/admin/dashboard.html](https://www.daoudayinde.com/admin/dashboard.html)
+2. Entrez le mot de passe de l’**étape 5**
+3. Vous devez voir le dashboard (stats à 0 si pas encore de données)
+
+### Test B — Enregistrement d’une visite
+
+1. Ouvrez la page d’accueil du portfolio dans un **onglet privé**
+2. Attendez 5 secondes
+3. Dans Google Sheets → onglet **Visits** → une **nouvelle ligne** doit apparaître
+
+### Test C — Formulaire contact
+
+1. Page Contact → envoyez un message test
+2. Vous recevez l’email (FormSubmit) **et** une ligne dans **Contacts**
+
+---
+
+## Dépannage
+
+| Problème | Solution |
+|----------|----------|
+| « API non configurée » sur le dashboard | `baseUrl` vide ou pas encore poussé sur GitHub → refaire étape 7 |
+| « Mot de passe incorrect » | Vérifier `ADMIN_PASSWORD` dans Propriétés du script (orthographe exacte) |
+| « Session expirée » | Se reconnecter (session 24 h) |
+| Aucune ligne dans Visits | URL `/exec` incorrecte ; ou déploiement « Moi » + « Tout le monde » mal configuré |
+| Erreur après modification du script `.gs` | **Déployer** → **Gérer les déploiements** → ✏️ → **Nouvelle version** → **Déployer** |
+| Autorisation refusée | Ré-exécuter `setupSheets` et accepter toutes les autorisations |
+
+---
+
+## Récapitulatif
+
+| Élément | Où |
+|--------|-----|
+| Données brutes | Feuille Google **Portfolio Admin DAOUDA** |
+| Dashboard | `https://www.daoudayinde.com/admin/dashboard.html` |
+| Mot de passe | Propriété script `ADMIN_PASSWORD` |
+| URL API | `js/portfolio-api-config.js` → `baseUrl` |
+| Code serveur | `admin/google-apps-script/PortfolioAPI.gs` |
+
+---
+
+## Besoin d’aide ?
+
+Envoyez à l’assistant (sans publier le mot de passe) :
+- Capture de l’écran **Déploiement** (URL masquée en partie si vous voulez)
+- Message d’erreur exact du dashboard
+- Confirmation : onglets Contacts/Visits visibles ou non
