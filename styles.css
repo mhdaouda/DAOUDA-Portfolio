@@ -2887,6 +2887,7 @@ header.header-scrolled .nav-links a {
 .chip-5 { top: 2%; left: 4%; animation: chipFloat 6.5s ease-in-out infinite -1.5s; }
 .chip-6 { top: 38%; left: -10%; animation: chipFloat 5.2s ease-in-out infinite -3s; }
 .chip-7 { bottom: 32%; left: 6%; animation: chipFloat 7.2s ease-in-out infinite -2.5s; }
+.chip-8 { top: 52%; right: -2%; animation: chipFloat 6.8s ease-in-out infinite -1.8s; }
 
 @keyframes chipFloat {
     0%, 100% { transform: translateY(0); }
