@@ -8,8 +8,8 @@ const translations = {
         'nav.skills': 'Compétences',
         
         // Hero Section
-        'hero.title': 'Hey, je suis AYINDE MOHAMED DAOUDA',
-        'hero.fullname': 'AYINDE MOHAMED DAOUDA',
+        'hero.title': 'Hey, je suis Ayinde Mohamed Daouda',
+        'hero.fullname': 'Ayinde Mohamed Daouda',
         'hero.greeting': 'Hey, je suis',
         'hero.subtitle': 'Je suis Ingénieur en Informatique 💻',
         'hero.badge': 'Consultant IT & transformation digitale',
@@ -516,8 +516,8 @@ const translations = {
         'nav.skills': 'Skills',
         
         // Hero Section
-        'hero.title': 'Hey, I\'m AYINDE MOHAMED DAOUDA',
-        'hero.fullname': 'AYINDE MOHAMED DAOUDA',
+        'hero.title': 'Hey, I\'m Ayinde Mohamed Daouda',
+        'hero.fullname': 'Ayinde Mohamed Daouda',
         'hero.greeting': 'Hey, I\'m',
         'hero.subtitle': 'I am a Computer Engineer 💻',
         'hero.badge': 'IT consultant & digital transformation',

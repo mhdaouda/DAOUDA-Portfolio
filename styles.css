@@ -2640,6 +2640,7 @@ header.header-scrolled .nav-links a {
     font-weight: 800;
     line-height: 1.08;
     letter-spacing: -0.02em;
+    text-transform: uppercase;
     word-break: break-word;
     background: var(--hero-name-gradient);
     background-size: 200% auto;
